@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Phase: 2 of 3 (Tokenization Engine)
-Plan: 2 of 4 in current phase
+Plan: 3 of 4 in current phase
 Status: In progress
-Last activity: 2026-01-21T18:43:41Z — Completed 02-02-PLAN.md
+Last activity: 2026-01-21T18:50:22Z — Completed 02-03-PLAN.md
 
-Progress: [██████░░░░] 54%
+Progress: [███████░░░] 69%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 14 min
-- Total execution time: 1.68 hours
+- Total plans completed: 8
+- Average duration: 13 min
+- Total execution time: 1.70 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-epub-foundation | 5 | 5 | 16 min |
-| 02-tokenization-engine | 2 | 4 | 8 min (so far) |
+| 02-tokenization-engine | 3 | 4 | 7 min (so far) |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (13 min), 01-03 (7 min), 01-04 (46 min), 01-05 (14 min), 02-01 (2 min)
-- Current: 02-02 (15 min)
+- Last 5 plans: 01-03 (7 min), 01-04 (46 min), 01-05 (14 min), 02-01 (2 min), 02-02 (15 min)
+- Current: 02-03 (2 min)
 - Trend: Phase 2 progressing smoothly
 
 *Updated after each plan completion*
@@ -70,6 +70,10 @@ Recent decisions affecting current work:
 24. **js-tiktoken uses camelCase encodingForModel** (02-02) - JS library uses different naming than Python tiktoken (encoding_for_model)
 25. **js-tiktoken manages WASM memory via GC** (02-02) - No manual .free() method needed; dispose() only clears reference
 26. **Claude 3+ token counts are approximations** (02-02) - Official @anthropic-ai/tokenizer package is inaccurate for Claude 3+, should use API usage field for accurate counts
+27. **Default tokenizer is 'gpt4'** (02-03) - Most widely-adopted, chosen per CONTEXT.md discretion
+28. **Tokenizer name format: presets and Hugging Face** (02-03) - Short names (gpt4, claude) for presets, "hf:model-name" for Hugging Face models
+29. **token_counts is optional in JSON output** (02-03) - Field only appears when tokenization is wired in plan 02-04, maintaining backward compatibility
+30. **schema_version set to '1.0'** (02-03) - Provides output format versioning for future changes
 
 ### Pending Todos
 
@@ -86,8 +90,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-21T18:43:41Z
-Stopped at: Completed 02-02-PLAN.md, SUMMARY.md created, STATE.md updated
+Last session: 2026-01-21T18:50:22Z
+Stopped at: Completed 02-03-PLAN.md, SUMMARY.md created, STATE.md updated
 Resume file: None
 
-**Phase 2 Plan 2 Complete.** Three tokenizer implementations created (GPT4Tokenizer, ClaudeTokenizer, HFTokenizer). Ready for plan 02-03 to wire factory function and integrate into CLI.
+**Phase 2 Plan 3 Complete.** CLI --tokenizers argument added with comma-separated list parsing, JSON output extended with schema_version field and token_counts array. Ready for plan 02-04 to wire tokenization into processing pipeline.
