@@ -1,0 +1,131 @@
+# Requirements: EPUB Tokenizer Counter
+
+**Defined:** 2026-01-21
+**Core Value:** Users can accurately estimate token costs for processing EPUB content through LLMs by getting precise word and token counts across multiple tokenizer models.
+
+## v1 Requirements
+
+Requirements for initial release. Each maps to roadmap phases.
+
+### EPUB Processing
+
+- [ ] **EPUB-01**: Tool can process all EPUB files in a specified folder (batch mode)
+- [ ] **EPUB-02**: Tool can process specific EPUB files specified by command-line arguments
+- [ ] **EPUB-03**: Tool supports EPUB 2.0.1 and 3.0 format specifications
+- [ ] **EPUB-04**: Tool extracts readable text content from EPUB files (excluding frontmatter/backmatter where possible)
+- [ ] **EPUB-05**: Tool extracts rich metadata from EPUB (title, author, language, publisher)
+- [ ] **EPUB-06**: Tool handles malformed EPUB files gracefully without crashing (continue-on-error)
+
+### Tokenization
+
+- [ ] **TOKEN-01**: Tool provides preset tokenizers from major AI labs (latest models as of implementation time)
+- [ ] **TOKEN-02**: Tool includes GPT-4 tokenizer preset (cl100k_base or latest)
+- [ ] **TOKEN-03**: Tool includes Claude tokenizer preset (latest Anthropic tokenizer)
+- [ ] **TOKEN-04**: Tool allows users to specify any Hugging Face tokenizer by name/path
+- [ ] **TOKEN-05**: Tool counts words accurately from extracted EPUB text
+- [ ] **TOKEN-06**: Tool counts tokens accurately for each selected tokenizer
+
+### CLI Experience
+
+- [ ] **CLI-01**: Tool shows progress indicators during processing (X of Y for batch, spinner for individual files)
+- [ ] **CLI-02**: Tool logs detailed error information to both console and `errors.log` file
+- [ ] **CLI-03**: Tool continues processing remaining EPUBs when one file fails
+- [ ] **CLI-04**: Tool allows users to specify custom input folder path via CLI argument
+- [ ] **CLI-05**: Tool allows users to specify custom output folder path via CLI argument
+- [ ] **CLI-06**: Tool supports parallel processing of multiple EPUBs via `--jobs` flag
+
+### Output
+
+- [ ] **OUT-01**: Tool outputs results in JSON format
+- [ ] **OUT-02**: Tool creates one JSON file per EPUB (atomic output)
+- [ ] **OUT-03**: JSON output includes title (from EPUB metadata)
+- [ ] **OUT-04**: JSON output includes word_count (total words in EPUB)
+- [ ] **OUT-05**: JSON output includes token_counts (object with counts per tokenizer)
+- [ ] **OUT-06**: JSON output includes file_path (path to processed EPUB)
+- [ ] **OUT-07**: JSON output includes processed_at (ISO 8601 timestamp)
+- [ ] **OUT-08**: JSON output includes epub_metadata (extracted metadata: author, language, publisher)
+- [ ] **OUT-09**: Tool displays summary statistics after batch completion (total EPUBs processed, total tokens, averages)
+
+### Configuration
+
+- [ ] **CFG-01**: Default input folder is `./epubs/`
+- [ ] **CFG-02**: Default output folder is `./results/`
+- [ ] **CFG-03**: `./epubs/` folder is added to .gitignore
+- [ ] **CFG-04**: Tool provides help text documenting all CLI arguments and options
+
+## v2 Requirements
+
+Deferred to future release. Tracked but not in current roadmap.
+
+### Performance
+
+- **PERF-01**: Tool implements streaming/chunked tokenization for large EPUBs to manage memory usage
+- **PERF-02**: Tool caches tokenizers to avoid reloading on each EPUB
+
+### Advanced Features
+
+- **ADV-01**: Cost estimation calculator (converts tokens to estimated API costs)
+- **ADV-02**: Per-chapter token breakdown (shows counts per chapter/section)
+- **ADV-03**: Diff mode (compare tokenization results between tokenizers)
+
+## Out of Scope
+
+Explicitly excluded. Documented to prevent scope creep.
+
+| Feature | Reason |
+|---------|--------|
+| DRM handling | Legal complexity, user expectation mismatch. Tool will skip DRMed EPUBs with warning. |
+| Text file export | Bloat. Users want counts, not extracted text. Dedicated tools handle text export. |
+| EPUB modification | Tool is read-only analyzer. Modifying source files is dangerous. |
+| Other document formats (PDF, DOCX, etc.) | EPUB only for v1. Other formats have different parsing requirements. |
+| Real-time watch mode | Adds complexity and background process management. Manual execution is explicit. |
+| GUI or web interface | CLI only for v1. Visual interfaces are separate concern. |
+| Interactive prompts | Breaks automation. Use flags for configuration. |
+| Tokenizer training/fine-tuning | Only uses existing tokenizers from Hugging Face. |
+
+## Traceability
+
+Which phases cover which requirements. Updated during roadmap creation.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| EPUB-01 | Phase 1 | Pending |
+| EPUB-02 | Phase 1 | Pending |
+| EPUB-03 | Phase 1 | Pending |
+| EPUB-04 | Phase 1 | Pending |
+| EPUB-05 | Phase 1 | Pending |
+| EPUB-06 | Phase 1 | Pending |
+| TOKEN-01 | Phase 2 | Pending |
+| TOKEN-02 | Phase 2 | Pending |
+| TOKEN-03 | Phase 2 | Pending |
+| TOKEN-04 | Phase 2 | Pending |
+| TOKEN-05 | Phase 1 | Pending |
+| TOKEN-06 | Phase 2 | Pending |
+| CLI-01 | Phase 3 | Pending |
+| CLI-02 | Phase 3 | Pending |
+| CLI-03 | Phase 3 | Pending |
+| CLI-04 | Phase 1 | Pending |
+| CLI-05 | Phase 1 | Pending |
+| CLI-06 | Phase 3 | Pending |
+| OUT-01 | Phase 2 | Pending |
+| OUT-02 | Phase 2 | Pending |
+| OUT-03 | Phase 2 | Pending |
+| OUT-04 | Phase 1 | Pending |
+| OUT-05 | Phase 2 | Pending |
+| OUT-06 | Phase 2 | Pending |
+| OUT-07 | Phase 2 | Pending |
+| OUT-08 | Phase 2 | Pending |
+| OUT-09 | Phase 3 | Pending |
+| CFG-01 | Phase 1 | Pending |
+| CFG-02 | Phase 1 | Pending |
+| CFG-03 | Phase 1 | Pending |
+| CFG-04 | Phase 1 | Pending |
+
+**Coverage:**
+- v1 requirements: 31 total
+- Mapped to phases: 31
+- Unmapped: 0 ✓
+
+---
+*Requirements defined: 2026-01-21*
+*Last updated: 2026-01-21 after initial definition*
