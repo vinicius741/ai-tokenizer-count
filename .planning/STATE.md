@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Phase: 3 of 3 (CLI Polish)
-Plan: 1 of 4 in current phase
+Plan: 4 of 4 in current phase
 Status: In progress
-Last activity: 2026-01-21 — Completed 03-01: Progress indicators
+Last activity: 2026-01-21 — Completed 03-04: Summary statistics display
 
-Progress: [████████░░] 72%
+Progress: [██████████] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 12 min
-- Total execution time: 1.93 hours
+- Total plans completed: 11
+- Average duration: 11 min
+- Total execution time: 2.12 hours
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [████████░░] 72%
 |-------|-------|-------|----------|
 | 01-epub-foundation | 5 | 5 | 16 min |
 | 02-tokenization-engine | 4 | 4 | 7 min |
-| 03-cli-polish | 1 | 4 | 8 min |
+| 03-cli-polish | 2 | 4 | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-05 (14 min), 02-01 (2 min), 02-02 (15 min), 02-04 (9 min), 03-01 (8 min)
-- Trend: Phase 3 started with progress indicators implementation
+- Last 5 plans: 01-05 (14 min), 02-01 (2 min), 02-02 (15 min), 02-04 (9 min), 03-04 (2 min)
+- Trend: Phase 3 progressing with summary statistics implementation
 
 *Updated after each plan completion*
 
@@ -84,6 +84,14 @@ Recent decisions affecting current work:
 38. **Progress bar format: {bar} | {filename} | {value}/{total}** (03-01) - Clear visual feedback showing which file is processing and progress percentage
 39. **clearOnComplete: false for progress bars** (03-01) - Keep completed bars visible so users can verify all files were processed
 40. **cli-progress MultiBar for parallel support** (03-01) - Using MultiBar instead of single Bar enables multiple simultaneous progress bars
+41. **Sectioned summary blocks: Overview, Tokenizer Stats, Failures** (03-04) - As recommended in RESEARCH.md for organized statistics display
+42. **Emoji section headers for summary tables** (03-04) - 📊 Overview, 🔢 Tokenizer Statistics, ❌ Failures for visual clarity
+43. **Number formatting with locale strings** (03-04) - Use toLocaleString() for readable numbers (1,234,567)
+44. **Duration formatting for human readability** (03-04) - Format milliseconds as 123ms, 5.2s, or 1m 23.4s
+45. **Conditional summary table display** (03-04) - Tokenizer table only shows if used, failures table only if errors exist
+46. **Red header for failures table** (03-04) - Error indication using red color in cli-table3
+47. **Skip -1 token counts in averages** (03-04) - Exclude error counts (-1) when calculating tokenizer averages
+48. **Summary replaces verbose failed files listing** (03-04) - Failures now shown in professional table instead of verbose console.log
 
 ### Pending Todos
 
@@ -101,7 +109,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-21
-Stopped at: Completed 03-01: Progress indicators
+Stopped at: Completed 03-04: Summary statistics display
 Resume file: None
 
-**Phase 3 in progress.** Plan 03-01 (progress indicators) complete with 3 tasks committed. Remaining: 03-02 (colors and styling), 03-03 (parallel processing), 03-04 (error handling polish).
+**Phase 3 in progress.** Plan 03-04 (summary statistics) complete with 2 tasks committed. Phase 3 has 4 plans total: 03-01 (progress indicators), 03-02 (colors and styling), 03-03 (parallel processing), 03-04 (summary statistics). Plans 03-02 and 03-03 remain.
