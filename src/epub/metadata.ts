@@ -48,22 +48,22 @@ export interface EpubMetadata {
  */
 export function extractMetadata(epubInfo: any): EpubMetadata {
   // Handle missing or undefined epubInfo gracefully
-  if (!epubInfo || !epubInfo.info) {
+  // Note: @gxl/epub-parser returns { sections, info } where info is the metadata object
+  if (!epubInfo) {
     return {
       title: 'Unknown Title',
       author: 'Unknown Author',
     };
   }
 
-  const info = epubInfo.info;
-
+  // epubInfo is the metadata object directly (contains title, author, language, publisher)
   return {
     // Required fields with defaults
-    title: info.title || 'Unknown Title',
-    author: info.creator || 'Unknown Author',
+    title: epubInfo.title || 'Unknown Title',
+    author: epubInfo.author || epubInfo.creator || 'Unknown Author',
 
     // Optional fields (undefined if missing)
-    language: info.language,
-    publisher: info.publisher,
+    language: epubInfo.language,
+    publisher: epubInfo.publisher,
   };
 }

@@ -35,13 +35,15 @@ export function extractText(sections: any[] | undefined): string {
   const textParts: string[] = [];
 
   for (const section of sections) {
-    // Use toMarkdown() to convert HTML to markdown and extract textContent
-    // This avoids Pitfall 2: HTML tag contamination
-    const markdown = section.toMarkdown();
+    // Use toMarkdown() to convert HTML to markdown
+    // Note: @gxl/epub-parser's toMarkdown() returns a string directly, not an object
+    if (typeof section.toMarkdown === 'function') {
+      const markdown = section.toMarkdown();
 
-    // Extract textContent from the markdown result
-    if (markdown && markdown.textContent) {
-      textParts.push(markdown.textContent);
+      // toMarkdown() returns a string directly (markdown formatted text)
+      if (markdown && typeof markdown === 'string') {
+        textParts.push(markdown);
+      }
     }
   }
 
