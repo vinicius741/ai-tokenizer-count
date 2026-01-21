@@ -11,6 +11,8 @@ import path from 'path';
 import { parseEpubFile } from '../epub/parser.js';
 import { extractMetadata } from '../epub/metadata.js';
 import { extractText, countWords } from '../epub/text.js';
+import { createTokenizers, tokenizeText } from '../tokenizers/index.js';
+import type { Tokenizer, TokenizerResult } from '../tokenizers/types.js';
 import type { EpubResult } from '../output/table.js';
 
 /**
@@ -98,28 +100,54 @@ export async function logError(entry: ErrorLogEntry, outputDir: string = './resu
  * in the successful array, failed files in the failed array with error details.
  * Errors are logged to stderr and to errors.log file.
  *
+ * Tokenization is performed on extracted text using the specified tokenizers.
+ * Token counts are accumulated per EPUB and returned in the tokenCounts map.
+ *
  * @param filePaths - Array of EPUB file paths to process
  * @param verbose - Enable verbose logging (default: false)
  * @param outputDir - Output directory for errors.log (default: './results')
- * @returns Processing result with successful, failed arrays and total count
+ * @param tokenizerNames - Array of tokenizer names to use (default: ['gpt4'])
+ * @param maxMb - Maximum EPUB text size in MB (default: 500)
+ * @returns Processing result with successful, failed arrays, total count, and tokenCounts
  *
  * @example
  * ```ts
  * const result = await processEpubsWithErrors(
  *   ['./books/good.epub', './books/bad.epub'],
  *   false,
- *   './results'
+ *   './results',
+ *   ['gpt4', 'claude'],
+ *   500
  * );
  * console.log(`Processed ${result.successful.length} of ${result.total} files`);
+ * console.log(`Token counts:`, result.tokenCounts);
  * ```
  */
 export async function processEpubsWithErrors(
   filePaths: string[],
   verbose: boolean = false,
-  outputDir: string = './results'
-): Promise<ProcessingResult> {
+  outputDir: string = './results',
+  tokenizerNames: string[] = ['gpt4'],
+  maxMb: number = 500
+): Promise<ProcessingResult & { tokenCounts: Map<string, TokenizerResult[]> }> {
   const successful: EpubResult[] = [];
   const failed: Array<{ file: string; error: string; suggestion?: string }> = [];
+  const tokenCounts = new Map<string, TokenizerResult[]>();
+
+  // Create tokenizer instances
+  let tokenizers: Tokenizer[] = [];
+  try {
+    tokenizers = createTokenizers(tokenizerNames);
+
+    // Display Claude warning if needed
+    if (tokenizerNames.includes('claude')) {
+      console.warn('⚠️  Warning: Claude tokenizer is inaccurate for Claude 3+ models');
+    }
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`Error: Failed to create tokenizers: ${errorMessage}`);
+    throw error;
+  }
 
   for (const filePath of filePaths) {
     try {
@@ -133,12 +161,38 @@ export async function processEpubsWithErrors(
       // Extract metadata
       const metadata = extractMetadata(parseResult.info);
 
+      // Get filename from path (needed for tokenCounts and error messages)
+      const filename = path.basename(filePath);
+
       // Extract text and count words
       const text = extractText(parseResult.sections);
       const wordCount = countWords(text);
 
-      // Get filename from path
-      const filename = path.basename(filePath);
+      // Check text size before processing (memory management)
+      const maxBytes = maxMb * 1024 * 1024; // Convert MB to bytes
+      if (text.length > maxBytes) {
+        const sizeInMb = (text.length / 1024 / 1024).toFixed(2);
+        throw new Error(
+          `EPUB text size (${sizeInMb}MB) exceeds --max-mb limit (${maxMb}MB). ` +
+          `Consider increasing --max-mb or processing the EPUB in smaller chunks.`
+        );
+      }
+
+      // Tokenize with selected tokenizers
+      let tokenResults: TokenizerResult[] = [];
+      if (text.length > 0) {
+        try {
+          tokenResults = await tokenizeText(text, tokenizers);
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : String(error);
+          console.error(`Warning: Tokenization failed for ${filename}: ${errorMessage}`);
+          // Add empty token results on failure
+          tokenResults = tokenizers.map((t) => ({ name: t.name, count: -1 }));
+        }
+      }
+
+      // Accumulate token counts by filename
+      tokenCounts.set(filename, tokenResults);
 
       // Add to successful array
       successful.push({
@@ -152,7 +206,9 @@ export async function processEpubsWithErrors(
       });
 
       if (verbose) {
-        console.log(`  ✓ ${filename}: ${wordCount} words`);
+        // Format token counts for verbose output
+        const tokenStr = tokenResults.map((t) => `${t.name}=${t.count}`).join(', ');
+        console.log(`  ✓ ${filename}: ${wordCount} words (${tokenStr})`);
       }
     } catch (error) {
       const errorObj = error as Error;
@@ -190,5 +246,6 @@ export async function processEpubsWithErrors(
     successful,
     failed,
     total: filePaths.length,
+    tokenCounts,
   };
 }
