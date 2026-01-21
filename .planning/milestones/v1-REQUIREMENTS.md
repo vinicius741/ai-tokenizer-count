@@ -1,3 +1,13 @@
+# Requirements Archive: v1.0 EPUB Tokenizer Counter
+
+**Archived:** 2026-01-21
+**Status:** ✅ SHIPPED
+
+This is the archived requirements specification for v1.0.
+For current requirements, see `.planning/REQUIREMENTS.md` (created for next milestone).
+
+---
+
 # Requirements: EPUB Tokenizer Counter
 
 **Defined:** 2026-01-21
@@ -128,5 +138,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 - Unmapped: 0 ✓
 
 ---
-*Requirements defined: 2026-01-21*
-*Last updated: 2026-01-21 after Phase 3 completion*
+## Milestone Summary
+
+**Shipped:** 31 of 31 v1 requirements (100%)
+**Adjusted:** None - all requirements implemented as specified
+**Dropped:** None
+
+---
+*Archived: 2026-01-21 as part of v1.0 milestone completion*
