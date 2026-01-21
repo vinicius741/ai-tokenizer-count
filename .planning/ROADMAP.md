@@ -59,13 +59,13 @@ Plans:
 4. Tool outputs one JSON file per EPUB containing title, word_count, token_counts (per tokenizer), file_path, processed_at, and epub_metadata
 5. Token counts are accurate for each selected tokenizer model
 
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 02-01: Tokenizer integration (Hugging Face tokenizers crate, model research)
-- [ ] 02-02: Preset tokenizers (GPT-4, Claude) and custom tokenizer support
-- [ ] 02-03: JSON output generation with rich metadata
-- [ ] 02-04: Memory management for large EPUBs (file-by-file processing, streaming)
+- [ ] 02-01-PLAN.md — Foundation & dependencies (tokenizer libraries, types, and factory)
+- [ ] 02-02-PLAN.md — Core tokenizer implementations (GPT-4, Claude, Hugging Face)
+- [ ] 02-03-PLAN.md — CLI integration & JSON output (--tokenizers flag, token_counts array, schema_version)
+- [ ] 02-04-PLAN.md — Processing & memory management (pipeline integration, --max-mb flag, Claude 3+ warning)
 
 ### Phase 3: CLI Polish
 
