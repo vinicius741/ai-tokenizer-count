@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Phase: 3 of 3 (CLI Polish)
-Plan: 0 of 4 in current phase
-Status: Ready to plan
-Last activity: 2026-01-21 — Phase 2 completed and verified
+Plan: 2 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-21 — Completed 03-02: Severity-based error logging
 
-Progress: [████████░░] 69%
+Progress: [██████████] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
+- Total plans completed: 10
 - Average duration: 12 min
-- Total execution time: 1.85 hours
+- Total execution time: 1.93 hours
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: [████████░░] 69%
 |-------|-------|-------|----------|
 | 01-epub-foundation | 5 | 5 | 16 min |
 | 02-tokenization-engine | 4 | 4 | 7 min |
+| 03-cli-polish | 1 | 4 | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-04 (46 min), 01-05 (14 min), 02-01 (2 min), 02-02 (15 min), 02-04 (9 min)
-- Trend: Phase 2 completed efficiently, ready for Phase 3
+- Last 5 plans: 01-05 (14 min), 02-01 (2 min), 02-02 (15 min), 02-04 (9 min), 03-02 (5 min)
+- Trend: Phase 3 progressing efficiently, error logging complete
 
 *Updated after each plan completion*
 
@@ -77,6 +78,11 @@ Recent decisions affecting current work:
 32. **Display Claude warning at tokenizer creation time** (02-04) - Warning appears once when tokenizers are created, not per EPUB, more efficient
 33. **Memory check throws error rather than skipping** (02-04) - Explicit error forces user to acknowledge size issue, provides clear guidance
 34. **Verbose output includes token counts per EPUB** (02-04) - Format: "filename: 55 words (gpt4=65, claude=70)" for immediate feedback
+35. **FATAL errors stop processing immediately** (03-02) - Memory limit errors and similar catastrophic issues require user intervention, processing stops with exit code 1
+36. **ERROR errors pause 500ms for visibility** (03-02) - Corrupted EPUBs and file-level errors need user attention but shouldn't stop batch processing; brief pause ensures visibility
+37. **WARN errors use console.warn without pause** (03-02) - Partial results and informational issues don't need to interrupt flow
+38. **Error classification in handler.ts** (03-02) - classifyError function maps error codes/messages to severity levels and suggestions, keeping logger module generic
+39. **errors.log format includes timestamp, severity, file, error, suggestion** (03-02) - ISO 8601 timestamp, severity level in brackets, filename, error message, optional suggestion
 
 ### Pending Todos
 
@@ -94,7 +100,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-21
-Stopped at: Phase 2 execution complete, verified, committed
+Stopped at: Completed 03-02: Severity-based error logging
 Resume file: None
 
-**Phase 2 Complete.** All 4 plans executed successfully, verified (5/5 must_haves), 6 requirements complete. Ready for Phase 3 (CLI Polish).
+**Phase 3 in progress.** Plan 03-02 (severity-based error logging) complete. Remaining: 03-03 (progress bars), 03-04 (parallel processing), 03-05 (summary statistics).
