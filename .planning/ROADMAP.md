@@ -13,7 +13,7 @@ A three-phase journey from basic EPUB processing to a production-ready CLI tool.
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: EPUB Foundation** - Parse EPUBs, extract text and metadata, basic CLI structure
-- [ ] **Phase 2: Tokenization Engine** - Token counting with multiple models and JSON output
+- [x] **Phase 2: Tokenization Engine** - Token counting with multiple models and JSON output
 - [ ] **Phase 3: CLI Polish** - Progress indicators, error handling, parallel processing
 
 ## Phase Details
@@ -62,10 +62,12 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Foundation & dependencies (tokenizer libraries, types, and factory)
-- [ ] 02-02-PLAN.md — Core tokenizer implementations (GPT-4, Claude, Hugging Face)
-- [ ] 02-03-PLAN.md — CLI integration & JSON output (--tokenizers flag, token_counts array, schema_version)
-- [ ] 02-04-PLAN.md — Processing & memory management (pipeline integration, --max-mb flag, Claude 3+ warning)
+- [x] 02-01-PLAN.md — Foundation & dependencies (tokenizer libraries, types, and factory)
+- [x] 02-02-PLAN.md — Core tokenizer implementations (GPT-4, Claude, Hugging Face)
+- [x] 02-03-PLAN.md — CLI integration & JSON output (--tokenizers flag, token_counts array, schema_version)
+- [x] 02-04-PLAN.md — Processing & memory management (pipeline integration, --max-mb flag, Claude 3+ warning)
+
+**Completed:** 2026-01-21
 
 ### Phase 3: CLI Polish
 
@@ -98,7 +100,7 @@ Phases execute in numeric order: 1 -> 2 -> 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. EPUB Foundation | 5/5 | Complete | 2026-01-21 |
-| 2. Tokenization Engine | 0/4 | Not started | - |
+| 2. Tokenization Engine | 4/4 | Complete | 2026-01-21 |
 | 3. CLI Polish | 0/4 | Not started | - |
 
-**Overall Progress:** 5/13 plans complete (38%)
+**Overall Progress:** 9/13 plans complete (69%)

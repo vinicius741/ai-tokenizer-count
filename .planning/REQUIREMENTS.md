@@ -18,12 +18,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Tokenization
 
-- [ ] **TOKEN-01**: Tool provides preset tokenizers from major AI labs (latest models as of implementation time)
-- [ ] **TOKEN-02**: Tool includes GPT-4 tokenizer preset (cl100k_base or latest)
-- [ ] **TOKEN-03**: Tool includes Claude tokenizer preset (latest Anthropic tokenizer)
-- [ ] **TOKEN-04**: Tool allows users to specify any Hugging Face tokenizer by name/path
+- [x] **TOKEN-01**: Tool provides preset tokenizers from major AI labs (latest models as of implementation time)
+- [x] **TOKEN-02**: Tool includes GPT-4 tokenizer preset (cl100k_base or latest)
+- [x] **TOKEN-03**: Tool includes Claude tokenizer preset (latest Anthropic tokenizer)
+- [x] **TOKEN-04**: Tool allows users to specify any Hugging Face tokenizer by name/path
 - [x] **TOKEN-05**: Tool counts words accurately from extracted EPUB text
-- [ ] **TOKEN-06**: Tool counts tokens accurately for each selected tokenizer
+- [x] **TOKEN-06**: Tool counts tokens accurately for each selected tokenizer
 
 ### CLI Experience
 
@@ -40,7 +40,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **OUT-02**: Tool creates one JSON file per EPUB (atomic output)
 - [x] **OUT-03**: JSON output includes title (from EPUB metadata)
 - [x] **OUT-04**: JSON output includes word_count (total words in EPUB)
-- [ ] **OUT-05**: JSON output includes token_counts (object with counts per tokenizer)
+- [x] **OUT-05**: JSON output includes token_counts (object with counts per tokenizer)
 - [x] **OUT-06**: JSON output includes file_path (path to processed EPUB)
 - [x] **OUT-07**: JSON output includes processed_at (ISO 8601 timestamp)
 - [x] **OUT-08**: JSON output includes epub_metadata (extracted metadata: author, language, publisher)
@@ -95,12 +95,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EPUB-04 | Phase 1 | Complete |
 | EPUB-05 | Phase 1 | Complete |
 | EPUB-06 | Phase 1 | Complete |
-| TOKEN-01 | Phase 2 | Pending |
-| TOKEN-02 | Phase 2 | Pending |
-| TOKEN-03 | Phase 2 | Pending |
-| TOKEN-04 | Phase 2 | Pending |
+| TOKEN-01 | Phase 2 | Complete |
+| TOKEN-02 | Phase 2 | Complete |
+| TOKEN-03 | Phase 2 | Complete |
+| TOKEN-04 | Phase 2 | Complete |
 | TOKEN-05 | Phase 1 | Complete |
-| TOKEN-06 | Phase 2 | Pending |
+| TOKEN-06 | Phase 2 | Complete |
 | CLI-01 | Phase 3 | Pending |
 | CLI-02 | Phase 1 | Complete |
 | CLI-03 | Phase 1 | Complete |
@@ -111,7 +111,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OUT-02 | Phase 1 | Complete |
 | OUT-03 | Phase 1 | Complete |
 | OUT-04 | Phase 1 | Complete |
-| OUT-05 | Phase 2 | Pending |
+| OUT-05 | Phase 2 | Complete |
 | OUT-06 | Phase 1 | Complete |
 | OUT-07 | Phase 1 | Complete |
 | OUT-08 | Phase 1 | Complete |
@@ -123,11 +123,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 **Coverage:**
 - v1 requirements: 31 total
-- Complete: 15 (48%)
-- Pending: 16 (52%)
+- Complete: 22 (71%)
+- Pending: 9 (29%)
 - Mapped to phases: 31
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-01-21*
-*Last updated: 2026-01-21 after Phase 1 completion*
+*Last updated: 2026-01-21 after Phase 2 completion*
