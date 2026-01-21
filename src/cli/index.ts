@@ -22,6 +22,7 @@ import { writeResultsFile } from '../output/markdown.js';
 import { writeJsonFile } from '../output/json.js';
 import { calculateSummary, displaySummary } from '../output/summary.js';
 import { createProgressBars, createBar, updateProgress, stopAll } from './progress.js';
+import { processInParallel, getJobCount } from '../parallel/processor.js';
 import cliProgress from 'cli-progress';
 import path from 'path';
 
@@ -58,53 +59,77 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
   const tokenizers = options.tokenizers || ['gpt4'];
   const maxMb = options.maxMb || 500;
 
+  // Determine job count (CPU-aware default)
+  const jobs = getJobCount(options.jobs);
+
+  // Display job count if verbose
+  if (options.verbose) {
+    console.log(`Using ${jobs} parallel job(s)`);
+  }
+
   // Capture start time for summary statistics
   const startTime = Date.now();
 
   // Create progress bar multibar
   const multibar = createProgressBars();
-  const bars = new Map<string, cliProgress.Bar>();
-
-  // Create bars for all files upfront (sequential processing)
-  for (const file of allFiles) {
-    const filename = path.basename(file);
-    bars.set(filename, createBar(multibar, filename));
-  }
 
   // Process EPUBs with error handling
   // FATAL errors will be thrown and caught below, exiting without summary
   // ERROR/WARN errors continue to summary display
   let result: any = undefined;
   try {
-    for (const file of allFiles) {
-      const filename = path.basename(file);
-      const bar = bars.get(filename);
-
-      // Update to 50% (parsing stage)
-      if (bar) updateProgress(bar, 50);
-
-      // Process single file
-      const fileResult = await processEpubsWithErrors(
-        [file],
+    if (jobs > 1 && allFiles.length > 1) {
+      // Parallel processing (multiple jobs, multiple files)
+      result = await processInParallel(
+        allFiles,
+        jobs,
+        multibar,
         false, // Disable verbose during progress to avoid contamination
         outputDir,
         tokenizers,
         maxMb
       );
+    } else {
+      // Sequential processing (single job or single file)
+      const bars = new Map<string, cliProgress.Bar>();
 
-      // Update to 100% (complete)
-      if (bar) updateProgress(bar, 100);
+      // Create bars for all files upfront (sequential processing)
+      for (const file of allFiles) {
+        const filename = path.basename(file);
+        bars.set(filename, createBar(multibar, filename));
+      }
 
-      // Collect results for final display
-      if (!result) {
-        result = fileResult;
-      } else {
-        result.successful.push(...fileResult.successful);
-        result.failed.push(...fileResult.failed);
-        result.total += fileResult.total;
-        // Merge token counts
-        for (const [key, value] of fileResult.tokenCounts) {
-          result.tokenCounts.set(key, value);
+      // Process files sequentially
+      for (const file of allFiles) {
+        const filename = path.basename(file);
+        const bar = bars.get(filename);
+
+        // Update to 50% (parsing stage)
+        if (bar) updateProgress(bar, 50);
+
+        // Process single file
+        const fileResult = await processEpubsWithErrors(
+          [file],
+          false, // Disable verbose during progress to avoid contamination
+          outputDir,
+          tokenizers,
+          maxMb
+        );
+
+        // Update to 100% (complete)
+        if (bar) updateProgress(bar, 100);
+
+        // Collect results for final display
+        if (!result) {
+          result = fileResult;
+        } else {
+          result.successful.push(...fileResult.successful);
+          result.failed.push(...fileResult.failed);
+          result.total += fileResult.total;
+          // Merge token counts
+          for (const [key, value] of fileResult.tokenCounts) {
+            result.tokenCounts.set(key, value);
+          }
         }
       }
     }
@@ -164,6 +189,7 @@ program
   .option('-o, --output <path>', 'Output folder path (default: ./results/)')
   .option('-t, --tokenizers <list>', 'Comma-separated list of tokenizers (e.g., gpt4,claude,hf:bert-base-uncased)', 'gpt4')
   .option('--max-mb <size>', 'Maximum EPUB text size in MB (default: 500)', '500')
+  .option('-j, --jobs <count>', 'Number of parallel jobs (default: CPU count - 1, use "all" for max cores)')
   .action((paths, options) => {
     // Handle input precedence:
     // 1. If --input provided, use only that
