@@ -6,12 +6,12 @@
  * Errors are logged to both stderr (visible) and errors.log (persistent).
  */
 
-import fs from 'fs/promises';
 import path from 'path';
 import { parseEpubFile } from '../epub/parser.js';
 import { extractMetadata } from '../epub/metadata.js';
 import { extractText, countWords } from '../epub/text.js';
 import { createTokenizers, tokenizeText } from '../tokenizers/index.js';
+import { ErrorSeverity, logError, type ErrorLogEntry } from './logger.js';
 import type { Tokenizer, TokenizerResult } from '../tokenizers/types.js';
 import type { EpubResult } from '../output/table.js';
 
@@ -28,69 +28,47 @@ export interface ProcessingResult {
 }
 
 /**
- * Single error log entry for persistence
+ * Classify error severity and generate helpful suggestion based on error code/message
+ *
+ * Returns severity level (FATAL/ERROR/WARN) and optional suggestion.
+ *
+ * Classification rules:
+ * - File not found (ENOENT): ERROR (file skipped)
+ * - Permission denied (EACCES): ERROR (can't process this file)
+ * - EPUB parsing errors: ERROR (file skipped, likely corrupted)
+ * - Memory limit errors: FATAL (user must adjust settings)
+ * - Unknown: ERROR (conservative default, skip file)
+ *
+ * @param error - Error object to classify
+ * @param filePath - File path being processed (for context)
+ * @returns Object with severity level and optional suggestion
  */
-export interface ErrorLogEntry {
-  /** File path that failed */
-  file: string;
-  /** Error message */
-  error: string;
-  /** ISO 8601 timestamp */
-  timestamp: string;
-  /** Optional suggestion for fixing the error */
-  suggestion?: string;
-}
-
-/**
- * Generate helpful error suggestion based on error code/message
- */
-function generateSuggestion(error: Error, filePath: string): string | undefined {
+function classifyError(error: Error, filePath: string): { severity: ErrorSeverity; suggestion?: string } {
   const errorCode = (error as any).code;
   const message = error.message.toLowerCase();
 
-  // File not found
+  // File not found - usually ERROR (file skipped, not FATAL)
   if (errorCode === 'ENOENT') {
-    return 'File not found. Check the file path.';
+    return { severity: ErrorSeverity.ERROR, suggestion: 'File not found. Check the file path.' };
   }
 
-  // Permission denied
+  // Permission denied - ERROR (can't process this file)
   if (errorCode === 'EACCES') {
-    return 'Check file permissions.';
+    return { severity: ErrorSeverity.ERROR, suggestion: 'Check file permissions.' };
   }
 
-  // EPUB parsing errors
+  // EPUB parsing errors - ERROR (file skipped)
   if (message.includes('epub') || message.includes('parse') || message.includes('zip')) {
-    return 'File may be corrupted or not a valid EPUB.';
+    return { severity: ErrorSeverity.ERROR, suggestion: 'File may be corrupted or not a valid EPUB.' };
   }
 
-  // Generic suggestion
-  return undefined;
-}
-
-/**
- * Log error to errors.log file in output directory
- *
- * Creates output directory if it doesn't exist.
- * Appends to errors.log file (creates if not exists).
- *
- * @param entry - Error log entry to write
- * @param outputDir - Output directory path (default: './results')
- */
-export async function logError(entry: ErrorLogEntry, outputDir: string = './results'): Promise<void> {
-  try {
-    // Ensure output directory exists
-    await fs.mkdir(outputDir, { recursive: true });
-
-    // Format error log entry
-    const logLine = `[${entry.timestamp}] ${entry.file}: ${entry.error}${entry.suggestion ? ` Suggestion: ${entry.suggestion}` : ''}\n`;
-
-    // Append to errors.log file
-    const logPath = path.join(outputDir, 'errors.log');
-    await fs.appendFile(logPath, logLine);
-  } catch (error) {
-    // If we can't write to error log, at least log to stderr
-    console.error(`Failed to write to errors.log: ${error}`);
+  // Memory limit errors - FATAL (user must adjust)
+  if (message.includes('exceeds --max-mb limit')) {
+    return { severity: ErrorSeverity.FATAL, suggestion: 'Increase --max-mb or process in smaller chunks.' };
   }
+
+  // Default: ERROR (unknown issue, skip file)
+  return { severity: ErrorSeverity.ERROR };
 }
 
 /**
@@ -213,20 +191,18 @@ export async function processEpubsWithErrors(
     } catch (error) {
       const errorObj = error as Error;
       const errorMessage = errorObj.message || 'Unknown error';
-      const suggestion = generateSuggestion(errorObj, filePath);
+      const { severity, suggestion } = classifyError(errorObj, filePath);
 
-      // Create error log entry
+      // Create error log entry with severity
       const entry: ErrorLogEntry = {
+        timestamp: new Date().toISOString(),
+        severity,
         file: filePath,
         error: errorMessage,
-        timestamp: new Date().toISOString(),
         suggestion,
       };
 
-      // Log to stderr (visible during processing)
-      console.error(`Error: ${entry.file} - ${entry.error}`);
-
-      // Log to errors.log file (persistent)
+      // Log using new logger module (handles console + file output)
       await logError(entry, outputDir);
 
       // Add to failed array
@@ -236,8 +212,9 @@ export async function processEpubsWithErrors(
         suggestion,
       });
 
-      if (verbose && suggestion) {
-        console.error(`  Suggestion: ${suggestion}`);
+      // FATAL errors stop processing
+      if (severity === ErrorSeverity.FATAL) {
+        throw errorObj; // Re-throw to stop processing
       }
     }
   }
