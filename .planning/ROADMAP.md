@@ -84,13 +84,13 @@ Plans:
 4. User can enable parallel processing via `--jobs` flag to speed up batch operations
 5. Tool displays summary statistics after batch completion (total EPUBs processed, total tokens per tokenizer, averages)
 
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 03-01: Progress indicators (indicatif integration, multi-progress for parallel jobs)
-- [ ] 03-02: Error logging system (dual console/file logging, error classification)
-- [ ] 03-03: Parallel processing with rayon (--jobs flag, work-stealing thread pool)
-- [ ] 03-04: Summary statistics display (aggregation, formatting)
+- [ ] 03-01-PLAN.md — Progress indicators (cli-progress MultiBar integration, individual bars per file)
+- [ ] 03-02-PLAN.md — Error logging system (severity levels FATAL/ERROR/WARN, dual console/file output)
+- [ ] 03-03-PLAN.md — Parallel processing (p-limit, CPU detection, --jobs flag)
+- [ ] 03-04-PLAN.md — Summary statistics display (aggregation, cli-table3 formatting, sectioned blocks)
 
 ## Progress
 
