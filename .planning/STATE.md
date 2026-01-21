@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Phase: 1 of 3 (EPUB Foundation)
-Plan: 4 of 4 in current phase
+Plan: 5 of 5 in current phase
 Status: Phase complete
-Last activity: 2026-01-21 — Completed 01-04-PLAN.md (Error handling, JSON output, markdown generation)
+Last activity: 2026-01-21 — Completed 01-05-PLAN.md (End-to-end verification and validation)
 
 Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 5
 - Average duration: 16 min
-- Total execution time: 1.03 hours
+- Total execution time: 1.27 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-epub-foundation | 4 | 4 | 16 min |
+| 01-epub-foundation | 5 | 5 | 16 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (17 min), 01-02 (13 min), 01-03 (7 min), 01-04 (46 min)
+- Last 5 plans: 01-01 (17 min), 01-02 (13 min), 01-03 (7 min), 01-04 (46 min), 01-05 (14 min)
 - Trend: Stable velocity, Phase 1 complete
 
 *Updated after each plan completion*
@@ -59,6 +59,9 @@ Recent decisions affecting current work:
 15. **Used Partial<> for options interfaces** (01-04) - Allows flexible API (defaults or custom options) for writeResultsFile/writeJsonFile
 16. **Error suggestion generation based on error codes** (01-04) - Helpful suggestions for ENOENT, EACCES, parse errors
 17. **Separate output modules for each format** (01-04) - JSON and markdown in separate modules for reusability
+18. **Created minimal valid EPUB test fixtures** (01-05) - Enables comprehensive testing without external dependencies
+19. **Fixed metadata extraction to use epubInfo directly** (01-05) - @gxl/epub-parser returns info object directly, not nested in .info property
+20. **Fixed text extraction to handle toMarkdown() return type** (01-05) - toMarkdown() returns string directly, not object with textContent property
 
 ### Pending Todos
 
@@ -73,8 +76,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-21T16:43:10Z
-Stopped at: Completed 01-04-PLAN.md (Error handling and output generation)
+Last session: 2026-01-21T17:01:35Z
+Stopped at: Completed 01-05-PLAN.md (End-to-end verification and validation)
 Resume file: None
 
-**Phase 1 Complete.** Ready for Phase 2 (Tokenizer Integration).
+**Phase 1 Complete.** All 5 plans completed successfully. Ready for Phase 2 (Tokenizer Integration).
