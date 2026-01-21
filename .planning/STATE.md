@@ -10,30 +10,30 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Phase: 2 of 3 (Tokenization Engine)
-Plan: 3 of 4 in current phase
-Status: In progress
-Last activity: 2026-01-21T18:50:22Z — Completed 02-03-PLAN.md
+Plan: 4 of 4 in current phase
+Status: Phase complete
+Last activity: 2026-01-21T19:03:51Z — Completed 02-04-PLAN.md
 
-Progress: [███████░░░] 69%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 13 min
-- Total execution time: 1.70 hours
+- Total plans completed: 9
+- Average duration: 12 min
+- Total execution time: 1.85 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-epub-foundation | 5 | 5 | 16 min |
-| 02-tokenization-engine | 3 | 4 | 7 min (so far) |
+| 02-tokenization-engine | 4 | 4 | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (7 min), 01-04 (46 min), 01-05 (14 min), 02-01 (2 min), 02-02 (15 min)
-- Current: 02-03 (2 min)
-- Trend: Phase 2 progressing smoothly
+- Last 5 plans: 01-04 (46 min), 01-05 (14 min), 02-01 (2 min), 02-02 (15 min), 02-03 (2 min)
+- Current: 02-04 (9 min)
+- Trend: Phase 2 completed efficiently
 
 *Updated after each plan completion*
 
@@ -74,6 +74,10 @@ Recent decisions affecting current work:
 28. **Tokenizer name format: presets and Hugging Face** (02-03) - Short names (gpt4, claude) for presets, "hf:model-name" for Hugging Face models
 29. **token_counts is optional in JSON output** (02-03) - Field only appears when tokenization is wired in plan 02-04, maintaining backward compatibility
 30. **schema_version set to '1.0'** (02-03) - Provides output format versioning for future changes
+31. **Return count: -1 for failed tokenizers** (02-04) - Distinguishes tokenization errors from legitimate zero-token results, allows partial results
+32. **Display Claude warning at tokenizer creation time** (02-04) - Warning appears once when tokenizers are created, not per EPUB, more efficient
+33. **Memory check throws error rather than skipping** (02-04) - Explicit error forces user to acknowledge size issue, provides clear guidance
+34. **Verbose output includes token counts per EPUB** (02-04) - Format: "filename: 55 words (gpt4=65, claude=70)" for immediate feedback
 
 ### Pending Todos
 
@@ -90,8 +94,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-21T18:50:22Z
-Stopped at: Completed 02-03-PLAN.md, SUMMARY.md created, STATE.md updated
+Last session: 2026-01-21T19:03:51Z
+Stopped at: Completed 02-04-PLAN.md, SUMMARY.md created, STATE.md updated
 Resume file: None
 
-**Phase 2 Plan 3 Complete.** CLI --tokenizers argument added with comma-separated list parsing, JSON output extended with schema_version field and token_counts array. Ready for plan 02-04 to wire tokenization into processing pipeline.
+**Phase 2 Complete.** Tokenization engine fully implemented with multi-tokenizer orchestration, EPUB processing pipeline integration, memory management via --max-mb flag, and Claude 3+ inaccuracy warning. All 4 plans in Phase 2 completed successfully. Token counts now appear in JSON output with accurate counts for GPT-4 and Claude tokenizers.
