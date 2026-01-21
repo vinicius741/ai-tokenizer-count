@@ -54,14 +54,26 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
   const tokenizers = options.tokenizers || ['gpt4'];
   const maxMb = options.maxMb || 500;
 
-  // Process EPUBs with error handling (continue-on-error)
-  const result = await processEpubsWithErrors(
-    allFiles,
-    options.verbose,
-    outputDir,
-    tokenizers,
-    maxMb
-  );
+  // Process EPUBs with error handling
+  // FATAL errors will be thrown and caught below, exiting without summary
+  // ERROR/WARN errors continue to summary display
+  let result;
+  try {
+    result = await processEpubsWithErrors(
+      allFiles,
+      options.verbose,
+      outputDir,
+      tokenizers,
+      maxMb
+    );
+  } catch (error) {
+    // FATAL error - exit without summary
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`\nFatal error: ${errorMessage}`);
+    console.error('Processing stopped.');
+    process.exit(1);
+    return; // Never reached, but satisfies TypeScript
+  }
 
   // Display successful EPUBs in table
   displayResults(result.successful, { verbose: options.verbose });
@@ -140,8 +152,11 @@ program
     }
 
     // Process EPUBs with error handling
+    // FATAL errors exit immediately via process.exit(1) in processEpubs
     processEpubs(inputPaths, { ...options, tokenizers, maxMb }).catch((error) => {
-      console.error('Fatal error:', error);
+      // Fallback error handler for unexpected errors
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error(`Unexpected error: ${errorMessage}`);
       process.exit(1);
     });
   });
