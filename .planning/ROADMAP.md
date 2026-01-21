@@ -33,13 +33,14 @@ Decimal phases appear between their surrounding integers in numeric order.
 4. User can specify custom input/output folders via CLI arguments (`--input`, `--output`)
 5. Help text documents all CLI arguments and options clearly
 
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 01-01: CLI scaffolding and configuration (clap setup, folder defaults, .gitignore)
-- [ ] 01-02: EPUB discovery and parsing (batch mode, single-file mode, EPUB 2.0.1/3.0 support)
-- [ ] 01-03: Text extraction and word counting with metadata extraction
-- [ ] 01-04: Error handling and continue-on-error behavior
+- [ ] 01-01-PLAN.md — Project scaffolding, TypeScript setup, and EPUB file discovery scanner
+- [ ] 01-02-PLAN.md — EPUB parsing wrapper, metadata extraction, and word counting
+- [ ] 01-03-PLAN.md — CLI interface with commander and table output with cli-table3
+- [ ] 01-04-PLAN.md — Error handling, continue-on-error logic, and results.md generation
+- [ ] 01-05-PLAN.md — End-to-end testing and validation
 
 ### Phase 2: Tokenization Engine
 
@@ -74,7 +75,7 @@ Plans:
 
 **Success Criteria** (what must be TRUE):
 1. User sees progress indicators during processing (X of Y for batch, spinner for individual files)
-2. User sees detailed error information both in console and in `errors.log` file
+2. User sees detailed error information both in console and `errors.log` file
 3. Tool continues processing remaining EPUBs when one file fails, displaying summary of failures
 4. User can enable parallel processing via `--jobs` flag to speed up batch operations
 5. Tool displays summary statistics after batch completion (total EPUBs processed, total tokens per tokenizer, averages)
@@ -90,12 +91,12 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3
+Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. EPUB Foundation | 0/4 | Not started | - |
+| 1. EPUB Foundation | 0/5 | Ready to execute | - |
 | 2. Tokenization Engine | 0/4 | Not started | - |
 | 3. CLI Polish | 0/4 | Not started | - |
 
-**Overall Progress:** 0/12 plans complete (0%)
+**Overall Progress:** 0/13 plans complete (0%)
