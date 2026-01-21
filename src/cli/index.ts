@@ -50,7 +50,11 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
   // Determine output directory (from --output flag or default)
   const outputDir = options.output || './results';
 
+  // Extract tokenizers from options (default to ['gpt4'])
+  const tokenizers = options.tokenizers || ['gpt4'];
+
   // Process EPUBs with error handling (continue-on-error)
+  // Note: tokenizers parameter will be wired in plan 02-04
   const result = await processEpubsWithErrors(allFiles, options.verbose, outputDir);
 
   // Display successful EPUBs in table
@@ -60,6 +64,7 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
   const mdPath = await writeResultsFile(result, { outputDir });
 
   // Generate and write JSON results file
+  // Note: tokenCounts will be added in plan 02-04 when tokenization is wired
   const jsonPath = await writeJsonFile(result, { outputDir });
 
   // Display results file paths
@@ -96,6 +101,7 @@ program
   .option('-v, --verbose', 'Enable verbose output')
   .option('-r, --recursive', 'Scan subdirectories recursively')
   .option('-o, --output <path>', 'Output folder path (default: ./results/)')
+  .option('-t, --tokenizers <list>', 'Comma-separated list of tokenizers (e.g., gpt4,claude,hf:bert-base-uncased)', 'gpt4')
   .action((paths, options) => {
     // Handle input precedence:
     // 1. If --input provided, use only that
@@ -110,13 +116,17 @@ program
     // Determine output directory (CLI-05: --output flag support)
     const outputDir = options.output || './results';
 
+    // Parse tokenizers list
+    const tokenizers = options.tokenizers.split(',').map((t: string) => t.trim());
+
     if (options.verbose) {
       console.log('Input paths:', inputPaths);
       console.log('Output directory:', outputDir);
+      console.log('Tokenizers:', tokenizers);
     }
 
     // Process EPUBs with error handling
-    processEpubs(inputPaths, options).catch((error) => {
+    processEpubs(inputPaths, { ...options, tokenizers }).catch((error) => {
       console.error('Fatal error:', error);
       process.exit(1);
     });
