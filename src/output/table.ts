@@ -13,12 +13,18 @@ import Table from 'cli-table3';
 export interface EpubResult {
   /** Filename of the EPUB file */
   filename: string;
+  /** Absolute file path (optional, for JSON output) */
+  file_path?: string;
   /** Total word count in the EPUB */
   wordCount: number;
   /** Title of the EPUB */
   title: string;
   /** Author of the EPUB */
   author: string;
+  /** Language code (optional, for JSON output) */
+  language?: string;
+  /** Publisher name (optional, for JSON output) */
+  publisher?: string;
 }
 
 /**
