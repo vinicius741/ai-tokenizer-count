@@ -10,28 +10,30 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Phase: 2 of 3 (Tokenization Engine)
-Plan: 0 of 4 in current phase
-Status: Ready to plan
-Last activity: 2026-01-21 — Phase 1 completed and verified
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-21T18:26:54Z — Completed 02-01-PLAN.md
 
-Progress: [███░░░░░░░░] 38%
+Progress: [████░░░░░░░] 46%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 16 min
-- Total execution time: 1.27 hours
+- Total plans completed: 6
+- Average duration: 14 min
+- Total execution time: 1.43 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-epub-foundation | 5 | 5 | 16 min |
+| 02-tokenization-engine | 1 | 4 | 2 min (so far) |
 
 **Recent Trend:**
 - Last 5 plans: 01-01 (17 min), 01-02 (13 min), 01-03 (7 min), 01-04 (46 min), 01-05 (14 min)
-- Trend: Stable velocity, Phase 1 complete
+- Current: 02-01 (2 min)
+- Trend: Fast start to Phase 2
 
 *Updated after each plan completion*
 
@@ -62,6 +64,9 @@ Recent decisions affecting current work:
 18. **Created minimal valid EPUB test fixtures** (01-05) - Enables comprehensive testing without external dependencies
 19. **Fixed metadata extraction to use epubInfo directly** (01-05) - @gxl/epub-parser returns info object directly, not nested in .info property
 20. **Fixed text extraction to handle toMarkdown() return type** (01-05) - toMarkdown() returns string directly, not object with textContent property
+21. **Used short preset names (gpt4, claude)** (02-01) - Per CONTEXT.md decision for better UX vs technical encoding names
+22. **Factory pattern for tokenizer creation** (02-01) - createTokenizer function abstracts tokenizer instantiation, stub throws until implementation
+23. **Tokenizer interface supports sync/async countTokens** (02-01) - Accommodates both synchronous (GPT-4, Claude) and asynchronous (Hugging Face) tokenizer APIs
 
 ### Pending Todos
 
@@ -73,11 +78,12 @@ None yet.
 - CJK word counting may need refinement in later phases (currently treats CJK text as one word without spaces)
 - Word counting includes all text (frontmatter/backmatter not excluded in v1)
 - Hyphenated words counted as one word (standard behavior)
+- npm audit reported 16 vulnerabilities in transitive dependencies (common for ML libraries, monitored)
 
 ## Session Continuity
 
-Last session: 2026-01-21T17:01:35Z
-Stopped at: Phase 1 execution complete, verified, committed
+Last session: 2026-01-21T18:25:27Z
+Stopped at: Completed 02-01-PLAN.md, SUMMARY.md created, STATE.md ready for update
 Resume file: None
 
-**Phase 1 Complete.** All 5 plans executed successfully, verified (33/33 must_haves), 15 requirements complete (48%). Ready for Phase 2 (Tokenization Engine).
+**Phase 2 Plan 1 Complete.** Tokenizer libraries installed (js-tiktoken, @anthropic-ai/tokenizer, @huggingface/transformers), interface abstraction created with factory pattern. Ready for plans 02-02, 02-03, 02-04 to implement specific tokenizers.
