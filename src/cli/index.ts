@@ -50,12 +50,18 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
   // Determine output directory (from --output flag or default)
   const outputDir = options.output || './results';
 
-  // Extract tokenizers from options (default to ['gpt4'])
+  // Extract tokenizers and maxMb from options
   const tokenizers = options.tokenizers || ['gpt4'];
+  const maxMb = options.maxMb || 500;
 
   // Process EPUBs with error handling (continue-on-error)
-  // Note: tokenizers parameter will be wired in plan 02-04
-  const result = await processEpubsWithErrors(allFiles, options.verbose, outputDir);
+  const result = await processEpubsWithErrors(
+    allFiles,
+    options.verbose,
+    outputDir,
+    tokenizers,
+    maxMb
+  );
 
   // Display successful EPUBs in table
   displayResults(result.successful, { verbose: options.verbose });
@@ -63,9 +69,8 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
   // Generate and write markdown results file
   const mdPath = await writeResultsFile(result, { outputDir });
 
-  // Generate and write JSON results file
-  // Note: tokenCounts will be added in plan 02-04 when tokenization is wired
-  const jsonPath = await writeJsonFile(result, { outputDir });
+  // Generate and write JSON results file with token counts
+  const jsonPath = await writeJsonFile(result, { outputDir }, result.tokenCounts);
 
   // Display results file paths
   console.log(`\nResults saved to:`);
@@ -102,6 +107,7 @@ program
   .option('-r, --recursive', 'Scan subdirectories recursively')
   .option('-o, --output <path>', 'Output folder path (default: ./results/)')
   .option('-t, --tokenizers <list>', 'Comma-separated list of tokenizers (e.g., gpt4,claude,hf:bert-base-uncased)', 'gpt4')
+  .option('--max-mb <size>', 'Maximum EPUB text size in MB (default: 500)', '500')
   .action((paths, options) => {
     // Handle input precedence:
     // 1. If --input provided, use only that
@@ -119,14 +125,22 @@ program
     // Parse tokenizers list
     const tokenizers = options.tokenizers.split(',').map((t: string) => t.trim());
 
+    // Parse maxMb as integer
+    const maxMb = parseInt(options.maxMb || '500', 10);
+    if (isNaN(maxMb) || maxMb <= 0) {
+      console.error('Error: --max-mb must be a positive number');
+      process.exit(1);
+    }
+
     if (options.verbose) {
       console.log('Input paths:', inputPaths);
       console.log('Output directory:', outputDir);
       console.log('Tokenizers:', tokenizers);
+      console.log('Max MB:', maxMb);
     }
 
     // Process EPUBs with error handling
-    processEpubs(inputPaths, { ...options, tokenizers }).catch((error) => {
+    processEpubs(inputPaths, { ...options, tokenizers, maxMb }).catch((error) => {
       console.error('Fatal error:', error);
       process.exit(1);
     });
