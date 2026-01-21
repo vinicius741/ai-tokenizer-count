@@ -20,6 +20,9 @@ import { processEpubsWithErrors } from '../errors/handler.js';
 import { displayResults } from '../output/table.js';
 import { writeResultsFile } from '../output/markdown.js';
 import { writeJsonFile } from '../output/json.js';
+import { createProgressBars, createBar, updateProgress, stopAll } from './progress.js';
+import cliProgress from 'cli-progress';
+import path from 'path';
 
 /**
  * Process EPUB files with error handling and generate results files
@@ -54,19 +57,57 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
   const tokenizers = options.tokenizers || ['gpt4'];
   const maxMb = options.maxMb || 500;
 
+  // Create progress bar multibar
+  const multibar = createProgressBars();
+  const bars = new Map<string, cliProgress.Bar>();
+
+  // Create bars for all files upfront (sequential processing)
+  for (const file of allFiles) {
+    const filename = path.basename(file);
+    bars.set(filename, createBar(multibar, filename));
+  }
+
   // Process EPUBs with error handling
   // FATAL errors will be thrown and caught below, exiting without summary
   // ERROR/WARN errors continue to summary display
-  let result;
+  let result: any = undefined;
   try {
-    result = await processEpubsWithErrors(
-      allFiles,
-      options.verbose,
-      outputDir,
-      tokenizers,
-      maxMb
-    );
+    for (const file of allFiles) {
+      const filename = path.basename(file);
+      const bar = bars.get(filename);
+
+      // Update to 50% (parsing stage)
+      if (bar) updateProgress(bar, 50);
+
+      // Process single file
+      const fileResult = await processEpubsWithErrors(
+        [file],
+        false, // Disable verbose during progress to avoid contamination
+        outputDir,
+        tokenizers,
+        maxMb
+      );
+
+      // Update to 100% (complete)
+      if (bar) updateProgress(bar, 100);
+
+      // Collect results for final display
+      if (!result) {
+        result = fileResult;
+      } else {
+        result.successful.push(...fileResult.successful);
+        result.failed.push(...fileResult.failed);
+        result.total += fileResult.total;
+        // Merge token counts
+        for (const [key, value] of fileResult.tokenCounts) {
+          result.tokenCounts.set(key, value);
+        }
+      }
+    }
   } catch (error) {
+    // Stop progress bars before error output
+    stopAll(multibar);
+
     // FATAL error - exit without summary
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error(`\nFatal error: ${errorMessage}`);
@@ -75,14 +116,18 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
     return; // Never reached, but satisfies TypeScript
   }
 
+  // Stop all progress bars
+  stopAll(multibar);
+
   // Display successful EPUBs in table
-  displayResults(result.successful, { verbose: options.verbose });
+  // result is guaranteed to be defined here since allFiles.length > 0 (checked above)
+  displayResults(result!.successful, { verbose: options.verbose });
 
   // Generate and write markdown results file
-  const mdPath = await writeResultsFile(result, { outputDir });
+  const mdPath = await writeResultsFile(result!, { outputDir });
 
   // Generate and write JSON results file with token counts
-  const jsonPath = await writeJsonFile(result, { outputDir }, result.tokenCounts);
+  const jsonPath = await writeJsonFile(result!, { outputDir }, result!.tokenCounts);
 
   // Display results file paths
   console.log(`\nResults saved to:`);
@@ -91,14 +136,14 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
 
   // Display error summary
   console.log(`\nSummary:`);
-  console.log(`- Total EPUBs: ${result.total}`);
-  console.log(`- Successful: ${result.successful.length}`);
-  console.log(`- Failed: ${result.failed.length}`);
+  console.log(`- Total EPUBs: ${result!.total}`);
+  console.log(`- Successful: ${result!.successful.length}`);
+  console.log(`- Failed: ${result!.failed.length}`);
 
   // List failed files if verbose mode
-  if (options.verbose && result.failed.length > 0) {
+  if (options.verbose && result!.failed.length > 0) {
     console.log('\nFailed files:');
-    for (const failure of result.failed) {
+    for (const failure of result!.failed) {
       console.log(`  - ${failure.file}: ${failure.error}`);
     }
   }
