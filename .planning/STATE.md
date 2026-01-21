@@ -5,33 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-01-21)
 
 **Core value:** Users can accurately estimate token costs for processing EPUB content through LLMs by getting precise word and token counts across multiple tokenizer models.
-**Current focus:** Phase 1: EPUB Foundation
+**Current focus:** Phase 1: EPUB Foundation (COMPLETE)
 
 ## Current Position
 
 Phase: 1 of 3 (EPUB Foundation)
-Plan: 3 of 4 in current phase
-Status: In progress
-Last activity: 2026-01-21 — Completed 01-03-PLAN.md (CLI interface with commander and --output flag)
+Plan: 4 of 4 in current phase
+Status: Phase complete
+Last activity: 2026-01-21 — Completed 01-04-PLAN.md (Error handling, JSON output, markdown generation)
 
-Progress: [███░░░░░░░░] 75%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 13 min
-- Total execution time: 0.65 hours
+- Total plans completed: 4
+- Average duration: 16 min
+- Total execution time: 1.03 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-epub-foundation | 3 | 4 | 13 min |
+| 01-epub-foundation | 4 | 4 | 16 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (17 min), 01-02 (13 min), 01-03 (7 min)
-- Trend: Stable velocity, ahead of schedule
+- Last 5 plans: 01-01 (17 min), 01-02 (13 min), 01-03 (7 min), 01-04 (46 min)
+- Trend: Stable velocity, Phase 1 complete
 
 *Updated after each plan completion*
 
@@ -55,6 +55,10 @@ Recent decisions affecting current work:
 11. **Positional [paths...] argument for intuitive input** (01-03) - More intuitive than requiring --input for common cases
 12. **Input precedence: --input > positional > default** (01-03) - Prevents conflicts between input sources
 13. **Default input: ./epubs/, default output: ./results/** (01-03) - CFG-02 requirement
+14. **Extended EpubResult interface with optional fields** (01-04) - Added file_path, language, publisher for JSON output while maintaining table display compatibility
+15. **Used Partial<> for options interfaces** (01-04) - Allows flexible API (defaults or custom options) for writeResultsFile/writeJsonFile
+16. **Error suggestion generation based on error codes** (01-04) - Helpful suggestions for ENOENT, EACCES, parse errors
+17. **Separate output modules for each format** (01-04) - JSON and markdown in separate modules for reusability
 
 ### Pending Todos
 
@@ -66,10 +70,11 @@ None yet.
 - CJK word counting may need refinement in later phases (currently treats CJK text as one word without spaces)
 - Word counting includes all text (frontmatter/backmatter not excluded in v1)
 - Hyphenated words counted as one word (standard behavior)
-- No error handling yet (Plan 04 will add continue-on-error logic)
 
 ## Session Continuity
 
-Last session: 2026-01-21T15:46:53Z
-Stopped at: Completed 01-03-PLAN.md (CLI interface with commander and --output flag)
+Last session: 2026-01-21T16:43:10Z
+Stopped at: Completed 01-04-PLAN.md (Error handling and output generation)
 Resume file: None
+
+**Phase 1 Complete.** Ready for Phase 2 (Tokenizer Integration).
