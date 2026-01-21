@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Phase: 3 of 3 (CLI Polish)
-Plan: 4 of 4 in current phase
+Plan: 3 of 4 in current phase
 Status: In progress
-Last activity: 2026-01-21 — Completed 03-04: Summary statistics display
+Last activity: 2026-01-21 — Completed 03-03: Parallel EPUB processing
 
-Progress: [██████████] 75%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
@@ -29,11 +29,11 @@ Progress: [██████████] 75%
 |-------|-------|-------|----------|
 | 01-epub-foundation | 5 | 5 | 16 min |
 | 02-tokenization-engine | 4 | 4 | 7 min |
-| 03-cli-polish | 2 | 4 | 5 min |
+| 03-cli-polish | 2 | 4 | 8 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-05 (14 min), 02-01 (2 min), 02-02 (15 min), 02-04 (9 min), 03-04 (2 min)
-- Trend: Phase 3 progressing with summary statistics implementation
+- Last 5 plans: 01-05 (14 min), 02-01 (2 min), 02-02 (15 min), 02-04 (9 min), 03-03 (5 min)
+- Trend: Phase 3 progressing, parallel processing implemented
 
 *Updated after each plan completion*
 
@@ -92,6 +92,11 @@ Recent decisions affecting current work:
 46. **Red header for failures table** (03-04) - Error indication using red color in cli-table3
 47. **Skip -1 token counts in averages** (03-04) - Exclude error counts (-1) when calculating tokenizer averages
 48. **Summary replaces verbose failed files listing** (03-04) - Failures now shown in professional table instead of verbose console.log
+49. **Used p-limit instead of worker_threads** (03-03) - EPUB processing is I/O-bound (file reading, parsing), not CPU-bound. p-limit is simpler and more appropriate for async I/O operations.
+50. **CPU-aware default: (CPU count - 1)** (03-03) - Leaves one core free for system processes, preventing resource exhaustion. Fallback to 1 if os.cpus() returns undefined/empty (containers/CI).
+51. **Dynamic progress bar creation for parallel jobs** (03-03) - Bars created within each parallel job (not upfront) provides better UX for large batches and is essential for parallel workflows.
+52. **Sequential fallback for --jobs 1** (03-03) - For --jobs 1 or single file, use existing sequential loop. Enables easy debugging and consistent behavior.
+53. **Warning for job counts > 32** (03-03) - Warn user about unusually high job counts that may cause diminishing returns or memory issues.
 
 ### Pending Todos
 
@@ -109,7 +114,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-21
-Stopped at: Completed 03-04: Summary statistics display
+Stopped at: Completed 03-03: Parallel EPUB processing
 Resume file: None
 
-**Phase 3 in progress.** Plan 03-04 (summary statistics) complete with 2 tasks committed. Phase 3 has 4 plans total: 03-01 (progress indicators), 03-02 (colors and styling), 03-03 (parallel processing), 03-04 (summary statistics). Plans 03-02 and 03-03 remain.
+**Phase 3 in progress.** Plan 03-03 (parallel processing) complete with 3 tasks committed. Phase 3 has 4 plans total: 03-01 (progress indicators), 03-02 (colors and styling), 03-03 (parallel processing), 03-04 (summary statistics). Plan 03-02 remains.
