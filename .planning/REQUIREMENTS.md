@@ -27,12 +27,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### CLI Experience
 
-- [ ] **CLI-01**: Tool shows progress indicators during processing (X of Y for batch, spinner for individual files)
+- [x] **CLI-01**: Tool shows progress indicators during processing (X of Y for batch, spinner for individual files)
 - [x] **CLI-02**: Tool logs detailed error information to both console and `errors.log` file
 - [x] **CLI-03**: Tool continues processing remaining EPUBs when one file fails
 - [x] **CLI-04**: Tool allows users to specify custom input folder path via CLI argument
 - [x] **CLI-05**: Tool allows users to specify custom output folder path via CLI argument
-- [ ] **CLI-06**: Tool supports parallel processing of multiple EPUBs via `--jobs` flag
+- [x] **CLI-06**: Tool supports parallel processing of multiple EPUBs via `--jobs` flag
 
 ### Output
 
@@ -44,7 +44,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **OUT-06**: JSON output includes file_path (path to processed EPUB)
 - [x] **OUT-07**: JSON output includes processed_at (ISO 8601 timestamp)
 - [x] **OUT-08**: JSON output includes epub_metadata (extracted metadata: author, language, publisher)
-- [ ] **OUT-09**: Tool displays summary statistics after batch completion (total EPUBs processed, total tokens, averages)
+- [x] **OUT-09**: Tool displays summary statistics after batch completion (total EPUBs processed, total tokens, averages)
 
 ### Configuration
 
@@ -101,12 +101,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TOKEN-04 | Phase 2 | Complete |
 | TOKEN-05 | Phase 1 | Complete |
 | TOKEN-06 | Phase 2 | Complete |
-| CLI-01 | Phase 3 | Pending |
-| CLI-02 | Phase 1 | Complete |
+| CLI-01 | Phase 3 | Complete |
 | CLI-03 | Phase 1 | Complete |
 | CLI-04 | Phase 1 | Complete |
 | CLI-05 | Phase 1 | Complete |
-| CLI-06 | Phase 3 | Pending |
+| CLI-06 | Phase 3 | Complete |
 | OUT-01 | Phase 1 | Complete |
 | OUT-02 | Phase 1 | Complete |
 | OUT-03 | Phase 1 | Complete |
@@ -115,7 +114,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OUT-06 | Phase 1 | Complete |
 | OUT-07 | Phase 1 | Complete |
 | OUT-08 | Phase 1 | Complete |
-| OUT-09 | Phase 3 | Pending |
+| OUT-09 | Phase 3 | Complete |
 | CFG-01 | Phase 1 | Complete |
 | CFG-02 | Phase 1 | Complete |
 | CFG-03 | Phase 1 | Complete |
@@ -123,11 +122,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 **Coverage:**
 - v1 requirements: 31 total
-- Complete: 22 (71%)
-- Pending: 9 (29%)
+- Complete: 31 (100%)
+- Pending: 0 (0%)
 - Mapped to phases: 31
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-01-21*
-*Last updated: 2026-01-21 after Phase 2 completion*
+*Last updated: 2026-01-21 after Phase 3 completion*
