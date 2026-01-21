@@ -20,6 +20,7 @@ import { processEpubsWithErrors } from '../errors/handler.js';
 import { displayResults } from '../output/table.js';
 import { writeResultsFile } from '../output/markdown.js';
 import { writeJsonFile } from '../output/json.js';
+import { calculateSummary, displaySummary } from '../output/summary.js';
 import { createProgressBars, createBar, updateProgress, stopAll } from './progress.js';
 import cliProgress from 'cli-progress';
 import path from 'path';
@@ -56,6 +57,9 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
   // Extract tokenizers and maxMb from options
   const tokenizers = options.tokenizers || ['gpt4'];
   const maxMb = options.maxMb || 500;
+
+  // Capture start time for summary statistics
+  const startTime = Date.now();
 
   // Create progress bar multibar
   const multibar = createProgressBars();
@@ -134,19 +138,14 @@ async function processEpubs(inputPaths: string[], options: any): Promise<void> {
   console.log(`- ${mdPath}`);
   console.log(`- ${jsonPath}`);
 
-  // Display error summary
-  console.log(`\nSummary:`);
-  console.log(`- Total EPUBs: ${result!.total}`);
-  console.log(`- Successful: ${result!.successful.length}`);
-  console.log(`- Failed: ${result!.failed.length}`);
-
-  // List failed files if verbose mode
-  if (options.verbose && result!.failed.length > 0) {
-    console.log('\nFailed files:');
-    for (const failure of result!.failed) {
-      console.log(`  - ${failure.file}: ${failure.error}`);
-    }
-  }
+  // Display comprehensive summary statistics
+  const summary = calculateSummary(
+    result!.successful,
+    result!.failed,
+    result!.tokenCounts,
+    startTime
+  );
+  displaySummary(summary);
 }
 
 /**
