@@ -10,30 +10,30 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Phase: 2 of 3 (Tokenization Engine)
-Plan: 1 of 4 in current phase
+Plan: 2 of 4 in current phase
 Status: In progress
-Last activity: 2026-01-21T18:26:54Z — Completed 02-01-PLAN.md
+Last activity: 2026-01-21T18:43:41Z — Completed 02-02-PLAN.md
 
-Progress: [████░░░░░░░] 46%
+Progress: [██████░░░░] 54%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 7
 - Average duration: 14 min
-- Total execution time: 1.43 hours
+- Total execution time: 1.68 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-epub-foundation | 5 | 5 | 16 min |
-| 02-tokenization-engine | 1 | 4 | 2 min (so far) |
+| 02-tokenization-engine | 2 | 4 | 8 min (so far) |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (17 min), 01-02 (13 min), 01-03 (7 min), 01-04 (46 min), 01-05 (14 min)
-- Current: 02-01 (2 min)
-- Trend: Fast start to Phase 2
+- Last 5 plans: 01-02 (13 min), 01-03 (7 min), 01-04 (46 min), 01-05 (14 min), 02-01 (2 min)
+- Current: 02-02 (15 min)
+- Trend: Phase 2 progressing smoothly
 
 *Updated after each plan completion*
 
@@ -67,6 +67,9 @@ Recent decisions affecting current work:
 21. **Used short preset names (gpt4, claude)** (02-01) - Per CONTEXT.md decision for better UX vs technical encoding names
 22. **Factory pattern for tokenizer creation** (02-01) - createTokenizer function abstracts tokenizer instantiation, stub throws until implementation
 23. **Tokenizer interface supports sync/async countTokens** (02-01) - Accommodates both synchronous (GPT-4, Claude) and asynchronous (Hugging Face) tokenizer APIs
+24. **js-tiktoken uses camelCase encodingForModel** (02-02) - JS library uses different naming than Python tiktoken (encoding_for_model)
+25. **js-tiktoken manages WASM memory via GC** (02-02) - No manual .free() method needed; dispose() only clears reference
+26. **Claude 3+ token counts are approximations** (02-02) - Official @anthropic-ai/tokenizer package is inaccurate for Claude 3+, should use API usage field for accurate counts
 
 ### Pending Todos
 
@@ -79,11 +82,12 @@ None yet.
 - Word counting includes all text (frontmatter/backmatter not excluded in v1)
 - Hyphenated words counted as one word (standard behavior)
 - npm audit reported 16 vulnerabilities in transitive dependencies (common for ML libraries, monitored)
+- Claude 3+ tokenizer counts are approximations only (not publicly documented)
 
 ## Session Continuity
 
-Last session: 2026-01-21T18:25:27Z
-Stopped at: Completed 02-01-PLAN.md, SUMMARY.md created, STATE.md ready for update
+Last session: 2026-01-21T18:43:41Z
+Stopped at: Completed 02-02-PLAN.md, SUMMARY.md created, STATE.md updated
 Resume file: None
 
-**Phase 2 Plan 1 Complete.** Tokenizer libraries installed (js-tiktoken, @anthropic-ai/tokenizer, @huggingface/transformers), interface abstraction created with factory pattern. Ready for plans 02-02, 02-03, 02-04 to implement specific tokenizers.
+**Phase 2 Plan 2 Complete.** Three tokenizer implementations created (GPT4Tokenizer, ClaudeTokenizer, HFTokenizer). Ready for plan 02-03 to wire factory function and integrate into CLI.
