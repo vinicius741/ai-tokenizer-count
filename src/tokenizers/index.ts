@@ -64,7 +64,17 @@ export function createTokenizers(names: string[]): Tokenizer[] {
     } else {
       // Unknown tokenizer - throw error
       throw new Error(
-        `Unknown tokenizer: ${name}. Valid presets: gpt4, claude. Or use hf:model-name for Hugging Face models.`
+        `Unknown tokenizer: ${name}\n\n` +
+        `Valid presets: gpt4, claude\n\n` +
+        `Hugging Face models (use hf:<model-name> format):\n` +
+        `  Popular examples:\n` +
+        `    hf:bert-base-uncased    (BERT)\n` +
+        `    hf:gpt2                 (GPT-2)\n` +
+        `    hf:meta-llama/Llama-2-7b  (Llama 2)\n\n` +
+        `Discovery:\n` +
+        `  Run: epub-counter list-models\n` +
+        `  Search: epub-counter list-models --search <query>\n` +
+        `  Browse: https://huggingface.co/models?library=transformers.js`
       );
     }
   }

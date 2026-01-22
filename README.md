@@ -29,48 +29,77 @@ npm run build
 
 ```bash
 # Process default ./epubs/ folder
-npm start
+npm start --
 
 # Process single file
-npm start path/to/book.epub
+npm start -- path/to/book.epub
 
 # Process directory (non-recursive)
-npm start ./books/
+npm start -- ./books/
 
 # Process directory recursively
-npm start -r ./books/
+npm start -- -r ./books/
 
 # Custom input/output paths
-npm start -i ./books/ -o ./output/
+npm start -- -i ./books/ -o ./output/
 ```
 
 ### Tokenizer Selection
 
 ```bash
 # Single tokenizer (default: gpt4)
-epub-counter -t gpt4
+npm start -- -t gpt4
 
 # Multiple tokenizers
-epub-counter -t gpt4,claude
+npm start -- -t gpt4,claude
 
 # Custom Hugging Face model
-epub-counter -t hf:bert-base-uncased
+npm start -- -t hf:bert-base-uncased
 
 # Mix of all types
-epub-counter -t gpt4,claude,hf:gpt2
+npm start -- -t gpt4,claude,hf:gpt2
 ```
+
+### Discovering Hugging Face Models
+
+List popular Hugging Face models compatible with transformers.js:
+
+```bash
+# List all popular models
+npm start -- list-models
+
+# Search for specific models
+npm start -- list-models --search bert
+npm start -- list-models --search llama
+```
+
+**Popular Hugging Face Models:**
+
+| Architecture | Model Name | Usage |
+|--------------|------------|-------|
+| BERT | `hf:bert-base-uncased` | English text |
+| BERT | `hf:Xenova/bert-base-uncased` | BERT (faster ONNX) |
+| GPT-2 | `hf:gpt2` | English generation |
+| GPT-2 | `hf:Xenova/gpt2` | GPT-2 (faster ONNX) |
+| Llama 2 | `hf:meta-llama/Llama-2-7b` | General purpose |
+| Llama 3 | `hf:meta-llama/Meta-Llama-3-8B` | General purpose (newer) |
+| Mistral | `hf:mistralai/Mistral-7B-v0.1` | Multilingual |
+| Phi | `hf:microsoft/phi-3-mini-4k-instruct` | Efficient LLM |
+| Qwen | `hf:Qwen/Qwen2-7B` | Multilingual |
+
+Browse all models: https://huggingface.co/models?library=transformers.js
 
 ### Parallel Processing
 
 ```bash
 # Use default (CPU count - 1)
-epub-counter
+npm start --
 
 # Use specific job count
-epub-counter -j 4
+npm start -- -j 4
 
 # Use all available CPU cores
-epub-counter -j all
+npm start -- -j all
 ```
 
 ## CLI Options

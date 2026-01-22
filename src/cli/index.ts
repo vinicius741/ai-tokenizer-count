@@ -23,6 +23,7 @@ import { writeJsonFile } from '../output/json.js';
 import { calculateSummary, displaySummary } from '../output/summary.js';
 import { createProgressBars, createBar, updateProgress, stopAll } from './progress.js';
 import { processInParallel, getJobCount } from '../parallel/processor.js';
+import { listModels } from './commands/list-models.js';
 import cliProgress from 'cli-progress';
 import path from 'path';
 
@@ -229,6 +230,15 @@ program
       console.error(`Unexpected error: ${errorMessage}`);
       process.exit(1);
     });
+  });
+
+// Add list-models command
+program
+  .command('list-models')
+  .description('List popular Hugging Face models compatible with transformers.js')
+  .option('-s, --search <query>', 'Search models by name, description, or architecture')
+  .action((options) => {
+    listModels(options);
   });
 
 // Parse command line arguments
