@@ -1,228 +1,228 @@
 # Project Research Summary
 
-**Project:** EPUB Tokenizer Counter
-**Domain:** CLI tool for EPUB processing and LLM tokenization
-**Researched:** 2026-01-21
+**Project:** EPUB Tokenizer Counter - Web UI Milestone (v2.0)
+**Domain:** React + shadcn/ui Web UI for Existing TypeScript CLI Tool
+**Researched:** 2026-01-22
 **Confidence:** HIGH
 
 ## Executive Summary
 
-This is a CLI tool for analyzing EPUB ebook files and counting tokens using various LLM tokenizers (GPT-4, Claude, custom Hugging Face models). The recommended approach follows Rust's CLI best practices: a pipeline architecture where EPUBs flow through discrete stages (discovery → parsing → extraction → tokenization → output), using the `epub` crate for ZIP parsing and Hugging Face's `tokenizers` crate for accurate token counting. The stack is mature and well-documented, with Rust providing memory safety, single-binary distribution, and excellent parallel processing via `rayon`.
+This project is adding a modern React-based web UI to an existing Node.js TypeScript CLI tool for EPUB tokenization. Expert practice for this integration pattern involves: (1) keeping the CLI unchanged and extracting business logic into a shared layer, (2) building a Fastify/Express backend that reuses existing tokenization and EPUB processing modules, and (3) creating a React + Vite + shadcn/ui frontend for data visualization and user interaction.
 
-The key risk is handling malformed real-world EPUBs: research shows that common issues like spine ID mismatches, encoding problems, and malformed XHTML affect a significant percentage of EPUBs in the wild. Mitigation requires robust error handling with continue-on-error behavior, per-file error isolation, and comprehensive error logging. Another critical concern is memory management when tokenizing large EPUBs—Hugging Face tokenizers can consume 150x input size in RAM, requiring streaming/chunked processing rather than loading entire books into memory.
+The recommended approach is a **client-server architecture** with the backend reusing all existing CLI modules (`src/tokenizers/`, `src/epub/`, `src/output/`) and the frontend providing data visualization (Recharts), token budget calculation, and real-time processing feedback via Server-Sent Events (SSE). Critical risks include monorepo over-engineering (start with simple packages, not Turborepo), path traversal vulnerabilities in the file browser (validate all paths), and chart performance degradation with large datasets (use ECharts for 1000+ EPUBs).
+
+The research strongly recommends **against** authentication, cloud storage, websockets, databases, and Docker for this v2.0 milestone—these are anti-features for a localhost-only tool. The architecture should use filesystem-based storage (not databases), SSE for progress (not websockets), and direct file system access (not cloud integration). Fastify is preferred over Express for 2-3x better JSON performance and TypeScript-first design.
 
 ## Key Findings
 
 ### Recommended Stack
 
-**Core technologies:**
-- **Rust 1.85+ (2024 Edition)** — Core language for CLI tool; provides memory safety, single-binary distribution, and zero-cost abstractions for performance-critical tokenization
-- **epub 2.1.2** — EPUB file reading; most mature Rust EPUB library, handles both EPUB 2.0.1 and 3.0 formats with minimal dependencies
-- **tokenizers 0.21.0 (with http feature)** — Hugging Face's official Rust implementation; supports all major tokenizer types (BPE, WordPiece, Unigram) and can load pretrained models from Hub
-- **clap 4.5.53 (derive feature)** — Industry-standard CLI argument parsing; provides compile-time validation and excellent help text generation
-- **anyhow 1.0** — Application-level error handling; perfect for CLI tools with context chaining via `.context()`
-- **rayon 1.10+** — Data parallelism for processing multiple EPUBs concurrently; work-stealing thread pool maximizes CPU utilization
-- **serde/serde_json 1.0** — JSON serialization; de facto standard with best-in-class performance (500-1000 MB/s)
-- **indicatif 0.17+** — Progress bars and spinners; professional CLI experience with ETA calculation and multi-progress support
+[From STACK.md] The stack additions are minimal and focused: React 19.2+ with Vite 7.3+ for the frontend, Fastify 5.7+ for the backend server, and shadcn/ui for UI components. All existing CLI code remains unchanged—only the new server layer imports it.
 
-**Avoid:** Async runtimes (Tokio) for this use case—tokenization is CPU-bound, not I/O-bound, and synchronous code with rayon is simpler and more appropriate.
+**Core technologies:**
+- **React 19.2 + Vite 7.3** — UI framework and build tool — Fast HMR, optimized builds, official React TypeScript template
+- **shadcn/ui + Tailwind CSS 4.0** — Component library — Copy-paste components give full customization, built on Radix UI for accessibility
+- **Recharts 3.7** — Data visualization — React-native, composable, declarative API, smaller bundle than Chart.js
+- **Fastify 5.7** — Backend server — 2-3x faster than Express, JSON schema validation, TypeScript-first
+- **Server-Sent Events (SSE)** — Real-time progress — Simpler than WebSockets, one-way streaming, uses HTTP
+
+**Notable exclusions:**
+- No Next.js (overkill for localhost-only UI)
+- No authentication libraries (localhost-only scope)
+- No database (filesystem storage is sufficient)
+- No Docker (adds deployment complexity for local tool)
 
 ### Expected Features
 
+[From FEATURES_WEBUI.md] Research of modern web UI patterns and competitor tools (tokencalculator.ai, LiteLLM) reveals clear table stakes and differentiators.
+
 **Must have (table stakes):**
-- Batch folder processing and individual file processing — Users have collections of EPUBs; single-file mode is foundation, batch is convenience
-- Multiple tokenizer support (GPT-4, Claude, custom) — Different LLM providers use different tokenizers; users compare costs across providers
-- Text extraction with noise filtering — Users want accurate counts of actual content, not copyright pages; ~500 word margin of error is acceptable
-- Progress indicators and error logging — Silent processing feels broken; console output scrolls away so errors.log is essential
-- Continue-on-error behavior — Large collections shouldn't fail completely due to one bad file
-- JSON output with rich metadata — One JSON per EPUB with file_path, processed_at, epub_metadata
+- **Bar charts for token counts** — Users expect visual comparison across books, standard in all token calculator tools
+- **Scatter plots (word vs token density)** — Reveals tokenization efficiency, expected in data visualization toolkits
+- **Results table with sorting/filtering** — Complements charts, users need precise numbers alongside visuals
+- **Token budget calculator** — Core value prop: "I have X tokens, which books fit?" (inverse knapsack solver)
+- **results.json upload** — Users process via CLI then visualize in UI, avoids reprocessing
+- **EPUB processing from UI** — Web UI should be self-contained, not just a viewer
+- **Server-side folder browser** — Users store EPUBs in various folders, hardcoding paths breaks workflows
 
 **Should have (competitive):**
-- Cost estimation calculator — Convert token counts to estimated API costs for major providers; makes tool actionable
-- Per-chapter breakdown — Show token counts per chapter/section for context window planning
-- Parallel processing with `--jobs` flag — Speed up batch operations on multi-core systems
-- Summary statistics — Aggregate stats across batch (total tokens, average per EPUB, etc.)
+- **Multi-tokenizer comparison visualization** — Shows "Claude uses 15% more tokens than GPT-4" — no existing tool provides this
+- **Drag-and-drop EPUB upload** — Bypasses server filesystem, useful for one-off analysis
+- **Session persistence (localStorage)** — Survive page refresh, no existing EPUB tool does this
 
 **Defer (v2+):**
-- Custom tokenizer vocabulary loading — Power user feature, not table stakes
-- Batch optimization suggestions — High complexity, nice-to-have insight
-- Diff mode — Compare tokenization results between different tokenizers
+- Advanced knapsack solver (greedy is sufficient for MVP)
+- Custom tokenizer upload (security risk, use HF selector)
+- Background processing queue (complexity for local tool)
 
 ### Architecture Approach
 
-The tool follows a **pipeline architecture pattern** where data flows through distinct stages: input discovery → EPUB parsing → text extraction → tokenization → output generation. Each component has single responsibility and communicates through well-defined interfaces, enabling sequential processing of each EPUB with error isolation (failures don't crash entire system). The architecture is designed for testability—each component can be unit tested in isolation—and future parallel processing (multiple EPUBs can be processed concurrently).
+[From ARCHITECTURE.md] The architecture follows a **client-server pattern** with a shared business logic layer. The existing CLI pipeline (file discovery → EPUB parsing → tokenization → output) is extracted into a shared package that both CLI and API import. The API layer provides REST endpoints + SSE progress streaming. The frontend is a React SPA that communicates via HTTP/SSE.
 
 **Major components:**
-1. **CLI Layer** — Handles user interaction via clap argument parsing, configuration building/validation, and progress reporting
-2. **EPUB Processing Layer** — Core domain logic: EPUB discoverer (file system scanning), parser (ZIP extraction), text extractor (HTML → plain text), and metadata extractor
-3. **Tokenization Engine** — Value-generating component: tokenizer registry (presets + custom with lazy loading), text processor (normalization), token counter (Hugging Face integration), word counter
-4. **Output Layer** — JSON serializer, file writer (atomic writes), optional result aggregator
-5. **Error Handling** — Cross-cutting concern: error classifier (fatal/recoverable/warning), error logger (errors.log), user error reporter
+1. **Shared Business Logic** — Reuses all existing CLI modules (tokenizers, EPUB processing, output generation) — no changes needed to core logic
+2. **Fastify API Layer** — New server that wraps shared functions in HTTP endpoints, handles file uploads, provides SSE streaming
+3. **React Frontend** — Vite + shadcn/ui SPA with TanStack Query for server state, Recharts for visualization
+4. **File System Storage** — Server filesystem (no database) — results/, uploads/, cache/ directories
 
-**Build order:** CLI Layer → EPUB Discovery & Metadata → Text Extraction → Tokenization Engine → Output Layer → Error Handling & Progress (polish)
+**Recommended structure:** Single-repo (not monorepo) for simplicity: `src/server/` for backend, `web/` for frontend, existing `src/` becomes shared business logic.
 
 ### Critical Pitfalls
 
-1. **Malformed XHTML content (Pitfall #3)** — Real-world EPUBs contain invalid XML; use lenient parsing, implement per-file error handling (log failure, skip file, continue), and track failed files in output metadata
+[From PITFALLS_WEB_UI.md] The research identified 20 specific pitfalls for CLI-to-Web-UI integration. Top 5 most critical:
 
-2. **Memory exhaustion with large EPUBs (Pitfall #7)** — Hugging Face tokenizers can consume 150x input size in RAM; process EPUBs file-by-file (natural chunks), stream content rather than loading entire EPUB, implement batch tokenization with configurable batch sizes
+1. **Path Traversal Vulnerability** — CRITICAL SECURITY: User accesses `../../etc/passwd` via file browser. Validate all paths with `path.normalize()` and check against allow-listed directories. Test path traversal attempts before deployment.
+2. **Monorepo Over-Engineering** — Setting up Turborepo/Nx for simple CLI+Web UI wastes hours on configuration. Start with separate packages in same repo, only add tooling if you have 5+ packages.
+3. **No Real-Time Progress Updates** — Users click "Process EPUBs" and see nothing for 2 minutes, think app is broken. Use Server-Sent Events (SSE) for progress streaming — simpler than WebSockets.
+4. **No Background Job Queue** — Long-running EPUB processing blocks HTTP request, causes timeouts. Use job queue pattern: `POST /api/process` returns job ID immediately, background worker processes, client polls/SSEs for status.
+5. **TypeScript Path Alias Hell** — `@/components` works in dev but fails in build. Configure aliases in BOTH `tsconfig.json` AND `vite.config.ts`. Test production build early.
 
-3. **Spine ID mismatch (Pitfall #1)** — Extremely common validation error where spine idref doesn't match manifest id; validate all spine references before processing, log warnings but continue, implement defensive parsing
-
-4. **Silent failures (Pitfall #11)** — Tool exits with 0 status but produced incomplete results; always exit non-zero if any content failed, log all failures to stderr, include files_processed vs files_total in output metadata
-
-5. **Incorrect tokenizer selection (Pitfall #10)** — Users select wrong model leading to 20-30% cost estimation errors; provide clear model name mappings in CLI help, support multiple tokenizers per run with labeled output, document tokenizer sources and versions
+**Other notable pitfalls:** Over-memoization (don't optimize without measuring), chart performance with 1000+ points (use ECharts not Recharts), over-fetching/under-fetching API data, losing CLI features in Web UI (maintain feature parity).
 
 ## Implications for Roadmap
 
 Based on combined research, suggested phase structure:
 
-### Phase 1: Foundation — CLI and EPUB Parsing
-**Rationale:** Establishes program structure and validates we can read EPUBs before complex processing. This phase must handle the most common pitfalls (malformed XHTML, spine mismatches) from day one—continue-on-error is non-negotiable for usability.
+### Phase 1: Foundation & Project Setup
+**Rationale:** TypeScript configuration and project structure must be decided first—pitfalls #2 (monorepo over-engineering) and #3 (path alias hell) block all development if misconfigured. Research shows starting simple (2 packages) avoids Turborepo complexity for this scale.
 
-**Delivers:** Working CLI that can parse EPUBs, extract text, count words, and handle errors gracefully
-
-**Addresses:**
-- Batch folder processing, individual file processing (FEATURES.md)
-- EPUB 2.0.1 and 3.0 support, text extraction, metadata extraction (FEATURES.md)
-- Progress indicators, error logging, continue-on-error (FEATURES.md)
-
-**Avoids:**
-- Pitfall #3 (malformed XHTML) — per-file error handling from start
-- Pitfall #1 (spine ID mismatch) — validate spine references
-- Pitfall #11 (silent failures) — exit non-zero on errors, log to stderr
-
-**Stack:** clap, epub, anyhow, regex
-
-**Architecture:** CLI Layer, EPUB Processing Layer (discoverer, parser, extractor, metadata), Error Handling
-
-### Phase 2: Tokenization Engine
-**Rationale:** The primary differentiator—token counting using Hugging Face tokenizers. This is critical path; we must verify early that we can load GPT-4/Claude tokenizers from Hub and tokenize text accurately. Memory management (Pitfall #7) must be addressed here with streaming/chunked processing.
-
-**Delivers:** CLI that tokenizes EPUB text with multiple tokenizers and produces JSON output
+**Delivers:** Working React + Vite + shadcn/ui frontend, Fastify backend with CORS, shared business logic extraction, all builds passing
 
 **Addresses:**
-- Multiple tokenizer support (GPT-4, Claude presets) (FEATURES.md)
-- Custom tokenizer specification (FEATURES.md)
-- JSON output format with rich metadata (FEATURES.md)
+- Stack: React 19.2, Vite 7.3, shadcn/ui setup
+- Architecture: Shared business logic layer, client-server boundary
 
-**Avoids:**
-- Pitfall #7 (memory exhaustion) — file-by-file processing, not load-entire-EPUB
-- Pitfall #8 (UTF-8 validation) — validate/clean UTF-8 before tokenizer
-- Pitfall #9 (whitespace normalization) — normalize before tokenization
-- Pitfall #15 (repeated tokenizer loading) — load once, reuse across EPUBs
+**Avoids:** Pitfalls #2 (monorepo over-engineering), #3 (path alias hell), #14 (missing shared code)
 
-**Stack:** tokenizers (with http feature), serde/serde_json
+### Phase 2: Backend API & Background Processing
+**Rationale:** API endpoints must exist before frontend can fetch data. Real-time progress (SSE) and job queues are foundational—pitfalls #8 and #9 cause UX disasters if deferred. Security (path validation, file upload validation) must be implemented before any file access features.
 
-**Architecture:** Tokenization Engine (registry, counter, word_counter), Output Layer
-
-### Phase 3: Performance and Polish
-**Rationale:** Optimize after correctness is established. Parallel processing with rayon can significantly speed up batch operations, but only after synchronous processing works correctly. This phase also adds UX enhancements like progress bars and summary statistics.
-
-**Delivers:** Production-ready CLI with parallel processing, rich progress feedback, and batch statistics
+**Delivers:** Fastify server with `/api/process`, `/api/upload-results`, `/api/files` endpoints, SSE progress streaming, background job queue, security hardening
 
 **Addresses:**
-- Parallel processing with `--jobs` flag (FEATURES.md differentiator)
-- Summary statistics (FEATURES.md differentiator)
-- Enhanced progress reporting (ETA, throughput)
+- Features: EPUB processing from UI, results.json upload, server-side folder browser
+- Stack: Fastify 5.7, @fastify/cors, @fastify/multipart, SSE implementation
 
-**Avoids:**
-- Pitfall #14 (synchronous processing) — add parallelism after profiling
-- Pitfall #16 (unnecessary EPUB recompilation) — use in-memory ZIP parsing
-- Pitfall #12 (poor progress reporting) — professional progress bars
+**Uses:** Shared business logic from existing CLI modules (tokenizers, EPUB processing)
 
-**Stack:** rayon, indicatif
+**Avoids:** Pitfalls #7 (over/under-fetching), #8 (no real-time updates), #9 (no job queue), #10 (path traversal), #11 (no upload validation), #12 (missing security headers)
 
-**Architecture:** Enhanced progress reporting, parallel processing orchestration
+### Phase 3: Frontend Core Features
+**Rationale:** Now that backend exists, build the primary user workflows. Start simple with useState/useContext (pitfall #5)—only add state management if needed. File upload and tokenizer selection enable the core "process EPUBs" workflow.
 
-### Phase 4: Advanced Features (Optional)
-**Rationale:** Competitive differentiators that aren't table stakes. Cost estimation makes the tool actionable for financial planning. Per-chapter breakdown supports context window planning. These can be added post-MVP based on user feedback.
-
-**Delivers:** Enhanced CLI with cost estimation, per-chapter analysis, and optional diff mode
+**Delivers:** File dropzone component, tokenizer selection interface (GPT-4, Claude, HF models), results.json upload + visualization hydration, basic results display
 
 **Addresses:**
-- Cost estimation calculator (FEATURES.md differentiator)
-- Per-chapter breakdown (FEATURES.md differentiator)
-- Diff mode (FEATURES.md differentiator)
+- Features: File upload, tokenizer selection, results.json upload
+- Stack: shadcn/ui components (button, card, input, select, dropzone), TanStack Query for server state
 
-**Stack:** No new dependencies required
+**Uses:** API endpoints from Phase 2
 
-**Architecture:** Enhancements to Output Layer and Tokenization Engine
+**Avoids:** Pitfalls #5 (over-engineering state), #6 (prop drilling vs context overuse), #18 (losing CLI features), #19 (no shared validation)
+
+### Phase 4: Data Visualization
+**Rationale:** Charts are the main differentiator over CLI. Implementation must handle expected data sizes—pitfall #16 (chart performance) causes browser hangs with 1000+ EPUBs. Research shows Recharts is fine for <1000 points, use ECharts for larger datasets.
+
+**Delivers:** Bar chart (token counts per EPUB), scatter plot (word vs token density), results table with sorting/filtering, chart interactivity (tooltips, click-to-highlight)
+
+**Addresses:**
+- Features: Bar charts, scatter plots, results table
+- Stack: Recharts 3.7 (or ECharts if dataset testing shows performance issues)
+
+**Uses:** Data from Phase 3 processing results
+
+**Avoids:** Pitfalls #15 (over-memoization), #16 (chart performance), #17 (large bundle size)
+
+### Phase 5: Token Budget Calculator
+**Rationale:** Advanced feature that adds unique value—requires processed data as input. Greedy maximization algorithm is sufficient for MVP; true knapsack solver can be deferred.
+
+**Delivers:** Budget calculator form (token input, tokenizer selection, optimization strategy), "which books fit?" algorithm, cost estimation display, export results to clipboard/JSON
+
+**Addresses:**
+- Features: Token budget calculator, cost estimation
+- Architecture: Algorithmic solver component (client-side or server-side)
+
+**Uses:** Visualization data from Phase 4
+
+### Phase 6: Polish & Optimization
+**Rationale:** Cross-cutting improvements after all features exist. Performance optimization requires measuring first (pitfall #15). Error boundaries and loading states prevent "broken" feel.
+
+**Delivers:** Error boundaries, loading states (skeleton screens), responsive design (mobile/tablet), bundle optimization (code splitting), security hardening review
+
+**Addresses:**
+- Features: Loading states, error boundaries, responsive layout
+- Architecture: Production-ready deployment
+
+**Avoids:** Pitfalls #15 (over-memoization), #17 (large bundle size), #20 ("localhost only" security mindset)
 
 ### Phase Ordering Rationale
 
-This order follows the **dependency chain** identified in architecture research:
-1. CLI foundation must exist before we can process anything
-2. EPUB parsing and text extraction are prerequisites for tokenization
-3. Tokenization is the core value proposition and must be implemented before output
-4. Performance optimizations come after correctness is proven
-5. Advanced features build on working tokenization and output
-
-The ordering also **mitigates critical risks early**:
-- Phase 1 addresses EPUB parsing pitfalls (malformed XHTML, spine mismatches) which affect all EPUB processing
-- Phase 2 addresses memory exhaustion (Pitfall #7) and tokenizer issues (Pitfall #8, #9) which are foundational to accurate operation
-- Phase 3 addresses performance only after we know the tool works correctly
-- Phase 4 adds polish and competitive features based on proven foundation
+- **Foundation first:** TypeScript and project structure decisions (Phase 1) block everything if wrong—pitfall research shows these cause hours of debugging if misconfigured
+- **Backend before frontend:** API must exist before UI can use it—Phase 2 endpoints enable Phase 3 features
+- **Real-time progress early:** SSE and job queues (Phase 2) are UX requirements, not nice-to-haves—users think app is broken without them
+- **Security before file access:** Path validation and upload security (Phase 2) must be implemented before folder browser (Phase 3) or file upload features
+- **Core features before visualization:** Phases 2-3 deliver "process EPUBs and see results" workflow—Phase 4 adds visualization polish
+- **Optimization last:** Only optimize after measuring (Phase 6)—premature optimization is waste, pitfall #15 explicitly warns against this
 
 ### Research Flags
 
-**Phases likely needing deeper research during planning:**
-- **Phase 2 (Tokenization Engine):** Critical path—verify that Rust tokenizers crate with `http` feature can successfully load GPT-4/Claude tokenizers from Hub and tokenize sample text. Create spike test early in sprint planning.
+Phases likely needing deeper research during planning:
 
-- **Phase 2 (Memory Management):** Needs validation that file-by-file processing (natural chunks) is sufficient to avoid Pitfall #7 (150x memory expansion). May need to research Hugging Face Rust bindings for `refresh_every` parameter or alternative memory management strategies.
+- **Phase 1:** "Monorepo structure decision" — Need to decide simple packages vs Turborepo based on complexity tolerance. Research suggests starting simple but team may have preferences.
+- **Phase 2:** "SSE implementation details" — Need working code example of SSE progress updates with Node.js + React before implementation. Multiple sources agree on SSE but implementation details vary.
+- **Phase 2:** "Background job queue library choice" — Need to decide BullMQ (Redis-based, production-ready) vs in-memory queue for localhost-only app. Research suggests in-memory is sufficient but not definitive.
 
-**Phases with standard patterns (skip research-phase):**
-- **Phase 1 (CLI and EPUB Parsing):** Well-documented patterns—clap for CLI, epub crate for ZIP parsing. Rust CLI book provides comprehensive guidance.
+Phases with standard patterns (skip research-phase):
 
-- **Phase 3 (Performance):** Standard optimization approach—profile with realistic workload, add parallelism with rayon. No domain-specific challenges.
-
-- **Phase 4 (Advanced Features):** Straightforward enhancements building on working tokenization. Cost estimation is simple math, per-chapter is structural enhancement to extraction.
+- **Phase 3:** "React + shadcn/ui forms" — Well-documented patterns, official shadcn/ui examples available
+- **Phase 4:** "Recharts integration" — Official Recharts docs and examples cover all needed chart types
+- **Phase 5:** "Budget calculator algorithms" — Greedy knapsack is CS 101, well-understood problem
+- **Phase 6:** "Performance optimization" — Standard React optimization patterns, Lighthouse for auditing
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All core dependencies verified with official sources (docs.rs, GitHub repos). Rust ecosystem maturity is well-established. |
-| Features | HIGH | Based on analysis of existing tools (epub-wordcount, epub-utils, tiktoken-cli) and official OpenAI/Claude documentation. Table stakes are clear. |
-| Architecture | HIGH | Based on Rust CLI Book (official guide), Hugging Face tokenizers docs, and established pipeline patterns. Component responsibilities are well-defined. |
-| Pitfalls | MEDIUM | EPUB parsing pitfalls verified with HIGH confidence sources (W3C EPUBCheck, MobileRead forums). Tokenization pitfalls verified with Hugging Face GitHub issues. Some gaps around Rust-specific memory management (Python docs reference `refresh_every` but Rust bindings may differ). |
+| Stack | HIGH | All technologies verified with official sources (Vite, React, Fastify, shadcn/ui, Recharts). Version numbers current as of 2026-01-22. |
+| Features | HIGH | Based on competitor analysis (tokencalculator.ai, LiteLLM) and modern web UI patterns. Table stakes clear from multiple sources. |
+| Architecture | MEDIUM | Client-server pattern is standard, but monorepo vs simple-repo decision needs team input. SSE implementation has multiple valid approaches. |
+| Pitfalls | HIGH | 20 pitfalls identified with specific prevention strategies. Most backed by CVEs, official docs, or "avoid this" articles. Critical security pitfalls (#10 path traversal) have HIGH confidence sources. |
 
 **Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **Rust tokenizers memory management:** Research indicates Python tokenizers have `refresh_every` parameter for memory stabilization, but it's unclear if Rust bindings expose this. **Handle during Phase 2 planning:** Test with large EPUBs, profile memory usage, verify if file-by-file processing is sufficient or if additional chunking is needed.
-
-- **Real-world EPUB corpus for testing:** Need sources of problematic EPUBs for integration testing (spine mismatches, encoding issues, malformed XHTML). **Handle during Phase 1 execution:** Collect sample EPUBs from Project Gutenberg, Calibre conversions, and intentionally malformed test files.
-
-- **UTF-8 cleaning strategies:** Research recommends validating/cleaning UTF-8 before tokenization (Pitfall #8) but doesn't specify best practices in Rust. **Handle during Phase 2 planning:** Research Rust UTF-8 handling crates (e.g., `encoding_rs`), implement validation with replacement character U+FFFD, log issues separately.
-
-- **Tokenizer model name mappings:** Clear mappings needed between user-friendly names (e.g., "gpt4") and Hugging Face model IDs (e.g., "openai/gpt-4"). **Handle during Phase 2 planning:** Research official tokenizer identifiers, create mapping table, document in CLI help.
+- **Chart library final selection:** Need to test Recharts with actual EPUB dataset (1000+ books) to confirm performance. If Recharts degrades, switch to ECharts per research recommendation.
+- **SSE vs polling trade-off:** Research strongly recommends SSE but implementation details vary. Recommend creating spike test: "Can we stream progress updates from Fastify to React via SSE in <2 hours?"
+- **Monorepo tooling decision:** Research says "start simple" but team may prefer Turborepo for consistency with other projects. Decision point for Phase 1.
+- **Pricing data accuracy:** Token pricing for GPT-4, Claude, Gemini changes frequently. Verify 2026 pricing before implementing cost calculator.
+- **Folder browser caching strategy:** Large directory trees are slow to scan. Need in-memory caching strategy with cache invalidation—research identifies this as gap.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- [epub crate docs.rs](https://docs.rs/crate/epub/latest) — EPUB parsing library verification
-- [tokenizers crate docs.rs](https://docs.rs/crate/tokenizers/latest) — Hugging Face Rust tokenizers
-- [clap crate docs.rs](https://docs.rs/crate/clap/latest) — CLI argument parsing
-- [Rust CLI Book](https://rust-cli.github.io/book/) — Official Rust CLI guide
-- [W3C EPUB 3.3 Specification](https://w3c.github.io/epub-specs/epub33/core/) — EPUB format standard
-- [MobileRead Forums - EPUB spine id not matching error](https://www.mobileread.com/forums/showthread.php?t=211826) — Common EPUB validation errors
-- [Hugging Face tokenizers GitHub Issues #994, #1539](https://github.com/huggingface/tokenizers/issues) — Memory exhaustion issues
+- [Vite Getting Started](https://vite.dev/guide/) — Build tool features, version 7.3.1 verified
+- [shadcn/ui Official Site](https://ui.shadcn.com) — Component library approach, installation docs
+- [Fastify Official Site](https://fastify.dev) — Framework features, performance benchmarks (2-3x faster than Express)
+- [Recharts Official Site](https://recharts.org) — Charting library API, examples
+- [TanStack Query Docs](https://tanstack.com/query/v3/) — Server state management patterns
+- [MDN: Server-Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) — SSE API documentation
+- [CVE-2025-27210: Node.js Path Traversal](https://zeropath.com/blog/cve-2025-27210-nodejs-path-traversal-windows) — Path traversal vulnerability details
+- [Express/Multer GitHub](https://github.com/expressjs/multer) — File upload handling
 
 ### Secondary (MEDIUM confidence)
-- [xavdid/epub-wordcount](https://github.com/xavdid/epub-wordcount) — EPUB processing tool reference
-- [ernestofgonzalez/epub-utils](https://github.com/ernestofgonzalez/epub-utils) — EPUB metadata extraction reference
-- [oelmekki/tiktoken-cli](https://github.com/oelmekki/tiktoken-cli) — Tokenization CLI reference
-- [Evil Martians - CLI UX Best Practices](https://evilmartians.com/chronicles/cli-ux-best-practices-3-patterns-for-improving-progress-displays) — Progress display patterns
-- [Accessible Publishing - Common EPUB Issues](https://www.accessiblepublishing.ca/common-epub-issues/) — EPUB parsing challenges
-- [Rust Users Forum - Continue execution errors](https://users.rust-lang.org/t/continue-execution-even-if-the-result-is-err-and-return-an-error-later/17349) — Error handling patterns
+- [Fastify vs Express vs Hono: 2025 Comparison](https://betterstack.com/community/guides/scaling-nodejs/fastify-vs-express-vs-hono/) — Framework performance comparison
+- [React File Upload Guide 2025](https://magicui.design/blog/react-js-file-upload) — File upload UI patterns
+- [Best React Chart Libraries 2025](https://blog.logrocket.com/best-react-chart-libraries-2025/) — Chart library comparison, includes Recharts
+- [Why SSE Beats WebSockets for 95% of Real-Time Apps](https://medium.com/codetodeploy/why-server-sent-events-beat-websockets-for-95-of-real-time-cloud-applications-830eff5a1d7c) — SSE vs WebSockets trade-off
+- [React State Management in 2025: What You Actually Need](https://www.developerway.com/posts/react-state-management-2025) — State management patterns, warns against over-engineering
+- [Streamlining Full-Stack TypeScript Development with Monorepos](https://leapcell.io/blog/streamlining-full-stack-typescript-development-with-monorepos) — Monorepo patterns, warns against over-engineering
 
 ### Tertiary (LOW confidence)
-- [arXiv - Exploiting Vocabulary Frequency Imbalance (2025)](https://arxiv.org/pdf/2508.15390) — Token distribution issues (academic paper, less directly applicable)
-- [Dev Genius - Mastering Rust Efficiency (2025)](https://blog.devgenius.io/mastering-rust-efficiency-best-practices-for-writing-performant-code-b9b17d5fbc) — General Rust performance (not domain-specific)
-- [BitsGalore - Extracting text from EPUB files](https://bitsgalore.org/2023/03/09/extracting-text-from-epub-files) — Extraction challenges (Python-focused, less relevant to Rust)
+- [AI Token Calculator - tokencalculator.ai](https://tokencalculator.ai/) — Competitor feature analysis (may have changed since research)
+- [Google Gemini API Pricing 2026](https://www.metacto.com/blogs/the-true-cost-of-google-gemini-a-guide-to-api-pricing-and-integration) — Pricing reference (verify official sources)
+- Various StackOverflow discussions on monorepo TypeScript issues — Edge cases, may not apply to this project
 
 ---
-*Research completed: 2026-01-21*
+*Research completed: 2026-01-22*
 *Ready for roadmap: yes*
