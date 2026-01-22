@@ -163,88 +163,96 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SETUP-01 | Phase 1 | Pending |
-| SETUP-02 | Phase 1 | Pending |
-| SETUP-03 | Phase 1 | Pending |
-| SETUP-04 | Phase 1 | Pending |
-| SETUP-05 | Phase 1 | Pending |
-| SETUP-06 | Phase 1 | Pending |
-| API-01 | Phase 2 | Pending |
-| API-02 | Phase 2 | Pending |
-| API-03 | Phase 2 | Pending |
-| API-04 | Phase 2 | Pending |
-| API-05 | Phase 2 | Pending |
-| API-06 | Phase 2 | Pending |
-| API-07 | Phase 2 | Pending |
-| TOKEN-01 | Phase 3 | Pending |
-| TOKEN-02 | Phase 3 | Pending |
-| TOKEN-03 | Phase 3 | Pending |
-| TOKEN-04 | Phase 3 | Pending |
-| TOKEN-05 | Phase 3 | Pending |
-| TOKEN-06 | Phase 3 | Pending |
-| TOKEN-07 | Phase 3 | Pending |
-| UPLOAD-01 | Phase 4 | Pending |
-| UPLOAD-02 | Phase 4 | Pending |
-| UPLOAD-03 | Phase 4 | Pending |
-| UPLOAD-04 | Phase 4 | Pending |
-| UPLOAD-05 | Phase 4 | Pending |
-| UPLOAD-06 | Phase 4 | Pending |
-| UPLOAD-07 | Phase 4 | Pending |
-| UPLOAD-08 | Phase 4 | Pending |
-| UPLOAD-09 | Phase 4 | Pending |
-| UPLOAD-10 | Phase 4 | Pending |
-| VIS-01 | Phase 5 | Pending |
-| VIS-02 | Phase 5 | Pending |
-| VIS-03 | Phase 5 | Pending |
-| VIS-04 | Phase 5 | Pending |
-| VIS-05 | Phase 5 | Pending |
-| VIS-06 | Phase 5 | Pending |
-| VIS-07 | Phase 5 | Pending |
-| VIS-08 | Phase 5 | Pending |
-| VIS-09 | Phase 5 | Pending |
-| VIS-10 | Phase 5 | Pending |
-| VIS-11 | Phase 5 | Pending |
-| VIS-12 | Phase 5 | Pending |
-| COMP-01 | Phase 5 | Pending |
-| COMP-02 | Phase 5 | Pending |
-| COMP-03 | Phase 5 | Pending |
-| COMP-04 | Phase 5 | Pending |
-| BUDGET-01 | Phase 6 | Pending |
-| BUDGET-02 | Phase 6 | Pending |
-| BUDGET-03 | Phase 6 | Pending |
-| BUDGET-04 | Phase 6 | Pending |
-| BUDGET-05 | Phase 6 | Pending |
-| BUDGET-06 | Phase 6 | Pending |
-| BUDGET-07 | Phase 6 | Pending |
-| BUDGET-08 | Phase 6 | Pending |
-| BUDGET-09 | Phase 6 | Pending |
-| BUDGET-10 | Phase 6 | Pending |
-| BUDGET-11 | Phase 6 | Pending |
-| BUDGET-12 | Phase 6 | Pending |
-| COST-01 | Phase 6 | Pending |
-| COST-02 | Phase 6 | Pending |
-| COST-03 | Phase 6 | Pending |
-| COST-04 | Phase 6 | Pending |
-| PERSIST-01 | Phase 7 | Pending |
-| PERSIST-02 | Phase 7 | Pending |
-| PERSIST-03 | Phase 7 | Pending |
-| PERSIST-04 | Phase 7 | Pending |
-| RESP-01 | Phase 7 | Pending |
-| RESP-02 | Phase 7 | Pending |
-| RESP-03 | Phase 7 | Pending |
-| RESP-04 | Phase 7 | Pending |
-| UX-01 | Phase 7 | Pending |
-| UX-02 | Phase 7 | Pending |
-| UX-03 | Phase 7 | Pending |
-| UX-04 | Phase 7 | Pending |
-| UX-05 | Phase 7 | Pending |
-| UX-06 | Phase 7 | Pending |
+| SETUP-01 | Phase 4 | Pending |
+| SETUP-02 | Phase 4 | Pending |
+| SETUP-03 | Phase 4 | Pending |
+| SETUP-04 | Phase 4 | Pending |
+| SETUP-05 | Phase 4 | Pending |
+| SETUP-06 | Phase 4 | Pending |
+| API-01 | Phase 5 | Pending |
+| API-02 | Phase 5 | Pending |
+| API-03 | Phase 5 | Pending |
+| API-04 | Phase 5 | Pending |
+| API-05 | Phase 5 | Pending |
+| API-06 | Phase 5 | Pending |
+| API-07 | Phase 5 | Pending |
+| TOKEN-01 | Phase 6 | Pending |
+| TOKEN-02 | Phase 6 | Pending |
+| TOKEN-03 | Phase 6 | Pending |
+| TOKEN-04 | Phase 6 | Pending |
+| TOKEN-05 | Phase 6 | Pending |
+| TOKEN-06 | Phase 6 | Pending |
+| TOKEN-07 | Phase 6 | Pending |
+| UPLOAD-01 | Phase 6 | Pending |
+| UPLOAD-02 | Phase 6 | Pending |
+| UPLOAD-03 | Phase 6 | Pending |
+| UPLOAD-04 | Phase 6 | Pending |
+| UPLOAD-05 | Phase 6 | Pending |
+| UPLOAD-06 | Phase 6 | Pending |
+| UPLOAD-07 | Phase 6 | Pending |
+| UPLOAD-08 | Phase 6 | Pending |
+| UPLOAD-09 | Phase 6 | Pending |
+| UPLOAD-10 | Phase 6 | Pending |
+| VIS-01 | Phase 7 | Pending |
+| VIS-02 | Phase 7 | Pending |
+| VIS-03 | Phase 7 | Pending |
+| VIS-04 | Phase 7 | Pending |
+| VIS-05 | Phase 7 | Pending |
+| VIS-06 | Phase 7 | Pending |
+| VIS-07 | Phase 7 | Pending |
+| VIS-08 | Phase 7 | Pending |
+| VIS-09 | Phase 7 | Pending |
+| VIS-10 | Phase 7 | Pending |
+| VIS-11 | Phase 7 | Pending |
+| VIS-12 | Phase 7 | Pending |
+| COMP-01 | Phase 7 | Pending |
+| COMP-02 | Phase 7 | Pending |
+| COMP-03 | Phase 7 | Pending |
+| COMP-04 | Phase 7 | Pending |
+| BUDGET-01 | Phase 8 | Pending |
+| BUDGET-02 | Phase 8 | Pending |
+| BUDGET-03 | Phase 8 | Pending |
+| BUDGET-04 | Phase 8 | Pending |
+| BUDGET-05 | Phase 8 | Pending |
+| BUDGET-06 | Phase 8 | Pending |
+| BUDGET-07 | Phase 8 | Pending |
+| BUDGET-08 | Phase 8 | Pending |
+| BUDGET-09 | Phase 8 | Pending |
+| BUDGET-10 | Phase 8 | Pending |
+| BUDGET-11 | Phase 8 | Pending |
+| BUDGET-12 | Phase 8 | Pending |
+| COST-01 | Phase 8 | Pending |
+| COST-02 | Phase 8 | Pending |
+| COST-03 | Phase 8 | Pending |
+| COST-04 | Phase 8 | Pending |
+| PERSIST-01 | Phase 9 | Pending |
+| PERSIST-02 | Phase 9 | Pending |
+| PERSIST-03 | Phase 9 | Pending |
+| PERSIST-04 | Phase 9 | Pending |
+| RESP-01 | Phase 9 | Pending |
+| RESP-02 | Phase 9 | Pending |
+| RESP-03 | Phase 9 | Pending |
+| RESP-04 | Phase 9 | Pending |
+| UX-01 | Phase 9 | Pending |
+| UX-02 | Phase 9 | Pending |
+| UX-03 | Phase 9 | Pending |
+| UX-04 | Phase 9 | Pending |
+| UX-05 | Phase 9 | Pending |
+| UX-06 | Phase 9 | Pending |
 
 **Coverage:**
 - v2.0 requirements: 73 total
 - Mapped to phases: 73
 - Unmapped: 0 ✓
 
+**Phase distribution:**
+- Phase 4 (Foundation): 6 requirements (SETUP)
+- Phase 5 (Backend API): 7 requirements (API)
+- Phase 6 (Upload & Tokenizer): 17 requirements (TOKEN, UPLOAD)
+- Phase 7 (Visualization): 16 requirements (VIS, COMP)
+- Phase 8 (Budget Calculator): 16 requirements (BUDGET, COST)
+- Phase 9 (Polish): 11 requirements (PERSIST, RESP, UX)
+
 ---
 *Requirements defined: 2026-01-22*
-*Last updated: 2026-01-22 after initial definition*
+*Last updated: 2026-01-22 after roadmap creation*

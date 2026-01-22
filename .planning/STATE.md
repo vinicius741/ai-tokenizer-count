@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Users can accurately estimate token costs for processing EPUB content through LLMs by getting precise word and token counts across multiple tokenizer models.
-**Current focus:** Milestone v2.0 Web UI - defining requirements
+**Current focus:** Phase 4: Foundation & Project Setup
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-01-22 — Milestone v2.0 started
+Phase: 1 of 6 (Phase 4: Foundation & Project Setup)
+Plan: 0 of 4 in current phase
+Status: Ready to plan
+Last activity: 2026-01-22 — Roadmap created for v2.0 Web UI milestone
 
-Progress: [░░░░░░░░░░] 0% - Requirements phase
+Progress: [░░░░░░░░░░] 0%
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -33,18 +33,18 @@ Progress: [░░░░░░░░░░] 0% - Requirements phase
 
 ## Performance Metrics
 
-**Velocity (v1.0):**
-- Total plans completed: 13
-- Total execution time: ~7 hours (single day)
+**Velocity:**
+- Total plans completed: 13 (from v1.0 milestone)
+- Total execution time: ~7 hours (v1.0)
 - Average per plan: ~10 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-epub-foundation | 5 | 5 | 16 min |
-| 02-tokenization-engine | 4 | 4 | 7 min |
-| 03-cli-polish | 4 | 4 | 6 min |
+| 1 (v1.0) | 4 | ~1h | ~15 min |
+| 2 (v1.0) | 3 | ~0.5h | ~10 min |
+| 3 (v1.0) | 6 | ~5.5h | ~55 min |
 
 *Updated after each plan completion*
 
@@ -62,34 +62,34 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - p-limit for parallel I/O-bound processing
 - Rich JSON output with schema_version
 
-**New decisions for v2.0:**
-- Separate frontend/backend architecture (React + shadcn/ui frontend, Node.js server)
+**New decisions for v2.0 (from research):**
+- React + shadcn/ui frontend with Fastify backend
 - Server file system storage (not database)
 - No authentication (localhost-only)
 - Both execution modes (run from UI or upload results)
+- SSE for real-time progress (simpler than WebSockets)
+- Single-repo structure (not monorepo) for simplicity
 
 ### Pending Todos
 
-None - v2.0 requirements being defined.
+None.
 
 ### Blockers/Concerns
 
-**Known limitations from v1.0 (not blockers):**
-- CJK word counting treats CJK text as one word without spaces
-- Word counting includes all text (frontmatter/backmatter not excluded)
-- Claude 3+ tokenizer counts are approximations (not publicly documented)
-- Minor tech debt: 2 info-level TODO comments (see PROJECT.md)
+**Research Flags (from research/SUMMARY.md):**
 
-**v2.0 concerns to address:**
-- API design for server endpoints
-- React build integration with existing TypeScript project
-- State management for UI (data fetching, visualization state)
-- shadcn/ui setup and theme configuration
+- **Phase 4**: Monorepo structure decision — Research suggests starting simple (2 packages) but team may prefer Turborepo
+- **Phase 5**: SSE implementation details — Need working code example for Fastify + React SSE before implementation
+- **Phase 5**: Background job queue library — BullMQ (Redis-based) vs in-memory queue for localhost-only app
+
+**Gaps to Address:**
+
+- Chart library final selection: Need to test Recharts with 1000+ EPUB dataset
+- Pricing data accuracy: Verify 2026 GPT-4, Claude, Gemini pricing before cost calculator
+- Folder browser caching strategy: Large directory trees are slow to scan
 
 ## Session Continuity
 
-Last session: 2026-01-21
-Stopped at: v1.0 milestone completion
+Last session: 2026-01-22 17:45
+Stopped at: Roadmap created for v2.0 Web UI milestone, ready to begin Phase 4 planning
 Resume file: None
-
-**Milestone v2.0 Started.** Defining requirements for Web UI with React + shadcn/ui.
