@@ -188,7 +188,7 @@ program
   .option('-v, --verbose', 'Enable verbose output')
   .option('-r, --recursive', 'Scan subdirectories recursively')
   .option('-o, --output <path>', 'Output folder path (default: ./results/)')
-  .option('-t, --tokenizers <list>', 'Comma-separated list of tokenizers (e.g., gpt4,claude,hf:bert-base-uncased)', 'gpt4')
+  .option('-t, --tokenizers <list>', 'Comma-separated list of tokenizers (e.g., gpt4,claude,hf:bert-base-uncased)', 'gpt4,hf:Xenova/grok-1-tokenizer')
   .option('--max-mb <size>', 'Maximum EPUB text size in MB (default: 500)', '500')
   .option('-j, --jobs <count>', 'Number of parallel jobs (default: CPU count - 1, use "all" for max cores)')
   .action((paths, options) => {

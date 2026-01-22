@@ -129,8 +129,24 @@ export class HFTokenizer implements Tokenizer {
     await this.initialize();
 
     // Tokenize text and get token IDs
-    // The encode() method returns an object with input_ids property
-    const { input_ids } = await this.tokenizer.encode(text);
-    return input_ids.length;
+    // The encode() method returns an array of input_ids in newer versions of transformers.js
+    // or an object with input_ids property in older versions / different configurations.
+    const encoded = await this.tokenizer.encode(text);
+    
+    if (Array.isArray(encoded)) {
+      return encoded.length;
+    } else if (encoded && typeof encoded === 'object' && 'input_ids' in encoded) {
+       // @ts-ignore
+       return encoded.input_ids.length;
+    }
+    
+    // Fallback for unexpected return types (e.g. Tensor)
+    // If it's a Tensor-like object (has .length or .size), try to use that
+    if (encoded && typeof encoded === 'object' && 'length' in encoded) {
+        return (encoded as any).length;
+    }
+    
+    console.warn(`Warning: Unexpected return type from tokenizer.encode for ${this.name}`);
+    return 0;
   }
 }
