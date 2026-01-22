@@ -55,17 +55,17 @@ Plans:
 **Requirements**: SETUP-01, SETUP-02, SETUP-03, SETUP-04, SETUP-05, SETUP-06
 **Success Criteria** (what must be TRUE):
   1. User can visit http://localhost:5173 and see the React app load with shadcn/ui components styled
-  2. User can visit http://localhost:3000/api/health and receive {"status":"ok"} response
+  2. User can visit http://localhost:8787/api/health and receive {"status":"ok"} response
   3. Frontend can successfully call backend API without CORS errors
   4. Shared TypeScript types can be imported by both frontend and backend without build errors
   5. npm run build compiles both frontend and backend without errors
 **Plans**: 4 plans
 
 Plans:
-- [ ] 04-01: Frontend scaffolding with Vite + React + TypeScript
-- [ ] 04-02: shadcn/ui installation and theme configuration
-- [ ] 04-03: Backend server scaffolding with Fastify
-- [ ] 04-04: TypeScript shared package configuration
+- [ ] 04-01-PLAN.md — Frontend scaffolding with Vite + React + TypeScript
+- [ ] 04-02-PLAN.md — shadcn/ui installation and theme configuration
+- [ ] 04-03-PLAN.md — Backend server scaffolding with Fastify
+- [ ] 04-04-PLAN.md — TypeScript shared package configuration
 
 ### Phase 5: Backend API & File Processing
 **Goal**: Fastify server with EPUB processing endpoints, SSE progress streaming, and security hardening
