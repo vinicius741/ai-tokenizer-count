@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A command-line interface tool that analyzes EPUB files to count words and estimate tokens using multiple tokenizer models (GPT-4, Claude, Hugging Face). Users place EPUB files in an input folder, run the tool with their choice of tokenizers, and receive JSON output files with word counts, token counts, and metadata for each EPUB.
+A dual-interface tool for analyzing EPUB files to count words and estimate tokens using multiple tokenizer models (GPT-4, Claude, Hugging Face). Users can process EPUBs via CLI or a web UI, receiving token counts with rich visualizations and token budget calculations for API cost planning.
 
 ## Core Value
 
@@ -29,7 +29,19 @@ Users can accurately estimate token costs for processing EPUB content through LL
 
 ### Active
 
-(None — all v1 requirements validated)
+**Current Milestone: v2.0 Web UI**
+
+**Goal:** Add a React + shadcn/ui web interface for EPUB processing, data visualization, and token equivalence calculations.
+
+**Target features:**
+- Separate frontend/backend architecture (React + shadcn/ui frontend, Node.js server backend)
+- Both execution modes: Run EPUBs from UI OR upload existing results.json
+- Server-side EPUB folder selection for processing
+- Server file system for results data storage
+- Data visualizations: Bar charts (token counts across books), Scatter plots (word vs token counts)
+- Token budget calculator: "I have X tokens → which books fit?" equivalence display
+- No authentication (localhost-only access)
+- CLI tokenizer selection interface in UI
 
 ### Out of Scope
 
@@ -38,7 +50,7 @@ Users can accurately estimate token costs for processing EPUB content through LL
 - EPUB modification — Tool is read-only analyzer
 - Other document formats (PDF, DOCX, etc.) — EPUB only for v1
 - Real-time watch mode — Manual execution only
-- GUI or web interface — CLI only
+- User authentication — localhost-only access for v2
 - Streaming/chunked tokenization — Deferred to v2 (PERF-01)
 - Tokenizer caching — Deferred to v2 (PERF-02)
 - Cost estimation calculator — Deferred to v2 (ADV-01)
@@ -88,14 +100,19 @@ Users can accurately estimate token costs for processing EPUB content through LL
 
 ## Next Milestone Goals
 
-No v2 planned yet. Tool is complete for v1 requirements.
+**Current: v2.0 Web UI** (active)
 
-Potential v2 features (not prioritized):
+Building a React + shadcn/ui web interface with:
+- Separate frontend/backend architecture
+- Data visualizations (bar charts, scatter plots)
+- Token budget calculator for cost planning
+- Both execution modes (run from UI or upload results)
+
+**Future milestones (not yet prioritized):**
 - Streaming/chunked tokenization for large EPUBs
 - Tokenizer caching for repeated runs
-- Cost estimation calculator (tokens → API costs)
 - Per-chapter token breakdown
 - Diff mode (compare tokenizer results)
 
 ---
-*Last updated: 2026-01-21 after v1.0 milestone*
+*Last updated: 2026-01-22 after v2.0 milestone initiation*

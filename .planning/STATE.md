@@ -2,20 +2,21 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-21)
+See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Users can accurately estimate token costs for processing EPUB content through LLMs by getting precise word and token counts across multiple tokenizer models.
-**Current focus:** Milestone v1.0 complete - ready for next milestone planning
+**Current focus:** Milestone v2.0 Web UI - defining requirements
 
 ## Current Position
 
-Phase: v1.0 Milestone COMPLETE
-Status: Shipped 2026-01-21
-Last activity: 2026-01-21 — v1.0 milestone completed and archived
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-22 — Milestone v2.0 started
 
-Progress: [████████████] 100% - v1.0 shipped
+Progress: [░░░░░░░░░░] 0% - Requirements phase
 
-## Milestone v1.0 Summary
+## Milestone v1.0 Summary (Archived)
 
 **Delivered:** EPUB Tokenizer Counter CLI tool
 
@@ -61,24 +62,29 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - p-limit for parallel I/O-bound processing
 - Rich JSON output with schema_version
 
+**New decisions for v2.0:**
+- Separate frontend/backend architecture (React + shadcn/ui frontend, Node.js server)
+- Server file system storage (not database)
+- No authentication (localhost-only)
+- Both execution modes (run from UI or upload results)
+
 ### Pending Todos
 
-None - v1.0 complete, v2 not planned yet.
+None - v2.0 requirements being defined.
 
 ### Blockers/Concerns
 
-**Known limitations (not blockers):**
+**Known limitations from v1.0 (not blockers):**
 - CJK word counting treats CJK text as one word without spaces
 - Word counting includes all text (frontmatter/backmatter not excluded)
 - Claude 3+ tokenizer counts are approximations (not publicly documented)
 - Minor tech debt: 2 info-level TODO comments (see PROJECT.md)
 
-**Potential v2 features (if needed):**
-- Streaming/chunked tokenization for large EPUBs
-- Tokenizer caching for repeated runs
-- Cost estimation calculator (tokens → API costs)
-- Per-chapter token breakdown
-- Diff mode for tokenizer comparison
+**v2.0 concerns to address:**
+- API design for server endpoints
+- React build integration with existing TypeScript project
+- State management for UI (data fetching, visualization state)
+- shadcn/ui setup and theme configuration
 
 ## Session Continuity
 
@@ -86,4 +92,4 @@ Last session: 2026-01-21
 Stopped at: v1.0 milestone completion
 Resume file: None
 
-**Milestone v1.0 Complete.** Tool shipped with all requirements validated. Use `/gsd:new-milestone` to plan v2 work, or archive as project complete.
+**Milestone v2.0 Started.** Defining requirements for Web UI with React + shadcn/ui.
