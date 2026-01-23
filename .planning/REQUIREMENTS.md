@@ -9,16 +9,16 @@ Requirements for Web UI milestone. Each maps to roadmap phases.
 
 ### Project Setup
 
-- [ ] **SETUP-01**: Project structure configured with separate frontend and backend directories
-- [ ] **SETUP-02**: Frontend scaffolded with Vite + React + TypeScript
-- [ ] **SETUP-03**: shadcn/ui installed and configured with theme
-- [ ] **SETUP-04**: Backend server scaffolded with Fastify
-- [ ] **SETUP-05**: CORS configured for API communication
-- [ ] **SETUP-06**: TypeScript shared package configured for code reuse
+- [x] **SETUP-01**: Project structure configured with separate frontend and backend directories
+- [x] **SETUP-02**: Frontend scaffolded with Vite + React + TypeScript
+- [x] **SETUP-03**: shadcn/ui installed and configured with theme
+- [x] **SETUP-04**: Backend server scaffolded with Fastify
+- [x] **SETUP-05**: CORS configured for API communication
+- [x] **SETUP-06**: TypeScript shared package configured for code reuse
 
 ### Backend API
 
-- [ ] **API-01**: Server provides /api/health endpoint for connectivity check
+- [x] **API-01**: Server provides /api/health endpoint for connectivity check
 - [ ] **API-02**: Server provides /api/list-models endpoint returning available tokenizers
 - [ ] **API-03**: Server provides /api/process endpoint accepting EPUB folder path and tokenizer list
 - [ ] **API-04**: Server provides /api/upload-results endpoint for results.json files
