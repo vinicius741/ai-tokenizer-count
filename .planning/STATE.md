@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 1 of 6 (Phase 4: Foundation & Project Setup)
-Plan: 1 of 4 in current phase
+Plan: 2 of 4 in current phase
 Status: In progress
-Last activity: 2026-01-23 — Completed 04-01: Vite React TypeScript scaffold
+Last activity: 2026-01-23 — Completed 04-03: Fastify backend server with CORS
 
-Progress: [█░░░░░░░░░] 25% (1/4 plans in phase 4 complete)
+Progress: [██░░░░░░░░] 50% (2/4 plans in phase 4 complete)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,8 +34,8 @@ Progress: [█░░░░░░░░░] 25% (1/4 plans in phase 4 complete)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14 (13 from v1.0 + 1 from v2.0)
-- Total execution time: ~7 hours (v1.0)
+- Total plans completed: 15 (13 from v1.0 + 2 from v2.0)
+- Total execution time: ~7.25 hours (v1.0)
 - Average per plan: ~10 min
 
 **By Phase:**
@@ -45,7 +45,7 @@ Progress: [█░░░░░░░░░] 25% (1/4 plans in phase 4 complete)
 | 1 (v1.0) | 4 | ~1h | ~15 min |
 | 2 (v1.0) | 3 | ~0.5h | ~10 min |
 | 3 (v1.0) | 6 | ~5.5h | ~55 min |
-| 4 (v2.0) | 1 | ~9 min | ~9 min |
+| 4 (v2.0) | 2 | ~24 min | ~12 min |
 
 *Updated after each plan completion*
 
@@ -63,13 +63,17 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - p-limit for parallel I/O-bound processing
 - Rich JSON output with schema_version
 
-**New decisions for v2.0 (from research):**
+**New decisions for v2.0 (from research and plan execution):**
 - React + shadcn/ui frontend with Fastify backend
 - Server file system storage (not database)
 - No authentication (localhost-only)
 - Both execution modes (run from UI or upload results)
 - SSE for real-time progress (simpler than WebSockets)
-- Single-repo structure (not monorepo) for simplicity
+- Single-repo structure with npm workspaces (not Turborepo) for simplicity
+- Fastify chosen over Express for better TypeScript support and performance
+- CORS with origin: true for development (will restrict in production)
+- Server listening on 0.0.0.0:8787 (all interfaces, not just localhost)
+- API routes prefixed with /api/ (e.g., /api/health)
 
 ### Pending Todos
 
@@ -91,6 +95,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-23 10:36
-Stopped at: Completed 04-01-PLAN.md (Vite React TypeScript scaffold)
+Last session: 2026-01-23 10:42
+Stopped at: Completed 04-03-PLAN.md (Fastify backend server)
 Resume file: None
