@@ -2,6 +2,7 @@ import type { HealthResponse } from '@epub-counter/shared'
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import { listModelsHandler } from './routes/list-models.js'
+import { processHandler } from './routes/process.js'
 
 const fastify = Fastify({
   logger: true,
@@ -14,6 +15,9 @@ await fastify.register(cors, {
 
 // Register list-models route
 await fastify.register(listModelsHandler)
+
+// Register process route
+await fastify.register(processHandler)
 
 // Health check endpoint
 fastify.get('/api/health', async (): Promise<HealthResponse> => {
