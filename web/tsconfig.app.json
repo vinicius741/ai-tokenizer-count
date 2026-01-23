@@ -4,7 +4,8 @@
     "target": "ES2022",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@epub-counter/shared": ["../packages/shared/src"]
     },
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],

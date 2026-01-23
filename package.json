@@ -32,10 +32,12 @@
     "typescript": "^5.6.0"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:shared && tsc",
+    "build:shared": "npm run build --workspace=packages/shared",
     "start": "node dist/cli/index.js",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:web\"",
     "dev:server": "npm run dev --workspace=server",
     "dev:web": "npm run dev --workspace=web",
-    "dev:ui": "npm run dev:web"
+    "dev:ui": "npm run dev"
   }
 }
