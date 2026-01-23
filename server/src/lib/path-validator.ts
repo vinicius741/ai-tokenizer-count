@@ -14,9 +14,11 @@ import path from 'path';
  * Detect path traversal attempts
  *
  * Checks for common path traversal patterns:
- * - .. (parent directory)
- * - Absolute paths starting with /
- * - ~ (home directory expansion)
+ * - .. (parent directory traversal)
+ * - ~ (home directory expansion which can lead outside project)
+ *
+ * Note: Absolute paths are allowed since this is a localhost-only server
+ * and users should be able to specify any valid path on their system.
  *
  * @param inputPath - Path to check
  * @returns true if path traversal detected
@@ -24,15 +26,15 @@ import path from 'path';
  * @example
  * ```ts
  * isPathTraversal('../../etc/passwd')  // true
- * isPathTraversal('/etc/passwd')        // true
+ * isPathTraversal('/etc/passwd')        // false (absolute path OK for localhost)
  * isPathTraversal('~/secret.txt')       // true
  * isPathTraversal('./epubs')            // false
+ * isPathTraversal('/Users/ilia/books')  // false (absolute path OK)
  * ```
  */
 export function isPathTraversal(inputPath: string): boolean {
   const normalized = inputPath.replace(/\\/g, '/');
   return normalized.includes('..') ||
-         normalized.startsWith('/') ||
          normalized.includes('~');
 }
 

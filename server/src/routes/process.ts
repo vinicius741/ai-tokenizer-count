@@ -179,7 +179,7 @@ export async function processHandler(
           error: {
             code: ErrorCode.INVALID_PATH,
             message: 'Path traversal detected',
-            details: 'Path cannot contain "..", start with "/", or contain "~"',
+            details: 'Path cannot contain ".." (parent directory) or "~" (home directory)',
           },
         }
       }
