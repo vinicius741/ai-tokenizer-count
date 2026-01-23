@@ -90,10 +90,13 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Progress callback per job** with client disconnect handling that doesn't stop job execution (05-04)
 - **Manual schema validation** without external libraries (ajv, zod) - simpler for results.json validation (05-05)
 - **1MB body limit for upload-results** prevents large file uploads to the API endpoint (05-05)
+- **ToggleGroup for tokenizer chips** - shadcn/ui ToggleGroup provides built-in multi-select state and accessibility (06-01)
+- **Sonner for toast notifications** - shadcn/ui officially deprecated toast; Sonner is the replacement (06-01)
+- **Separate HF model combobox** - Large HF model list requires searchable dropdown instead of chips (06-01)
+- **localStorage for tokenizer persistence** - useLocalStorage hook remembers selections across sessions (06-01)
 - **Scale animation (scale-[1.02])** for drag-drop visual feedback on file upload zone (06-02)
 - **File chip UI pattern** - expand zone when empty, shrink to compact chip when file loaded (06-02)
 - **Frontend schema validation** mirrors backend approach using manual type checking (06-02)
-
 ### Pending Todos
 
 None.
