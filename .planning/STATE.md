@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 6 of 9 (Phase 6: File Upload & Tokenizer Selection)
-Plan: 4 of 5 in current phase
+Plan: 5 of 5 in current phase
 Status: In progress
-Last activity: 2026-01-23 — Completed Plan 06-04: Real-Time Progress Display
+Last activity: 2026-01-23 — Completed Plan 06-05: Cancel Processing and Reset
 
-Progress: [██████████░] 62.5% (25/40 total plans complete: 13 from v1.0, 12 from v2.0)
+Progress: [██████████░] 65% (26/40 total plans complete: 13 from v1.0, 13 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,8 +34,8 @@ Progress: [██████████░] 62.5% (25/40 total plans complete:
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 25 (13 from v1.0 + 12 from v2.0)
-- Total execution time: ~10.75 hours (v1.0: ~7.25h, v2.0: ~3.5h)
+- Total plans completed: 26 (13 from v1.0 + 13 from v2.0)
+- Total execution time: ~11.33 hours (v1.0: ~7.25h, v2.0: ~4.08h)
 - Average per plan: ~11 min
 
 **By Phase:**
@@ -47,7 +47,7 @@ Progress: [██████████░] 62.5% (25/40 total plans complete:
 | 3 (v1.0) | 6 | ~5.5h | ~55 min |
 | 4 (v2.0) | 4 | ~45 min | ~11 min |
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
-| 6 (v2.0) | 4 | ~1.25h | ~19 min |
+| 6 (v2.0) | 5 | ~2h | ~24 min |
 
 *Updated after each plan completion*
 
@@ -105,6 +105,10 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Striped animation overlay** - CSS stripes as separate overlay div rather than modifying Progress component (06-04)
 - **ETA from elapsed time per EPUB** - ETA calculated from average processing time, not file size (06-04)
 - **Green success card for completion** - CompletionSummary uses Tailwind green classes for visual success indicator (06-04)
+- **Graceful degradation for cancel endpoint** - Frontend continues with SSE disconnect even if POST /api/cancel/:jobId fails (06-05)
+- **forwardRef + useImperativeHandle pattern** - Clean React API for exposing child component methods to parent (06-05)
+- **Reset preserves tokenizer selections** - User convenience to remember preferences across processing runs (06-05)
+- **Separate isCancelled state** - Distinct from processing state enables clear UI messaging (06-05)
 ### Pending Todos
 
 None.
@@ -126,10 +130,13 @@ None.
 **Concerns from 06-02 execution:**
 - File upload tested with small files; need to verify performance with large results.json (1000+ EPUBs)
 
+**Concerns from 06-05 execution:**
+- Backend POST /api/cancel/:jobId endpoint may not exist yet; frontend handles gracefully but endpoint should be added for complete functionality
+
 ## Session Continuity
 
-Last session: 2026-01-23 21:18
-Stopped at: Completed Plan 06-04: Real-Time Progress Display
-Phase 6 Plan 4 complete - SSE-connected progress display with animated striped bar, ETA, and completion summary
-Next: Phase 6 Plan 05: Results Table
+Last session: 2026-01-23 21:53
+Stopped at: Completed Plan 06-05: Cancel Processing and Reset
+Phase 6 Plan 5 complete - Cancel button with abort controller, reset functionality, localStorage persistence for tokenizers
+Next: Phase 6 Plan 06: Results Table
 Resume file: None
