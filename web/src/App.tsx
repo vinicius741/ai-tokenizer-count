@@ -1,7 +1,14 @@
+import type { EpubMetadata, TokenizerType } from '@epub-counter/shared'
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 
 function App() {
+  // Test: Verify shared types are accessible
+  const testMetadata: EpubMetadata = {
+    title: 'Test Book',
+    author: 'Test Author',
+  }
+  const testTokenizer: TokenizerType = 'gpt4'
   return (
     <div className="min-h-screen bg-background p-8">
       <Card className="max-w-md mx-auto">

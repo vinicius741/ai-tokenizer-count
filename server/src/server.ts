@@ -1,3 +1,4 @@
+import type { HealthResponse } from '@epub-counter/shared'
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 
@@ -11,8 +12,12 @@ await fastify.register(cors, {
 })
 
 // Health check endpoint
-fastify.get('/api/health', async () => {
-  return { status: 'ok' }
+fastify.get('/api/health', async (): Promise<HealthResponse> => {
+  return {
+    status: 'healthy',
+    version: '1.0.0',
+    uptime: process.uptime(),
+  }
 })
 
 // Start server
