@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Loader2, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 
@@ -7,22 +7,23 @@ interface ProcessButtonProps {
   folderPath: string
   selectedTokenizers: string[]
   onJobStarted: (jobId: string) => void
+  onCancel?: () => void
   disabled?: boolean
+  isProcessing?: boolean
+  jobId?: string // Added for cancel endpoint call
 }
 
 export function ProcessButton({
   folderPath,
   selectedTokenizers,
   onJobStarted,
-  disabled: externallyDisabled
+  onCancel,
+  disabled: externallyDisabled,
+  isProcessing = false,
+  jobId,
 }: ProcessButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
 
-  // Button is disabled if:
-  // - Externally disabled
-  // - No folder path
-  // - No tokenizers selected
-  // - Currently loading
   const isDisabled =
     externallyDisabled ||
     !folderPath.trim() ||
@@ -66,6 +67,41 @@ export function ProcessButton({
     }
   }
 
+  const handleCancel = async () => {
+    // Call backend cancel endpoint if jobId is available
+    if (jobId) {
+      try {
+        await fetch(`http://localhost:8787/api/cancel/${jobId}`, {
+          method: 'POST',
+        })
+      } catch (error) {
+        console.error('Failed to cancel backend job:', error)
+        // Continue with frontend cancel even if backend call fails
+      }
+    }
+
+    onCancel?.()
+    toast.info('Processing cancelled', {
+      description: 'Click Reset to start a new process'
+    })
+  }
+
+  // Show Cancel button when processing
+  if (isProcessing) {
+    return (
+      <Button
+        onClick={handleCancel}
+        variant="destructive"
+        className="w-full"
+        size="lg"
+      >
+        <X className="mr-2 h-4 w-4" />
+        Cancel Processing
+      </Button>
+    )
+  }
+
+  // Show Process button when not processing
   return (
     <Button
       onClick={handleClick}
