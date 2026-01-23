@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { RotateCcw } from 'lucide-react'
 import { TokenizerSelector } from './components/tokenizer/TokenizerSelector'
 import { FileDropzone } from './components/file-upload/FileDropzone'
 import { FolderInput } from './components/processing/FolderInput'
 import { ProcessButton } from './components/processing/ProcessButton'
-import { ProcessingProgress, type ProcessingProgressRef } from './components/progress/ProcessingProgress'
+import { ProcessingProgress } from './components/progress/ProcessingProgress'
 import { CompletionSummary } from './components/progress/CompletionSummary'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -16,8 +16,6 @@ function App() {
   const [isCancelled, setIsCancelled] = useState(false)
   const [folderPath, setFolderPath] = useState('')
   const [selectedTokenizers, setSelectedTokenizers] = useState<string[]>([])
-
-  const progressRef = useRef<ProcessingProgressRef>(null)
 
   const handleFileLoaded = (data: ResultsOutput, fileName: string) => {
     setProcessingResults(data) // Show uploaded results immediately
@@ -39,8 +37,6 @@ function App() {
   }
 
   const handleCancel = () => {
-    // Disconnect SSE connection
-    progressRef.current?.disconnect()
     setCurrentJobId(null)
     setIsCancelled(true)
   }
@@ -124,7 +120,6 @@ function App() {
               <div>
                 <h2 className="text-lg font-semibold mb-4">3. Processing Progress</h2>
                 <ProcessingProgress
-                  ref={progressRef}
                   jobId={currentJobId!}
                   onComplete={handleProcessingComplete}
                 />
