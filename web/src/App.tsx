@@ -11,7 +11,6 @@ import { Button } from '@/components/ui/button'
 import type { ResultsOutput } from '@epub-counter/shared'
 
 function App() {
-  const [uploadedResults, setUploadedResults] = useState<ResultsOutput | null>(null)
   const [currentJobId, setCurrentJobId] = useState<string | null>(null)
   const [processingResults, setProcessingResults] = useState<ResultsOutput | null>(null)
   const [isCancelled, setIsCancelled] = useState(false)
@@ -21,8 +20,7 @@ function App() {
   const progressRef = useRef<ProcessingProgressRef>(null)
 
   const handleFileLoaded = (data: ResultsOutput, fileName: string) => {
-    setUploadedResults(data)
-    setProcessingResults(null)
+    setProcessingResults(data) // Show uploaded results immediately
     setIsCancelled(false)
     console.log('Uploaded results:', fileName, data)
   }
@@ -51,7 +49,6 @@ function App() {
     // Reset all state
     setCurrentJobId(null)
     setProcessingResults(null)
-    setUploadedResults(null)
     setIsCancelled(false)
     setFolderPath('')
     // Note: We don't reset selectedTokenizers to remember user preference

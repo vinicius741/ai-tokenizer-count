@@ -7,8 +7,10 @@ interface CompletionSummaryProps {
 }
 
 export function CompletionSummary({ results }: CompletionSummaryProps) {
-  const epubCount = results.epubs.length
-  const tokenizerNames = Object.keys(results.epubs[0]?.tokenizers || {})
+  const epubCount = results.summary.total
+  const successCount = results.summary.success
+  const failedCount = results.summary.failed
+  const tokenizerNames = results.options.tokenizers || []
 
   return (
     <Card>
@@ -18,7 +20,8 @@ export function CompletionSummary({ results }: CompletionSummaryProps) {
           <div className="space-y-2">
             <h3 className="font-semibold">Processing Complete</h3>
             <p className="text-sm text-muted-foreground">
-              Successfully processed {epubCount} EPUB{epubCount !== 1 ? 's' : ''} with {tokenizerNames.length} tokenizer{tokenizerNames.length !== 1 ? 's' : ''}.
+              Successfully processed {successCount} of {epubCount} EPUB{epubCount !== 1 ? 's' : ''} with {tokenizerNames.length} tokenizer{tokenizerNames.length !== 1 ? 's' : ''}.
+              {failedCount > 0 && ` ${failedCount} failed.`}
             </p>
             <div className="text-xs text-muted-foreground">
               Tokenizers: {tokenizerNames.join(', ')}

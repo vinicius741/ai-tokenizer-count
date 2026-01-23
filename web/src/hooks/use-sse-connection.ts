@@ -39,7 +39,7 @@ export function useSseConnection() {
 
         onopen(response) {
           if (response.ok && response.headers.get('content-type') === 'text/event-stream') {
-            return
+            return Promise.resolve()
           }
           throw new Error(`Unexpected response: ${response.status}`)
         },
