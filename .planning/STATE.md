@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 6 of 9 (Phase 6: File Upload & Tokenizer Selection)
-Plan: 3 of 5 in current phase
+Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-01-23 — Completed Plan 06-03: Processing Controls
+Last activity: 2026-01-23 — Completed Plan 06-04: Real-Time Progress Display
 
-Progress: [██████████░] 60% (24/40 total plans complete: 13 from v1.0, 11 from v2.0)
+Progress: [██████████░] 62.5% (25/40 total plans complete: 13 from v1.0, 12 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,8 +34,8 @@ Progress: [██████████░] 60% (24/40 total plans complete: 1
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 22 (13 from v1.0 + 9 from v2.0)
-- Total execution time: ~10.5 hours (v1.0: ~7.25h, v2.0: ~3.25h)
+- Total plans completed: 25 (13 from v1.0 + 12 from v2.0)
+- Total execution time: ~10.75 hours (v1.0: ~7.25h, v2.0: ~3.5h)
 - Average per plan: ~11 min
 
 **By Phase:**
@@ -47,6 +47,7 @@ Progress: [██████████░] 60% (24/40 total plans complete: 1
 | 3 (v1.0) | 6 | ~5.5h | ~55 min |
 | 4 (v2.0) | 4 | ~45 min | ~11 min |
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
+| 6 (v2.0) | 4 | ~1.25h | ~19 min |
 
 *Updated after each plan completion*
 
@@ -100,6 +101,10 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Text input for server-side folder paths** - browsers cannot access server file system, so FolderInput uses controlled text input with edit mode (06-03)
 - **Conditional button enable pattern** - ProcessButton disabled when either folderPath empty OR selectedTokenizers empty (06-03)
 - **Read-only display with edit toggle** - FolderInput shows path read-only, edit button toggles input field with Enter/Save and Escape/Cancel (06-03)
+- **Function export for ProcessingProgress** - Simple `export function` instead of forwardRef pattern for cleaner API (06-04)
+- **Striped animation overlay** - CSS stripes as separate overlay div rather than modifying Progress component (06-04)
+- **ETA from elapsed time per EPUB** - ETA calculated from average processing time, not file size (06-04)
+- **Green success card for completion** - CompletionSummary uses Tailwind green classes for visual success indicator (06-04)
 ### Pending Todos
 
 None.
@@ -123,8 +128,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-23 21:37
-Stopped at: Completed Plan 06-03: Processing Controls
-Phase 6 Plan 3 complete - folder input and process button with tokenizer-aware enable logic
-Next: Phase 6 Plan 04: Results Table
+Last session: 2026-01-23 21:18
+Stopped at: Completed Plan 06-04: Real-Time Progress Display
+Phase 6 Plan 4 complete - SSE-connected progress display with animated striped bar, ETA, and completion summary
+Next: Phase 6 Plan 05: Results Table
 Resume file: None
