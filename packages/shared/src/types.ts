@@ -155,3 +155,58 @@ export interface HealthResponse {
   /** Uptime in seconds */
   uptime: number;
 }
+
+/**
+ * Job status in the processing queue
+ */
+export type JobStatus = 'queued' | 'processing' | 'completed' | 'failed' | 'cancelled';
+
+/**
+ * Processing progress for a single EPUB
+ */
+export interface EpubProgress {
+  /** File name being processed */
+  fileName: string;
+  /** Current EPUB index (1-based) */
+  current: number;
+  /** Total EPUBs to process */
+  total: number;
+  /** Percent complete (0-100) */
+  percent: number;
+  /** Error if this EPUB failed */
+  error?: string;
+}
+
+/**
+ * Job state for status queries
+ */
+export interface JobState {
+  /** Unique job identifier */
+  jobId: string;
+  /** Current job status */
+  status: JobStatus;
+  /** Processing progress (only during 'processing' status) */
+  progress?: EpubProgress;
+  /** Completed results (only when status is 'completed') */
+  results?: ResultsOutput;
+  /** Error message (only when status is 'failed') */
+  error?: string;
+  /** Job creation timestamp */
+  createdAt: string;
+  /** Job completion timestamp (if completed/failed/cancelled) */
+  completedAt?: string;
+}
+
+/**
+ * Request body for starting EPUB processing
+ */
+export interface ProcessRequest {
+  /** EPUB folder path on server */
+  path: string;
+  /** Tokenizers to use */
+  tokenizers: TokenizerType[];
+  /** Include subdirectories */
+  recursive?: boolean;
+  /** Max EPUB text size in MB */
+  maxMb?: number;
+}
