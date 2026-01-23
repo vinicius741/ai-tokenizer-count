@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 CLI** - Phases 1-3 (shipped 2026-01-21)
-- 🚧 **v2.0 Web UI** - Phases 4-7 (in progress)
+- 🚧 **v2.0 Web UI** - Phases 4-9 (in progress)
 
 ## Phases
 
@@ -82,11 +82,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 05-01: Health check and list-models API endpoints
-- [ ] 05-02: EPUB processing endpoint with background job queue
-- [ ] 05-03: Server-Sent Events (SSE) progress streaming
-- [ ] 05-04: results.json upload and validation endpoint
-- [ ] 05-05: Security hardening (path validation, file upload limits)
+- [ ] 05-01-PLAN.md — GET /api/list-models endpoint returning available tokenizers
+- [ ] 05-02-PLAN.md — In-memory job queue for background EPUB processing
+- [ ] 05-03-PLAN.md — POST /api/process endpoint with path validation and security
+- [ ] 05-04-PLAN.md — Server-Sent Events (SSE) /api/sse/:jobId for real-time progress
+- [ ] 05-05-PLAN.md — Job status query endpoint and results.json upload validation
 
 ### Phase 6: File Upload & Tokenizer Selection
 **Goal**: Frontend interfaces for file upload, tokenizer selection, and real-time processing feedback
