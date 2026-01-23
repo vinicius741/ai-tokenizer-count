@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0",
+  "timestamp": "2026-01-23T20:30:00.000Z",
+  "options": {
+    "tokenizers": ["gpt4", "claude"],
+    "inputPath": "./epubs"
+  },
+  "results": [
+    {
+      "filePath": "/path/to/book1.epub",
+      "metadata": {
+        "title": "Test Book 1",
+        "author": "Test Author",
+        "language": "en"
+      },
+      "wordCount": 50000,
+      "tokenCounts": [
+        { "name": "gpt4", "count": 65000 },
+        { "name": "claude", "count": 72000 }
+      ]
+    },
+    {
+      "filePath": "/path/to/book2.epub",
+      "metadata": {
+        "title": "Test Book 2",
+        "author": "Another Author",
+        "language": "en",
+        "publisher": "Test Publisher"
+      },
+      "wordCount": 75000,
+      "tokenCounts": [
+        { "name": "gpt4", "count": 98000 },
+        { "name": "claude", "count": 108000 }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "success": 2,
+    "failed": 0
+  }
+}
