@@ -1,11 +1,16 @@
 import type { ResultsOutput } from '@epub-counter/shared'
 import { FileDropzone } from "./components/file-upload/FileDropzone"
+import { TokenizerSelector } from "./components/tokenizer/TokenizerSelector"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 function App() {
   const handleFileLoaded = (data: ResultsOutput, fileName: string) => {
     console.log('File loaded:', fileName, data)
+  }
+
+  const handleTokenizerChange = (selectedTokenizers: string[]) => {
+    console.log('Selected tokenizers:', selectedTokenizers)
   }
 
   const downloadSample = (filename: string) => {
@@ -24,7 +29,21 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background p-8">
-      <div className="max-w-xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-6">
+        {/* Tokenizer Selector Test */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Tokenizer Selection Test</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-muted-foreground">
+              Test the TokenizerSelector component for selecting GPT-4, Claude, and Hugging Face models.
+            </p>
+            <TokenizerSelector onSelectionChange={handleTokenizerChange} />
+          </CardContent>
+        </Card>
+
+        {/* File Upload Test */}
         <Card>
           <CardHeader>
             <CardTitle>File Upload Test</CardTitle>
@@ -52,17 +71,22 @@ function App() {
             <CardTitle>Instructions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
-            <p className="text-muted-foreground">1. Start the dev server: <code>npm run dev</code></p>
-            <p className="text-muted-foreground">2. Open http://localhost:5173</p>
-            <p className="text-muted-foreground">3. Download sample files using the buttons above</p>
-            <p className="text-muted-foreground">4. Drag a file over the drop zone and verify it expands (scale animation)</p>
-            <p className="text-muted-foreground">5. Drag away and verify it returns to normal</p>
-            <p className="text-muted-foreground">6. Drop the valid sample-results.json and verify FileChip appears</p>
-            <p className="text-muted-foreground">7. Drop the invalid sample and verify error toast appears</p>
-            <p className="text-muted-foreground">8. Click drop zone and verify file picker opens</p>
-            <p className="text-muted-foreground">9. Verify FileChip shows file icon, truncated filename, and X button</p>
-            <p className="text-muted-foreground">10. Click X button and verify chip disappears, drop zone returns</p>
-            <p className="text-muted-foreground">11. Check console for loaded data output</p>
+            <p className="text-muted-foreground font-semibold">Tokenizer Selector:</p>
+            <p className="text-muted-foreground">1. Click GPT-4 and Claude chips to toggle them on/off</p>
+            <p className="text-muted-foreground">2. Click Hugging Face dropdown to open model selector</p>
+            <p className="text-muted-foreground">3. Type in search to filter HF models</p>
+            <p className="text-muted-foreground">4. Hover over models to see info card</p>
+            <p className="text-muted-foreground">5. Select HF models and verify badges appear below</p>
+            <p className="text-muted-foreground">6. Click X on HF badges to remove them</p>
+            <p className="text-muted-foreground">7. Deselect all tokenizers to see validation error</p>
+            <p className="text-muted-foreground">8. Refresh page to verify localStorage persistence</p>
+            <p className="text-muted-foreground">9. Check console for selected tokenizer logs</p>
+            <p className="text-muted-foreground mt-3 font-semibold">File Upload:</p>
+            <p className="text-muted-foreground">1. Drag a file over the drop zone and verify it expands</p>
+            <p className="text-muted-foreground">2. Drag away and verify it returns to normal</p>
+            <p className="text-muted-foreground">3. Drop valid sample-results.json and verify FileChip appears</p>
+            <p className="text-muted-foreground">4. Drop invalid sample and verify error toast appears</p>
+            <p className="text-muted-foreground">5. Click drop zone and verify file picker opens</p>
           </CardContent>
         </Card>
       </div>
