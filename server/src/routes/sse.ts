@@ -114,7 +114,7 @@ export async function sseHandler(fastify: FastifyInstance): Promise<void> {
             sendSseEvent(reply, 'progress', progress);
           } catch (err) {
             // Client disconnected, stop trying to send
-            fastify.log.warn(`Failed to send progress for job ${jobId}:`, err);
+            fastify.log.warn({ err }, `Failed to send progress for job ${jobId}`);
           }
         });
         break;
