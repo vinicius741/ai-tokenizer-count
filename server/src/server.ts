@@ -4,6 +4,8 @@ import cors from '@fastify/cors'
 import { listModelsHandler } from './routes/list-models.js'
 import { processHandler } from './routes/process.js'
 import { sseHandler } from './routes/sse.js'
+import { jobStatusHandler } from './routes/job-status.js'
+import { uploadResultsHandler } from './routes/upload-results.js'
 
 const fastify = Fastify({
   logger: true,
@@ -22,6 +24,12 @@ await fastify.register(processHandler)
 
 // Register SSE route for real-time progress
 await fastify.register(sseHandler)
+
+// Register job status route
+await fastify.register(jobStatusHandler)
+
+// Register upload results route
+await fastify.register(uploadResultsHandler)
 
 // Health check endpoint
 fastify.get('/api/health', async (): Promise<HealthResponse> => {
