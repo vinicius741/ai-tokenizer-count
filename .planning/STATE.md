@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 
 ## Current Position
 
-Phase: 1 of 6 (Phase 4: Foundation & Project Setup)
-Plan: 2 of 4 in current phase
-Status: In progress
-Last activity: 2026-01-23 — Completed 04-03: Fastify backend server with CORS
+Phase: 4 of 6 (Phase 4: Foundation & Project Setup)
+Plan: 4 of 4 in current phase
+Status: Phase complete
+Last activity: 2026-01-23 — Completed 04-04: Shared TypeScript package with dual CJS/ESM builds
 
-Progress: [██░░░░░░░░] 50% (2/4 plans in phase 4 complete)
+Progress: [████████░░░░] 60% (4/4 plans in phase 4 complete, 12/20 total plans)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,9 +34,9 @@ Progress: [██░░░░░░░░] 50% (2/4 plans in phase 4 complete)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15 (13 from v1.0 + 2 from v2.0)
-- Total execution time: ~7.25 hours (v1.0)
-- Average per plan: ~10 min
+- Total plans completed: 17 (13 from v1.0 + 4 from v2.0)
+- Total execution time: ~8 hours (v1.0: ~7.25h, v2.0: ~45 min)
+- Average per plan: ~11 min
 
 **By Phase:**
 
@@ -45,7 +45,7 @@ Progress: [██░░░░░░░░] 50% (2/4 plans in phase 4 complete)
 | 1 (v1.0) | 4 | ~1h | ~15 min |
 | 2 (v1.0) | 3 | ~0.5h | ~10 min |
 | 3 (v1.0) | 6 | ~5.5h | ~55 min |
-| 4 (v2.0) | 2 | ~24 min | ~12 min |
+| 4 (v2.0) | 4 | ~45 min | ~11 min |
 
 *Updated after each plan completion*
 
@@ -74,6 +74,11 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - CORS with origin: true for development (will restrict in production)
 - Server listening on 0.0.0.0:8787 (all interfaces, not just localhost)
 - API routes prefixed with /api/ (e.g., /api/health)
+- **Dual CJS/ESM builds for shared package** (Node.js and bundler compatibility)
+- **npm workspaces with '*' version** for workspace dependencies
+- **TypeScript path mapping + Vite alias** pattern for seamless shared imports
+- **postinstall hook to build shared package** automatically after npm install
+- **Unified build pipeline** (npm run build compiles all packages)
 
 ### Pending Todos
 
@@ -83,7 +88,7 @@ None.
 
 **Research Flags (from research/SUMMARY.md):**
 
-- **Phase 4**: Monorepo structure decision — Research suggests starting simple (2 packages) but team may prefer Turborepo
+- ~~**Phase 4**: Monorepo structure decision — Research suggests starting simple (2 packages) but team may prefer Turborepo~~ **RESOLVED**: npm workspaces with shared package
 - **Phase 5**: SSE implementation details — Need working code example for Fastify + React SSE before implementation
 - **Phase 5**: Background job queue library — BullMQ (Redis-based) vs in-memory queue for localhost-only app
 
@@ -95,6 +100,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-23 10:42
-Stopped at: Completed 04-03-PLAN.md (Fastify backend server)
+Last session: 2026-01-23 13:34
+Stopped at: Completed 04-04-PLAN.md (Shared TypeScript package with dual CJS/ESM builds)
+Phase 4 complete - ready for Phase 5: Web UI Development
 Resume file: None
