@@ -6,6 +6,11 @@ node_modules/
 
 # TypeScript compilation
 dist/
+*.tsbuildinfo
+
+# Compiled JavaScript from TypeScript in src/
+src/**/*.js
+!src/**/*.d.ts
 
 # EPUB input files (default: ./epubs/)
 epubs/
