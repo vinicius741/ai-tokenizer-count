@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Users can accurately estimate token costs for processing EPUB content through LLMs by getting precise word and token counts across multiple tokenizer models.
-**Current focus:** Phase 4: Foundation & Project Setup
+**Current focus:** Phase 5: Backend API & File Processing
 
 ## Current Position
 
-Phase: 4 of 6 (Phase 4: Foundation & Project Setup)
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-01-23 — Completed 04-04: Shared TypeScript package with dual CJS/ESM builds
+Phase: 5 of 6 (Phase 5: Backend API & File Processing)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-23 — Completed 05-01: List Models API endpoint
 
-Progress: [████████░░░░] 60% (4/4 plans in phase 4 complete, 12/20 total plans)
+Progress: [██████████░░] 65% (1/3 plans in phase 5 complete, 13/20 total plans)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,8 +34,8 @@ Progress: [████████░░░░] 60% (4/4 plans in phase 4 compl
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 17 (13 from v1.0 + 4 from v2.0)
-- Total execution time: ~8 hours (v1.0: ~7.25h, v2.0: ~45 min)
+- Total plans completed: 18 (13 from v1.0 + 5 from v2.0)
+- Total execution time: ~8.5 hours (v1.0: ~7.25h, v2.0: ~1.25h)
 - Average per plan: ~11 min
 
 **By Phase:**
@@ -46,6 +46,7 @@ Progress: [████████░░░░] 60% (4/4 plans in phase 4 compl
 | 2 (v1.0) | 3 | ~0.5h | ~10 min |
 | 3 (v1.0) | 6 | ~5.5h | ~55 min |
 | 4 (v2.0) | 4 | ~45 min | ~11 min |
+| 5 (v2.0) | 1 | ~20 min | ~20 min |
 
 *Updated after each plan completion*
 
@@ -79,6 +80,8 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **TypeScript path mapping + Vite alias** pattern for seamless shared imports
 - **postinstall hook to build shared package** automatically after npm install
 - **Unified build pipeline** (npm run build compiles all packages)
+- **Inline HF models list in server** to avoid cross-package TypeScript rootDir issues (05-01)
+- **API response wrapper pattern** with { success: true, data: T } for consistent responses (05-01)
 
 ### Pending Todos
 
@@ -100,7 +103,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-23 13:34
-Stopped at: Completed 04-04-PLAN.md (Shared TypeScript package with dual CJS/ESM builds)
-Phase 4 complete - ready for Phase 5: Web UI Development
+Last session: 2026-01-23 17:57
+Stopped at: Completed 05-01-PLAN.md (List Models API endpoint)
+Phase 5 in progress - 2/3 plans remaining
 Resume file: None
