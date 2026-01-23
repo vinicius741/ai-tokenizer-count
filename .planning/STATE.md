@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 6 of 9 (Phase 6: File Upload & Tokenizer Selection)
-Plan: 0 of 5 in current phase
-Status: Phase complete
-Last activity: 2026-01-23 — Completed Phase 5: Backend API & File Processing (5/5 plans)
+Plan: 2 of 5 in current phase
+Status: In progress
+Last activity: 2026-01-23 — Completed Plan 06-02: File Upload Interface
 
-Progress: [██████████░░] 56% (22/40 total plans complete: 13 from v1.0, 9 from v2.0)
+Progress: [███████████░] 58% (23/40 total plans complete: 13 from v1.0, 10 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -90,6 +90,9 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Progress callback per job** with client disconnect handling that doesn't stop job execution (05-04)
 - **Manual schema validation** without external libraries (ajv, zod) - simpler for results.json validation (05-05)
 - **1MB body limit for upload-results** prevents large file uploads to the API endpoint (05-05)
+- **Scale animation (scale-[1.02])** for drag-drop visual feedback on file upload zone (06-02)
+- **File chip UI pattern** - expand zone when empty, shrink to compact chip when file loaded (06-02)
+- **Frontend schema validation** mirrors backend approach using manual type checking (06-02)
 
 ### Pending Todos
 
@@ -109,10 +112,13 @@ None.
 - Pricing data accuracy: Verify 2026 GPT-4, Claude, Gemini pricing before cost calculator
 - Folder browser caching strategy: Large directory trees are slow to scan
 
+**Concerns from 06-02 execution:**
+- File upload tested with small files; need to verify performance with large results.json (1000+ EPUBs)
+
 ## Session Continuity
 
-Last session: 2026-01-23 19:15
-Stopped at: Completed Phase 5: Backend API & File Processing (5/5 plans)
-Phase 5 verified and complete - all API endpoints functional
-Next: Phase 6: File Upload & Tokenizer Selection (Frontend)
+Last session: 2026-01-23 19:45
+Stopped at: Completed Plan 06-02: File Upload Interface
+Phase 6 Plan 2 complete - file upload with drag-drop, validation, and toasts working
+Next: Phase 6 Plan 03: Results Table
 Resume file: None
