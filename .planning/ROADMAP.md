@@ -82,11 +82,13 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — GET /api/list-models endpoint returning available tokenizers
-- [ ] 05-02-PLAN.md — In-memory job queue for background EPUB processing
-- [ ] 05-03-PLAN.md — POST /api/process endpoint with path validation and security
-- [ ] 05-04-PLAN.md — Server-Sent Events (SSE) /api/sse/:jobId for real-time progress
-- [ ] 05-05-PLAN.md — Job status query endpoint and results.json upload validation
+- [x] 05-01-PLAN.md — GET /api/list-models endpoint returning available tokenizers
+- [x] 05-02-PLAN.md — In-memory job queue for background EPUB processing
+- [x] 05-03-PLAN.md — POST /api/process endpoint with path validation and security
+- [x] 05-04-PLAN.md — Server-Sent Events (SSE) /api/sse/:jobId for real-time progress
+- [x] 05-05-PLAN.md — Job status query endpoint and results.json upload validation
+
+**Completed**: 2026-01-23
 
 ### Phase 6: File Upload & Tokenizer Selection
 **Goal**: Frontend interfaces for file upload, tokenizer selection, and real-time processing feedback
@@ -182,7 +184,7 @@ Phases execute in numeric order: 4 → 5 → 6 → 7 → 8 → 9
 | 2. EPUB Processing | v1.0 | 3/3 | Complete | 2026-01-21 |
 | 3. Tokenization & Output | v1.0 | 6/6 | Complete | 2026-01-21 |
 | 4. Foundation & Project Setup | v2.0 | 4/4 | Complete | 2026-01-23 |
-| 5. Backend API & File Processing | v2.0 | 0/5 | Not started | - |
+| 5. Backend API & File Processing | v2.0 | 5/5 | Complete | 2026-01-23 |
 | 6. File Upload & Tokenizer Selection | v2.0 | 0/5 | Not started | - |
 | 7. Data Visualization & Comparison | v2.0 | 0/4 | Not started | - |
 | 8. Token Budget Calculator & Cost Estimation | v2.0 | 0/4 | Not started | - |

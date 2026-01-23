@@ -19,12 +19,12 @@ Requirements for Web UI milestone. Each maps to roadmap phases.
 ### Backend API
 
 - [x] **API-01**: Server provides /api/health endpoint for connectivity check
-- [ ] **API-02**: Server provides /api/list-models endpoint returning available tokenizers
-- [ ] **API-03**: Server provides /api/process endpoint accepting EPUB folder path and tokenizer list
-- [ ] **API-04**: Server provides /api/upload-results endpoint for results.json files
-- [ ] **API-05**: Server implements SSE endpoint for real-time processing progress
-- [ ] **API-06**: Server validates all file paths to prevent path traversal attacks
-- [ ] **API-07**: Server implements background job queue for EPUB processing
+- [x] **API-02**: Server provides /api/list-models endpoint returning available tokenizers
+- [x] **API-03**: Server provides /api/process endpoint accepting EPUB folder path and tokenizer list
+- [x] **API-04**: Server provides /api/upload-results endpoint for results.json files
+- [x] **API-05**: Server implements SSE endpoint for real-time processing progress
+- [x] **API-06**: Server validates all file paths to prevent path traversal attacks
+- [x] **API-07**: Server implements background job queue for EPUB processing
 
 ### Tokenizer Selection Interface
 
