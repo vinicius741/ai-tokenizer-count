@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 5 of 6 (Phase 5: Backend API & File Processing)
-Plan: 2 of 3 in current phase
+Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-01-23 — Completed 05-02: In-Memory Job Queue
+Last activity: 2026-01-23 — Completed 05-04: SSE Real-Time Progress
 
-Progress: [██████████░░] 70% (2/3 plans in phase 5 complete, 14/20 total plans)
+Progress: [███████████░] 86% (3/5 plans in phase 5 complete, 19/22 total plans)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,8 +34,8 @@ Progress: [██████████░░] 70% (2/3 plans in phase 5 compl
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18 (13 from v1.0 + 5 from v2.0)
-- Total execution time: ~8.5 hours (v1.0: ~7.25h, v2.0: ~1.25h)
+- Total plans completed: 19 (13 from v1.0 + 6 from v2.0)
+- Total execution time: ~9 hours (v1.0: ~7.25h, v2.0: ~1.75h)
 - Average per plan: ~11 min
 
 **By Phase:**
@@ -46,7 +46,7 @@ Progress: [██████████░░] 70% (2/3 plans in phase 5 compl
 | 2 (v1.0) | 3 | ~0.5h | ~10 min |
 | 3 (v1.0) | 6 | ~5.5h | ~55 min |
 | 4 (v2.0) | 4 | ~45 min | ~11 min |
-| 5 (v2.0) | 1 | ~20 min | ~20 min |
+| 5 (v2.0) | 2 | ~53 min | ~27 min |
 
 *Updated after each plan completion*
 
@@ -84,6 +84,8 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **API response wrapper pattern** with { success: true, data: T } for consistent responses (05-01)
 - **Dynamic imports for CLI code reuse** to avoid TypeScript rootDir violations when importing from workspace root (05-02)
 - **Sequential job processing** (not parallel) for server EPUB processing to avoid system overload (05-02)
+- **Raw SSE with reply.raw.write()** for real-time progress streaming instead of using a plugin (05-04)
+- **Progress callback per job** with client disconnect handling that doesn't stop job execution (05-04)
 
 ### Pending Todos
 
@@ -94,8 +96,8 @@ None.
 **Research Flags (from research/SUMMARY.md):**
 
 - ~~**Phase 4**: Monorepo structure decision — Research suggests starting simple (2 packages) but team may prefer Turborepo~~ **RESOLVED**: npm workspaces with shared package
-- **Phase 5**: SSE implementation details — Need working code example for Fastify + React SSE before implementation
-- **Phase 5**: Background job queue library — BullMQ (Redis-based) vs in-memory queue for localhost-only app
+- ~~**Phase 5**: SSE implementation details — Need working code example for Fastify + React SSE before implementation~~ **RESOLVED**: Raw SSE with reply.raw.write() (05-04)
+- ~~**Phase 5**: Background job queue library — BullMQ (Redis-based) vs in-memory queue for localhost-only app~~ **RESOLVED**: In-memory queue (05-02)
 
 **Gaps to Address:**
 
@@ -105,7 +107,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-23 17:57
-Stopped at: Completed 05-02-PLAN.md (In-Memory Job Queue)
-Phase 5 in progress - 1/3 plans remaining
+Last session: 2026-01-23 18:28
+Stopped at: Completed 05-04-PLAN.md (SSE Real-Time Progress)
+Phase 5 in progress - 2/5 plans remaining (05-03: Status Endpoint, 05-05: File Upload)
 Resume file: None
