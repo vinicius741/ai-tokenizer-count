@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 6 of 9 (Phase 6: File Upload & Tokenizer Selection)
-Plan: 2 of 5 in current phase
+Plan: 3 of 5 in current phase
 Status: In progress
-Last activity: 2026-01-23 — Completed Plan 06-02: File Upload Interface
+Last activity: 2026-01-23 — Completed Plan 06-03: Processing Controls
 
-Progress: [███████████░] 58% (23/40 total plans complete: 13 from v1.0, 10 from v2.0)
+Progress: [██████████░] 60% (24/40 total plans complete: 13 from v1.0, 11 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -97,6 +97,9 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Scale animation (scale-[1.02])** for drag-drop visual feedback on file upload zone (06-02)
 - **File chip UI pattern** - expand zone when empty, shrink to compact chip when file loaded (06-02)
 - **Frontend schema validation** mirrors backend approach using manual type checking (06-02)
+- **Text input for server-side folder paths** - browsers cannot access server file system, so FolderInput uses controlled text input with edit mode (06-03)
+- **Conditional button enable pattern** - ProcessButton disabled when either folderPath empty OR selectedTokenizers empty (06-03)
+- **Read-only display with edit toggle** - FolderInput shows path read-only, edit button toggles input field with Enter/Save and Escape/Cancel (06-03)
 ### Pending Todos
 
 None.
@@ -120,8 +123,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-23 19:45
-Stopped at: Completed Plan 06-02: File Upload Interface
-Phase 6 Plan 2 complete - file upload with drag-drop, validation, and toasts working
-Next: Phase 6 Plan 03: Results Table
+Last session: 2026-01-23 20:56
+Stopped at: Completed Plan 06-03: Processing Controls
+Phase 6 Plan 3 complete - folder input and process button with tokenizer-aware enable logic
+Next: Phase 6 Plan 04: Results Table
 Resume file: None
