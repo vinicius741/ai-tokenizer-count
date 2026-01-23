@@ -105,11 +105,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 06-01: Tokenizer selection interface (checkboxes, combobox, model info cards)
-- [ ] 06-02: File upload components (drag-drop, file picker, validation)
-- [ ] 06-03: EPUB folder input and process button
-- [ ] 06-04: Real-time progress display with SSE integration
-- [ ] 06-05: Cancel processing and localStorage persistence
+- [ ] 06-01-PLAN.md — Tokenizer selection interface (ToggleGroup chips, HF model combobox, model info cards, localStorage)
+- [ ] 06-02-PLAN.md — File upload components (drag-drop zone, file picker, schema validation, toasts)
+- [ ] 06-03-PLAN.md — EPUB folder input and process button (conditional enable, API integration)
+- [ ] 06-04-PLAN.md — Real-time progress display with SSE integration (striped progress bar, ETA, completion transformation)
+- [ ] 06-05-PLAN.md — Cancel processing and localStorage persistence (abort controller, reset button, state management)
 
 ### Phase 7: Data Visualization & Comparison
 **Goal**: Interactive charts (bar, scatter, results table) with multi-tokenizer comparison
@@ -185,7 +185,7 @@ Phases execute in numeric order: 4 → 5 → 6 → 7 → 8 → 9
 | 3. Tokenization & Output | v1.0 | 6/6 | Complete | 2026-01-21 |
 | 4. Foundation & Project Setup | v2.0 | 4/4 | Complete | 2026-01-23 |
 | 5. Backend API & File Processing | v2.0 | 5/5 | Complete | 2026-01-23 |
-| 6. File Upload & Tokenizer Selection | v2.0 | 0/5 | Not started | - |
+| 6. File Upload & Tokenizer Selection | v2.0 | 5/5 | Planned | 2026-01-23 |
 | 7. Data Visualization & Comparison | v2.0 | 0/4 | Not started | - |
 | 8. Token Budget Calculator & Cost Estimation | v2.0 | 0/4 | Not started | - |
 | 9. Polish, Persistence & Responsive Design | v2.0 | 0/4 | Not started | - |
