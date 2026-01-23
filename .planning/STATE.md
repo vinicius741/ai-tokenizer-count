@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 5 of 6 (Phase 5: Backend API & File Processing)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-23 — Completed 05-01: List Models API endpoint
+Last activity: 2026-01-23 — Completed 05-02: In-Memory Job Queue
 
-Progress: [██████████░░] 65% (1/3 plans in phase 5 complete, 13/20 total plans)
+Progress: [██████████░░] 70% (2/3 plans in phase 5 complete, 14/20 total plans)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -82,6 +82,8 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Unified build pipeline** (npm run build compiles all packages)
 - **Inline HF models list in server** to avoid cross-package TypeScript rootDir issues (05-01)
 - **API response wrapper pattern** with { success: true, data: T } for consistent responses (05-01)
+- **Dynamic imports for CLI code reuse** to avoid TypeScript rootDir violations when importing from workspace root (05-02)
+- **Sequential job processing** (not parallel) for server EPUB processing to avoid system overload (05-02)
 
 ### Pending Todos
 
@@ -104,6 +106,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-23 17:57
-Stopped at: Completed 05-01-PLAN.md (List Models API endpoint)
-Phase 5 in progress - 2/3 plans remaining
+Stopped at: Completed 05-02-PLAN.md (In-Memory Job Queue)
+Phase 5 in progress - 1/3 plans remaining
 Resume file: None
