@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Count words and tokens in EPUB files",
+  "workspaces": [
+    "packages/shared",
+    "web",
+    "server"
+  ],
   "dependencies": {
     "@anthropic-ai/tokenizer": "^0.0.4",
     "@gxl/epub-parser": "^2.0.4",
@@ -16,10 +21,14 @@
   "devDependencies": {
     "@types/cli-progress": "^3.11.6",
     "@types/node": "^22.0.0",
+    "concurrently": "^9.2.1",
     "typescript": "^5.6.0"
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/cli/index.js"
+    "start": "node dist/cli/index.js",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:web": "npm run dev --workspace=web",
+    "dev:ui": "npm run dev:web"
   }
 }
