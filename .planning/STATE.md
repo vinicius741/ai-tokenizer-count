@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 5 of 6 (Phase 5: Backend API & File Processing)
-Plan: 3 of 5 in current phase
+Plan: 5 of 5 in current phase
 Status: In progress
-Last activity: 2026-01-23 — Completed 05-03: POST /api/process Endpoint
+Last activity: 2026-01-23 — Completed 05-05: Status Endpoint & Results Upload
 
-Progress: [██████░░░░░░] 60% (3/5 plans in phase 5 complete, 16/22 total plans)
+Progress: [██████████░░] 82% (5/5 plans in phase 5 complete, 18/22 total plans)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,8 +34,8 @@ Progress: [██████░░░░░░] 60% (3/5 plans in phase 5 compl
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16 (13 from v1.0 + 3 from v2.0)
-- Total execution time: ~8.5 hours (v1.0: ~7.25h, v2.0: ~1.25h)
+- Total plans completed: 18 (13 from v1.0 + 5 from v2.0)
+- Total execution time: ~9 hours (v1.0: ~7.25h, v2.0: ~1.75h)
 - Average per plan: ~11 min
 
 **By Phase:**
@@ -46,7 +46,7 @@ Progress: [██████░░░░░░] 60% (3/5 plans in phase 5 compl
 | 2 (v1.0) | 3 | ~0.5h | ~10 min |
 | 3 (v1.0) | 6 | ~5.5h | ~55 min |
 | 4 (v2.0) | 4 | ~45 min | ~11 min |
-| 5 (v2.0) | 3 | ~1.3h | ~26 min |
+| 5 (v2.0) | 5 | ~1.5h | ~18 min |
 
 *Updated after each plan completion*
 
@@ -88,6 +88,8 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Workspace root path resolution** - Server runs from `server/` but relative paths resolve from workspace root for user convenience (05-03)
 - **Raw SSE with reply.raw.write()** for real-time progress streaming instead of using a plugin (05-04)
 - **Progress callback per job** with client disconnect handling that doesn't stop job execution (05-04)
+- **Manual schema validation** without external libraries (ajv, zod) - simpler for results.json validation (05-05)
+- **1MB body limit for upload-results** prevents large file uploads to the API endpoint (05-05)
 
 ### Pending Todos
 
@@ -109,7 +111,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-23 18:20
-Stopped at: Completed 05-03-PLAN.md (POST /api/process Endpoint)
-Phase 5 in progress - 2/5 plans remaining (05-04: SSE Real-Time Progress, 05-05: Status Endpoint)
+Last session: 2026-01-23 18:48
+Stopped at: Completed 05-05-PLAN.md (Status Endpoint & Results Upload)
+Phase 5 complete - all 5 plans finished (05-01 through 05-05)
+Ready for Phase 6 (Frontend)
 Resume file: None
