@@ -391,6 +391,37 @@ export class JobQueue {
     job.onProgress = callback;
     return true;
   }
+
+  /**
+   * Remove progress callback for a job
+   *
+   * Unregisters the progress callback for SSE client disconnect handling.
+   *
+   * @param jobId - Job identifier
+   * @returns true if callback was removed, false if job not found
+   */
+  removeProgressCallback(jobId: string): boolean {
+    const job = this.jobs.get(jobId);
+    if (!job) {
+      return false;
+    }
+    job.onProgress = undefined;
+    return true;
+  }
+
+  /**
+   * Get queue position for a job
+   *
+   * Returns the position of a queued job in the queue (1-based).
+   * Returns 0 if the job is not in the queue (processing, completed, etc.).
+   *
+   * @param jobId - Job identifier
+   * @returns Queue position (0 if not in queue)
+   */
+  getQueuePosition(jobId: string): number {
+    const position = this.queue.indexOf(jobId);
+    return position === -1 ? 0 : position + 1;
+  }
 }
 
 /**
