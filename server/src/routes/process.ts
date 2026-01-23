@@ -95,27 +95,18 @@ export async function processHandler(
     '/api/process',
     {
       schema: {
-        description: 'Queue EPUB processing job',
-        tags: ['processing'],
         body: {
           type: 'object',
           required: ['path', 'tokenizers'],
           properties: {
-            path: { type: 'string', description: 'EPUB folder path' },
+            path: { type: 'string' },
             tokenizers: {
               type: 'array',
               items: { type: 'string' },
               minItems: 1,
-              description: 'Tokenizers to use',
             },
-            recursive: {
-              type: 'boolean',
-              description: 'Include subdirectories',
-            },
-            maxMb: {
-              type: 'number',
-              description: 'Max EPUB text size in MB',
-            },
+            recursive: { type: 'boolean' },
+            maxMb: { type: 'number' },
           },
         },
         response: {
