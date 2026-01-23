@@ -17,7 +17,7 @@ Frontend interfaces for uploading results.json, selecting tokenizers (GPT-4, Cla
 - **Unified list layout** — All tokenizers (GPT-4, Claude, Hugging Face) in a single list, not separate sections
 - **Toggle chip style** — Tokenizers displayed as clickable chips/pills that toggle selected state
 - **Remember last selection** — Selection persisted to localStorage, restored on page load (not hardcoded defaults)
-- **Model info on interaction** — Hugging Face models show info card/popover on click or hover with details (vocab size, context window, provider)
+- **Model info on hover** — Hugging Face models show info card/popover on hover with details (vocab size, context window, provider)
 
 ### File upload behavior
 - **Prominent drop zone** — Large designated area with dashed border, icon, and "Drop file here" text when empty
@@ -26,7 +26,8 @@ Frontend interfaces for uploading results.json, selecting tokenizers (GPT-4, Cla
 - **Zone expands on drag** — Drop zone expands slightly when file is dragged over it
 
 ### Processing controls
-- **Folder picker only** — No text input field; folder picker dialog selects path, shown read-only after selection
+- **Text input for folder path** — Text input field for entering server-side EPUB folder path (browsers cannot pick server-side folders directly)
+- **Edit mode for path modification** — Path shown read-only when set, edit button opens text input for changes
 - **Auto-enable Process button** — Button disabled until tokenizers selected AND folder chosen, then becomes enabled
 - **Cancel button shows only during processing** — Hidden when idle, appears when processing starts
 - **Explicit reset after cancel** — After cancel, shows cancelled state; user must click "Reset" or "New Process" to continue
