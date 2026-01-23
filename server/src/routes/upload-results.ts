@@ -8,7 +8,7 @@
  * @module routes/upload-results
  */
 
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyRequest } from 'fastify';
 import type { ResultsOutput } from '@epub-counter/shared';
 import { validateResultsOutput } from '../lib/schema-validator.js';
 
@@ -61,8 +61,8 @@ interface UploadResultsSuccessData {
  */
 export async function uploadResultsHandler(fastify: FastifyInstance): Promise<void> {
   // Set body limit to 1MB for results uploads
-  fastify.addContentTypeParser('application/json', { bodyLimit: 1024 * 1024 }, async (_request, body) => {
-    return JSON.parse(body as string);
+  fastify.addContentTypeParser('application/json', { parseAs: 'string', bodyLimit: 1024 * 1024 }, async (_request: FastifyRequest, body: string) => {
+    return JSON.parse(body);
   });
 
   // POST /api/upload-results - Upload and validate results.json
@@ -72,8 +72,10 @@ export async function uploadResultsHandler(fastify: FastifyInstance): Promise<vo
     '/api/upload-results',
     {
       schema: {
-        description: 'Upload and validate results.json file',
-        consumes: ['application/json'],
+        body: {
+          description: 'Upload and validate results.json file',
+          consumes: ['application/json'],
+        },
         response: {
           200: {
             description: 'Results validated successfully',
