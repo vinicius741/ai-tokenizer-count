@@ -392,3 +392,10 @@ export class JobQueue {
     return true;
   }
 }
+
+/**
+ * Singleton instance for the server
+ *
+ * All routes share the same queue instance for consistent job management.
+ */
+export const jobQueue = new JobQueue();
