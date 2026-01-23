@@ -9,6 +9,7 @@
  */
 
 import type { FastifyInstance, FastifyRequest } from 'fastify';
+import fp from 'fastify-plugin';
 import type { ResultsOutput } from '@epub-counter/shared';
 import { validateResultsOutput } from '../lib/schema-validator.js';
 
@@ -72,10 +73,6 @@ export async function uploadResultsHandler(fastify: FastifyInstance): Promise<vo
     '/api/upload-results',
     {
       schema: {
-        body: {
-          description: 'Upload and validate results.json file',
-          consumes: ['application/json'],
-        },
         response: {
           200: {
             description: 'Results validated successfully',
@@ -155,3 +152,8 @@ export async function uploadResultsHandler(fastify: FastifyInstance): Promise<vo
     }
   );
 }
+
+// Export as fastify plugin for registration
+export default fp(uploadResultsHandler, {
+  name: 'upload-results',
+});

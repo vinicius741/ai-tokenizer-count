@@ -9,6 +9,7 @@
  */
 
 import type { FastifyInstance } from 'fastify';
+import fp from 'fastify-plugin';
 import type { JobState } from '@epub-counter/shared';
 import { jobQueue } from '../lib/job-queue.js';
 
@@ -124,3 +125,8 @@ export async function jobStatusHandler(fastify: FastifyInstance): Promise<void> 
     });
   });
 }
+
+// Export as fastify plugin for registration
+export default fp(jobStatusHandler, {
+  name: 'job-status',
+});
