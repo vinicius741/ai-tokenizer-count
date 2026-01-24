@@ -51,25 +51,25 @@ Requirements for Web UI milestone. Each maps to roadmap phases.
 
 ### Data Visualization
 
-- [ ] **VIS-01**: User sees bar chart showing token counts per EPUB (horizontal bars)
-- [ ] **VIS-02**: Bar chart is sortable by token count (ascending/descending)
-- [ ] **VIS-03**: Bar chart color-codes bars by tokenizer (GPT-4, Claude, HF)
-- [ ] **VIS-04**: Bar chart tooltip shows exact counts, word count, file metadata on hover
-- [ ] **VIS-05**: User sees scatter plot showing word count vs token count density
-- [ ] **VIS-06**: Scatter plot shows trend line for average tokenization ratio
-- [ ] **VIS-07**: Scatter plot supports zoom/pan for large datasets (50+ EPUBs)
-- [ ] **VIS-08**: User sees results table with columns (Title, Author, Words, Tokens, File Path)
-- [ ] **VIS-09**: Results table is sortable by any column (ascending/descending)
-- [ ] **VIS-10**: Results table is filterable by title/author text search
-- [ ] **VIS-11**: Results table is filterable by token count range slider
-- [ ] **VIS-12**: User can export results table to CSV
+- [x] **VIS-01**: User sees bar chart showing token counts per EPUB (horizontal bars)
+- [x] **VIS-02**: Bar chart is sortable by token count (ascending/descending)
+- [x] **VIS-03**: Bar chart color-codes bars by tokenizer (GPT-4, Claude, HF)
+- [x] **VIS-04**: Bar chart tooltip shows exact counts, word count, file metadata on hover
+- [x] **VIS-05**: User sees scatter plot showing word count vs token count density
+- [x] **VIS-06**: Scatter plot shows trend line for average tokenization ratio
+- [x] **VIS-07**: Scatter plot supports zoom/pan for large datasets (50+ EPUBs)
+- [x] **VIS-08**: User sees results table with columns (Title, Author, Words, Tokens, File Path)
+- [x] **VIS-09**: Results table is sortable by any column (ascending/descending)
+- [x] **VIS-10**: Results table is filterable by title/author text search
+- [x] **VIS-11**: Results table is filterable by token count range slider
+- [x] **VIS-12**: User can export results table to CSV
 
 ### Multi-Tokenizer Comparison
 
-- [ ] **COMP-01**: User sees side-by-side bar chart comparing tokenizers per EPUB
-- [ ] **COMP-02**: Comparison chart color-codes differences (green=fewer tokens, red=more)
-- [ ] **COMP-03**: Comparison chart tooltip shows percentage difference on hover
-- [ ] **COMP-04**: User can export comparison table to CSV
+- [x] **COMP-01**: User sees side-by-side bar chart comparing tokenizers per EPUB
+- [x] **COMP-02**: Comparison chart color-codes differences (green=fewer tokens, red=more)
+- [x] **COMP-03**: Comparison chart tooltip shows percentage difference on hover
+- [x] **COMP-04**: User can export comparison table to CSV
 
 ### Token Budget Calculator
 
@@ -193,22 +193,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UPLOAD-08 | Phase 6 | Pending |
 | UPLOAD-09 | Phase 6 | Pending |
 | UPLOAD-10 | Phase 6 | Pending |
-| VIS-01 | Phase 7 | Pending |
-| VIS-02 | Phase 7 | Pending |
-| VIS-03 | Phase 7 | Pending |
-| VIS-04 | Phase 7 | Pending |
-| VIS-05 | Phase 7 | Pending |
-| VIS-06 | Phase 7 | Pending |
-| VIS-07 | Phase 7 | Pending |
-| VIS-08 | Phase 7 | Pending |
-| VIS-09 | Phase 7 | Pending |
-| VIS-10 | Phase 7 | Pending |
-| VIS-11 | Phase 7 | Pending |
-| VIS-12 | Phase 7 | Pending |
-| COMP-01 | Phase 7 | Pending |
-| COMP-02 | Phase 7 | Pending |
-| COMP-03 | Phase 7 | Pending |
-| COMP-04 | Phase 7 | Pending |
+| VIS-01 | Phase 7 | Complete |
+| VIS-02 | Phase 7 | Complete |
+| VIS-03 | Phase 7 | Complete |
+| VIS-04 | Phase 7 | Complete |
+| VIS-05 | Phase 7 | Complete |
+| VIS-06 | Phase 7 | Complete |
+| VIS-07 | Phase 7 | Complete |
+| VIS-08 | Phase 7 | Complete |
+| VIS-09 | Phase 7 | Complete |
+| VIS-10 | Phase 7 | Complete |
+| VIS-11 | Phase 7 | Complete |
+| VIS-12 | Phase 7 | Complete |
+| COMP-01 | Phase 7 | Complete |
+| COMP-02 | Phase 7 | Complete |
+| COMP-03 | Phase 7 | Complete |
+| COMP-04 | Phase 7 | Complete |
 | BUDGET-01 | Phase 8 | Pending |
 | BUDGET-02 | Phase 8 | Pending |
 | BUDGET-03 | Phase 8 | Pending |
@@ -255,4 +255,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-22*
-*Last updated: 2026-01-22 after roadmap creation*
+*Last updated: 2026-01-24 after Phase 7 completion*
