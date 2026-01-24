@@ -75,13 +75,13 @@ function App() {
   const isProcessing = !!currentJobId && !processingResults
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-background p-4 lg:p-8">
+      <div className="max-w-full lg:max-w-7xl mx-auto space-y-4 lg:space-y-6">
         <Card>
           <CardHeader>
             <CardTitle>EPUB Tokenizer Counter</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-4 lg:space-y-6">
             {/* Tokenizer Selection */}
             <div>
               <h2 className="text-lg font-semibold mb-4">1. Select Tokenizers</h2>
@@ -190,7 +190,7 @@ function App() {
                 {/* Token Count Analysis - Bar Charts */}
                 <div>
                   <h2 className="text-lg font-semibold mb-4">Token Count Analysis</h2>
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                     {(processingResults.options.tokenizers ?? []).map((tokenizer) => (
                       <ChartContainer
                         key={tokenizer}
@@ -229,7 +229,7 @@ function App() {
                 {(processingResults.options.tokenizers ?? []).length >= 2 && (
                   <div className="space-y-4">
                     <h2 className="text-lg font-semibold">Side-by-Side Comparison</h2>
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                       <ComparisonHeatmap
                         data={processingResults.results}
                         tokenizers={processingResults.options.tokenizers ?? []}
