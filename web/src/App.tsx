@@ -6,12 +6,28 @@ import { FolderInput } from './components/processing/FolderInput'
 import { ProcessButton } from './components/processing/ProcessButton'
 import { ProcessingProgress } from './components/progress/ProcessingProgress'
 import { CompletionSummary } from './components/progress/CompletionSummary'
+import { TokenizerBarChart } from './components/visualization/BarChart'
 import { TokenDensityScatter } from './components/visualization/ScatterChart'
 import { ChartContainer } from './components/visualization/ChartContainer'
 import { ResultsTable } from './components/visualization/ResultsTable'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import type { ResultsOutput } from '@epub-counter/shared'
+
+/**
+ * Get display name for a tokenizer ID
+ */
+function getTokenizerDisplayName(tokenizerId: string): string {
+  const displayNames: Record<string, string> = {
+    gpt4: 'GPT-4',
+    claude: 'Claude',
+  }
+  // For HF models, remove the 'hf:' prefix and use the model name
+  if (tokenizerId.startsWith('hf:')) {
+    return tokenizerId.slice(3)
+  }
+  return displayNames[tokenizerId] ?? tokenizerId
+}
 
 function App() {
   const [currentJobId, setCurrentJobId] = useState<string | null>(null)
@@ -166,6 +182,24 @@ function App() {
                 <div>
                   <h2 className="text-lg font-semibold mb-4">Complete!</h2>
                   <CompletionSummary results={processingResults} />
+                </div>
+
+                {/* Token Count Analysis - Bar Charts */}
+                <div>
+                  <h2 className="text-lg font-semibold mb-4">Token Count Analysis</h2>
+                  <div className="grid grid-cols-1 gap-4">
+                    {(processingResults.options.tokenizers ?? []).map((tokenizer) => (
+                      <ChartContainer
+                        key={tokenizer}
+                        title={`${getTokenizerDisplayName(tokenizer)} Token Counts`}
+                      >
+                        <TokenizerBarChart
+                          data={processingResults.results}
+                          tokenizerName={tokenizer}
+                        />
+                      </ChartContainer>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Token Density Analysis */}
