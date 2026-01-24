@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Users can accurately estimate token costs for processing EPUB content through LLMs by getting precise word and token counts across multiple tokenizer models.
-**Current focus:** Phase 8: Token Budget Calculator
+**Current focus:** Phase 9: Polish, Persistence & Responsive Design
 
 ## Current Position
 
-Phase: 8 of 9 (Token Budget Calculator)
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-01-24 — Completed Plan 08-04: Cost Estimation Display
+Phase: 9 of 9 (Polish, Persistence & Responsive Design)
+Plan: 0 of 4 in current phase
+Status: Phase not started
+Last activity: 2026-01-24 — Completed Phase 8: Token Budget Calculator
 
 Progress: [██████████░] 92.5% (37/40 total plans complete: 13 from v1.0, 24 from v2.0)
 
@@ -154,10 +154,8 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 
 ### Pending Todos
 
-- Phase 8 Wave 1: ~~Budget Calculator Form (08-01)~~ COMPLETE, Knapsack Solver (08-02) COMPLETE
-- Phase 8 Wave 2: ~~Budget Display UI (08-03)~~ COMPLETE
-- Phase 8 Wave 3: ~~Cost Estimation Display (08-04)~~ COMPLETE
-- Phase 9: Final Polish & Testing (5 plans) - NEXT
+- Phase 8: ~~Token Budget Calculator~~ COMPLETE (all 4 plans)
+- Phase 9: Polish, Persistence & Responsive Design (4 plans) - NEXT
 
 ### Blockers/Concerns
 
@@ -185,6 +183,6 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 ## Session Continuity
 
 Last session: 2026-01-24 (current session)
-Stopped at: Completed Plan 08-04: Cost Estimation Display
-Next: Phase 9: Final Polish & Testing
+Stopped at: Completed Phase 8: Token Budget Calculator (4/4 plans complete)
+Next: Phase 9: Polish, Persistence & Responsive Design (0/4 plans)
 Resume file: None
