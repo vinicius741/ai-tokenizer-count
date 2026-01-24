@@ -130,10 +130,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 07-01: Bar chart with token counts per EPUB (sortable, color-coded)
-- [ ] 07-02: Scatter plot with word vs token density and trend line
-- [ ] 07-03: Results table with sorting, filtering, and CSV export
-- [ ] 07-04: Multi-tokenizer comparison chart and table
+- [ ] 07-01-PLAN.md — Bar chart with token counts per EPUB (sortable, color-coded, custom tooltips)
+- [ ] 07-02-PLAN.md — Scatter plot with word vs token density and trend line (all tokenizers on same plot)
+- [ ] 07-03-PLAN.md — Results table with sorting, filtering, and CSV export (TanStack Table)
+- [ ] 07-04-PLAN.md — Multi-tokenizer comparison heatmap with percentage differences
 
 ### Phase 8: Token Budget Calculator & Cost Estimation
 **Goal**: Token budget calculator with optimization strategies and cost estimation display
