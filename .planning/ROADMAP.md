@@ -154,10 +154,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 08-01: Budget calculator form (input, presets, tokenizer selection)
-- [ ] 08-02: Knapsack solver algorithm for book selection
-- [ ] 08-03: Budget display UI (selected books, token usage, export actions)
-- [ ] 08-04: Cost estimation display per provider
+- [ ] 08-01-PLAN.md — Budget calculator form (input, presets, tokenizer selection, strategy tabs)
+- [ ] 08-02-PLAN.md — Knapsack solver algorithm for book selection (max books, max words, balanced)
+- [ ] 08-03-PLAN.md — Budget display UI (selected books, progress bar, copy/JSON export)
+- [ ] 08-04-PLAN.md — Cost estimation display per provider (OpenAI, Anthropic, Google)
 
 ### Phase 9: Polish, Persistence & Responsive Design
 **Goal**: Session persistence, responsive layout, error boundaries, and UX polish
