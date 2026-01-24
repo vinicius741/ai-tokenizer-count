@@ -16,6 +16,7 @@ import {
 } from 'recharts';
 import { ArrowUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { getTokenizerColor } from '@/lib/chart-utils';
 import { CustomTooltip } from './CustomTooltip';
 import type { EpubResult, TokenizerResult } from '@epub-counter/shared';
@@ -25,6 +26,29 @@ interface TokenizerBarChartProps {
   data: EpubResult[];
   /** Tokenizer name (e.g., "gpt4", "claude", "hf:bert-base-uncased") */
   tokenizerName: string;
+  /** Show loading skeleton */
+  isLoading?: boolean;
+}
+
+/**
+ * BarChartSkeleton - Loading placeholder for BarChart
+ *
+ * Matches the chart dimensions to prevent layout shift.
+ */
+function BarChartSkeleton() {
+  return (
+    <div className="space-y-4">
+      {/* Sort toggle button skeleton */}
+      <div className="flex justify-end">
+        <Skeleton className="h-9 w-40" />
+      </div>
+
+      {/* Chart area skeleton */}
+      <div className="h-[300px] w-full">
+        <Skeleton className="h-full w-full rounded-lg" />
+      </div>
+    </div>
+  )
 }
 
 /**
@@ -40,8 +64,14 @@ interface TokenizerBarChartProps {
 export function TokenizerBarChart({
   data,
   tokenizerName,
+  isLoading = false,
 }: TokenizerBarChartProps) {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+
+  // Show skeleton while loading
+  if (isLoading) {
+    return <BarChartSkeleton />;
+  }
 
   // Transform data: filter out errors, map to chart format, sort by token count
   const chartData = useMemo(() => {

@@ -15,6 +15,7 @@ import {
   Legend,
   Brush
 } from 'recharts';
+import { Skeleton } from '@/components/ui/skeleton';
 import { groupBy, getTokenizerColor, formatNumber } from '@/lib/chart-utils';
 import type { EpubResult } from '@epub-counter/shared';
 
@@ -34,6 +35,21 @@ interface TokenDensityScatterProps {
   data: EpubResult[];
   /** List of tokenizer names to plot */
   tokenizers: string[];
+  /** Show loading skeleton */
+  isLoading?: boolean;
+}
+
+/**
+ * ScatterChartSkeleton - Loading placeholder for ScatterChart
+ *
+ * Matches the chart dimensions to prevent layout shift.
+ */
+function ScatterChartSkeleton() {
+  return (
+    <div className="w-full h-full">
+      <Skeleton className="h-[400px] w-full rounded-lg" />
+    </div>
+  )
 }
 
 /**
@@ -83,7 +99,11 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: any[] 
  * Shows word count (x-axis) vs token count (y-axis) for all EPUBs,
  * with separate series per tokenizer and linear regression trend lines.
  */
-export function TokenDensityScatter({ data, tokenizers }: TokenDensityScatterProps) {
+export function TokenDensityScatter({ data, tokenizers, isLoading = false }: TokenDensityScatterProps) {
+  // Show skeleton while loading
+  if (isLoading) {
+    return <ScatterChartSkeleton />;
+  }
   // Transform data into scatter points
   const scatterData = useMemo(() => {
     // Filter out failed results
