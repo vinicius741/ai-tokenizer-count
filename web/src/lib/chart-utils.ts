@@ -1,0 +1,106 @@
+/**
+ * Chart utility functions for EPUB Tokenizer Counter
+ *
+ * This module provides helper functions for data transformation,
+ * color management, and other chart-related utilities.
+ */
+
+/**
+ * Group an array of items by a key
+ *
+ * @param array - Array of items to group
+ * @param key - Key to group by (can be nested like 'metadata.title')
+ * @returns Record with keys as grouped values and arrays of items
+ *
+ * @example
+ * ```ts
+ * const data = [
+ *   { name: 'Alice', age: 25 },
+ *   { name: 'Bob', age: 30 },
+ *   { name: 'Alice', age: 35 }
+ * ];
+ * const grouped = groupBy(data, 'name');
+ * // { Alice: [{ name: 'Alice', age: 25 }, { name: 'Alice', age: 35 }], Bob: [...] }
+ * ```
+ */
+export function groupBy<T extends Record<string, unknown>>(
+  array: T[],
+  key: keyof T
+): Record<string, T[]> {
+  if (!Array.isArray(array) || array.length === 0) {
+    return {};
+  }
+
+  return array.reduce((acc, item) => {
+    const groupKey = String(item[key] ?? 'unknown');
+    if (!acc[groupKey]) {
+      acc[groupKey] = [];
+    }
+    acc[groupKey].push(item);
+    return acc;
+  }, {} as Record<string, T[]>);
+}
+
+/**
+ * Tokenizer color palette for visualizations
+ *
+ * Maps tokenizer names to their display colors using HSL values
+ * for consistent theming across all charts.
+ */
+export const TOKENIZER_COLORS: Record<string, string> = {
+  gpt4: 'hsl(221, 83%, 53%)',        // Blue
+  claude: 'hsl(25, 95%, 53%)',       // Orange
+  'hf:bert-base-uncased': 'hsl(142, 71%, 45%)', // Green
+  'hf:gpt2': 'hsl(280, 65%, 60%)',   // Purple
+  // Fallback for unknown tokenizers
+  default: 'hsl(215, 25%, 27%)'
+};
+
+/**
+ * Get color for a tokenizer by name
+ *
+ * @param tokenizerName - Name of the tokenizer
+ * @returns HSL color string
+ */
+export function getTokenizerColor(tokenizerName: string): string {
+  return TOKENIZER_COLORS[tokenizerName] ?? TOKENIZER_COLORS.default;
+}
+
+/**
+ * Format number with thousands separator
+ *
+ * @param value - Number to format
+ * @returns Formatted string (e.g., "1,234,567")
+ */
+export function formatNumber(value: number): string {
+  return value.toLocaleString('en-US');
+}
+
+/**
+ * Calculate percentage difference between two values
+ *
+ * @param value - The value to compare
+ * @param baseline - The baseline value (100%)
+ * @returns Percentage (e.g., 123.45 for 23.45% above baseline)
+ */
+export function calculatePercentage(value: number, baseline: number): number {
+  if (baseline === 0) return 0;
+  return (value / baseline) * 100;
+}
+
+/**
+ * Get color class for heatmap based on percentage
+ *
+ * Uses sequential green scale: lighter = closer to baseline,
+ * darker = higher percentage difference
+ *
+ * @param percentage - Percentage value (100 = baseline)
+ * @returns Tailwind CSS color class name
+ */
+export function getHeatmapColor(percentage: number): string {
+  if (percentage < 105) return 'bg-green-100';
+  if (percentage < 115) return 'bg-green-200';
+  if (percentage < 125) return 'bg-green-300';
+  if (percentage < 140) return 'bg-green-400';
+  return 'bg-green-500';
+}
