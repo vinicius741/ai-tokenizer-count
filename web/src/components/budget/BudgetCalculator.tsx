@@ -8,6 +8,7 @@ import { BudgetSummary } from './BudgetSummary'
 import { BudgetProgressBar } from './BudgetProgressBar'
 import { SelectedBooksTable } from './SelectedBooksTable'
 import { ExportButtons } from './ExportButtons'
+import { CostEstimationCards } from './CostEstimationCards'
 import type { EpubResult, TokenizerType } from '@epub-counter/shared'
 
 export type OptimizationStrategy = 'max-books' | 'max-words' | 'balanced'
@@ -256,6 +257,11 @@ export function BudgetCalculator({ results }: BudgetCalculatorProps) {
             budget={state.budget}
             strategy={state.strategy}
           />
+
+          {/* Cost Estimation */}
+          <div>
+            <CostEstimationCards tokenCount={result.totalTokens} />
+          </div>
         </div>
       )}
     </div>
