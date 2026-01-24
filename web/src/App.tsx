@@ -6,6 +6,8 @@ import { FolderInput } from './components/processing/FolderInput'
 import { ProcessButton } from './components/processing/ProcessButton'
 import { ProcessingProgress } from './components/progress/ProcessingProgress'
 import { CompletionSummary } from './components/progress/CompletionSummary'
+import { TokenDensityScatter } from './components/visualization/ScatterChart'
+import { ChartContainer } from './components/visualization/ChartContainer'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import type { ResultsOutput } from '@epub-counter/shared'
@@ -54,7 +56,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background p-8">
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-6xl mx-auto space-y-6">
         <Card>
           <CardHeader>
             <CardTitle>EPUB Tokenizer Counter</CardTitle>
@@ -163,6 +165,17 @@ function App() {
                 <div>
                   <h2 className="text-lg font-semibold mb-4">Complete!</h2>
                   <CompletionSummary results={processingResults} />
+                </div>
+
+                {/* Token Density Analysis */}
+                <div>
+                  <h2 className="text-lg font-semibold mb-4">Token Density Analysis</h2>
+                  <ChartContainer title="Word Count vs Token Count">
+                    <TokenDensityScatter
+                      data={processingResults.results}
+                      tokenizers={processingResults.options.tokenizers ?? []}
+                    />
+                  </ChartContainer>
                 </div>
 
                 {/* Reset Button */}
