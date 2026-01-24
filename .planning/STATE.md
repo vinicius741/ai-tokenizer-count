@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 8 of 9 (Token Budget Calculator)
-Plan: 2 of 4 in current phase
+Plan: 3 of 4 in current phase
 Status: In progress
-Last activity: 2026-01-24 — Completed Plan 08-01: Budget Calculator Form
+Last activity: 2026-01-24 — Completed Plan 08-03: Budget Display UI
 
-Progress: [██████████░] 87.5% (35/40 total plans complete: 13 from v1.0, 22 from v2.0)
+Progress: [██████████░] 90.0% (36/40 total plans complete: 13 from v1.0, 23 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -49,7 +49,7 @@ Progress: [██████████░] 87.5% (35/40 total plans complete:
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
 | 6 (v2.0) | 5 | ~2.2h | ~26 min |
 | 7 (v2.0) | 5 | ~155 min | ~31 min |
-| 8 (v2.0) | 3 | ~23 min | ~8 min |
+| 8 (v2.0) | 3 | ~48 min | ~16 min |
 
 *Updated after each plan completion*
 
@@ -141,6 +141,9 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **2026-01 pricing data with quarterly update** - Provider pricing for OpenAI, Anthropic, Google with update recommendation (08-02)
 - **useDebounce for 500ms delayed recalculation** - Prevents excessive knapsack recalculation during input changes (08-02)
 - **Memoized budget calculations with useMemo** - Expensive knapsack computations cached to avoid redundant work (08-02)
+- **TanStack Table pattern for sortable data display** - useReactTable with getCoreRowModel, getSortedRowModel, sorting state (08-03)
+- **Clipboard API with execCommand fallback** - navigator.clipboard.writeText with document.execCommand fallback for broader compatibility (08-03)
+- **Blob API for client-side JSON generation** - Blob -> createObjectURL -> anchor click -> revokeObjectURL cleanup pattern (08-03)
 - **Radix UI Tabs for strategy selection** - shadcn/ui component with built-in accessibility for Max Books/Max Words/Balanced options (08-01)
 - **Preset buttons with variant highlighting** - default variant for active preset, outline for inactive, provides quick budget selection (32K/128K/200K) (08-01)
 - **localStorage persistence for budget form** - Budget, tokenizer, and strategy selections persist across sessions via useLocalStorage hook (08-01)
@@ -149,8 +152,8 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 ### Pending Todos
 
 - Phase 8 Wave 1: ~~Budget Calculator Form (08-01)~~ COMPLETE, Knapsack Solver (08-02) COMPLETE
-- Phase 8 Wave 2: Budget Display UI (08-03) - NEXT
-- Phase 8 Wave 3: Cost Estimation Display (08-04)
+- Phase 8 Wave 2: ~~Budget Display UI (08-03)~~ COMPLETE
+- Phase 8 Wave 3: Cost Estimation Display (08-04) - NEXT
 
 ### Blockers/Concerns
 
@@ -178,6 +181,6 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 ## Session Continuity
 
 Last session: 2026-01-24 (current session)
-Stopped at: Completed Plan 08-01: Budget Calculator Form
-Next: Plan 08-03 (Budget Display UI)
+Stopped at: Completed Plan 08-03: Budget Display UI
+Next: Plan 08-04 (Cost Estimation Display)
 Resume file: None
