@@ -11,6 +11,7 @@ import { TokenDensityScatter } from './components/visualization/ScatterChart'
 import { ChartContainer } from './components/visualization/ChartContainer'
 import { ResultsTable } from './components/visualization/ResultsTable'
 import { ComparisonHeatmap } from './components/visualization/ComparisonHeatmap'
+import { ComparisonBarChart } from './components/visualization/ComparisonBarChart'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import type { ResultsOutput } from '@epub-counter/shared'
@@ -225,11 +226,18 @@ function App() {
 
                 {/* Tokenizer Comparison Heatmap - only show with 2+ tokenizers */}
                 {(processingResults.options.tokenizers ?? []).length >= 2 && (
-                  <div>
-                    <ComparisonHeatmap
-                      data={processingResults.results}
-                      tokenizers={processingResults.options.tokenizers ?? []}
-                    />
+                  <div className="space-y-4">
+                    <h2 className="text-lg font-semibold">Side-by-Side Comparison</h2>
+                    <div className="space-y-4">
+                      <ComparisonHeatmap
+                        data={processingResults.results}
+                        tokenizers={processingResults.options.tokenizers ?? []}
+                      />
+                      <ComparisonBarChart
+                        data={processingResults.results}
+                        tokenizers={processingResults.options.tokenizers ?? []}
+                      />
+                    </div>
                   </div>
                 )}
 
