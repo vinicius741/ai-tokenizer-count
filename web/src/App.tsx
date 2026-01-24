@@ -13,8 +13,11 @@ import { ResultsTable } from './components/visualization/ResultsTable'
 import { ComparisonHeatmap } from './components/visualization/ComparisonHeatmap'
 import { ComparisonBarChart } from './components/visualization/ComparisonBarChart'
 import { BudgetCalculator } from './components/budget/BudgetCalculator'
+import { RestoreDialog } from './components/persistence/RestoreDialog'
+import { NewSessionButton } from './components/persistence/NewSessionButton'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { useLocalStorage } from './hooks/use-local-storage'
 import type { ResultsOutput } from '@epub-counter/shared'
 
 /**
@@ -34,7 +37,10 @@ function getTokenizerDisplayName(tokenizerId: string): string {
 
 function App() {
   const [currentJobId, setCurrentJobId] = useState<string | null>(null)
-  const [processingResults, setProcessingResults] = useState<ResultsOutput | null>(null)
+  const [processingResults, setProcessingResults, clearResults] = useLocalStorage<ResultsOutput | null>(
+    'epub-counter-results',
+    null
+  )
   const [isCancelled, setIsCancelled] = useState(false)
   const [folderPath, setFolderPath] = useState('')
   const [selectedTokenizers, setSelectedTokenizers] = useState<string[]>([])
@@ -63,10 +69,25 @@ function App() {
     setIsCancelled(true)
   }
 
+  const handleRestoreSession = () => {
+    // Results are already loaded by useLocalStorage hook
+    // This handler just confirms the user wants to keep them
+    console.log('Session restored from localStorage')
+  }
+
+  const handleNewSession = () => {
+    // Clear all saved data and reset state
+    clearResults()
+    setCurrentJobId(null)
+    setIsCancelled(false)
+    setFolderPath('')
+    // Note: We don't reset selectedTokenizers to remember user preference
+  }
+
   const handleReset = () => {
     // Reset all state
+    clearResults()
     setCurrentJobId(null)
-    setProcessingResults(null)
     setIsCancelled(false)
     setFolderPath('')
     // Note: We don't reset selectedTokenizers to remember user preference
@@ -77,9 +98,22 @@ function App() {
   return (
     <div className="min-h-screen bg-background p-4 lg:p-8">
       <div className="max-w-full lg:max-w-7xl mx-auto space-y-4 lg:space-y-6">
+        {/* Restore Dialog - shows when saved data exists and no active job */}
+        <RestoreDialog
+          hasSavedData={!!processingResults && !currentJobId}
+          onRestore={handleRestoreSession}
+          onClear={handleNewSession}
+        />
+
         <Card>
           <CardHeader>
-            <CardTitle>EPUB Tokenizer Counter</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle>EPUB Tokenizer Counter</CardTitle>
+              {/* New Session Button - shows in header when results exist */}
+              {processingResults && !currentJobId && (
+                <NewSessionButton onClear={handleNewSession} />
+              )}
+            </div>
           </CardHeader>
           <CardContent className="space-y-4 lg:space-y-6">
             {/* Tokenizer Selection */}
