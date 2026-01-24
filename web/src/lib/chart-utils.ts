@@ -120,3 +120,82 @@ export function getHeatmapColor(percentage: number): string {
   if (percentage < 140) return 'bg-green-400';
   return 'bg-green-500';
 }
+
+/**
+ * Comparison data structure for multi-tokenizer heatmap
+ */
+export interface ComparisonData {
+  /** EPUB title */
+  epubTitle: string;
+  /** Token counts by tokenizer name */
+  tokenizers: Record<string, number>;
+  /** Lowest token count across all tokenizers for this EPUB */
+  lowestCount: number;
+  /** Percentage differences relative to lowest count */
+  percentages: Record<string, number>;
+}
+
+/**
+ * Transform EpubResult[] to comparison data for heatmap visualization
+ *
+ * Calculates percentage differences relative to the lowest token count
+ * for each EPUB across all tokenizers.
+ *
+ * @param results - Array of EpubResult to transform
+ * @param tokenizerNames - List of tokenizer names to include
+ * @returns Array of comparison data with percentages
+ *
+ * @example
+ * ```ts
+ * const comparisonData = transformToComparisonData(
+ *   results,
+ *   ['gpt4', 'claude', 'hf:bert-base-uncased']
+ * );
+ * // Returns: [
+ * //   {
+ * //     epubTitle: 'Book Title',
+ * //     tokenizers: { gpt4: 1000, claude: 1120, 'hf:bert-base-uncased': 950 },
+ * //     lowestCount: 950,
+ * //     percentages: { gpt4: 105.26, claude: 117.89, 'hf:bert-base-uncased': 100 }
+ * //   }
+ * // ]
+ * ```
+ */
+export function transformToComparisonData(
+  results: import('@epub-counter/shared').EpubResult[],
+  tokenizerNames: string[]
+): ComparisonData[] {
+  // Filter out results with errors
+  const validResults = results.filter((result) => !result.error);
+
+  return validResults.map((result) => {
+    // Extract token counts for each tokenizer
+    const tokenizers: Record<string, number> = {};
+    tokenizerNames.forEach((tokenizerName) => {
+      const tokenCount = result.tokenCounts.find(
+        (t) => t.name === tokenizerName
+      )?.count ?? 0;
+      tokenizers[tokenizerName] = tokenCount;
+    });
+
+    // Find lowest count across all tokenizers (handle 0 case)
+    const counts = Object.values(tokenizers);
+    const lowestCount = Math.min(...counts.filter((c) => c > 0), 1);
+
+    // Calculate percentages relative to lowest count
+    const percentages: Record<string, number> = {};
+    tokenizerNames.forEach((tokenizerName) => {
+      const count = tokenizers[tokenizerName];
+      percentages[tokenizerName] = lowestCount > 0
+        ? (count / lowestCount) * 100
+        : 0;
+    });
+
+    return {
+      epubTitle: result.metadata.title,
+      tokenizers,
+      lowestCount,
+      percentages,
+    };
+  });
+}
