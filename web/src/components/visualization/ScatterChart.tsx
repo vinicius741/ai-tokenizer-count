@@ -12,7 +12,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer,
   Legend,
   Brush
 } from 'recharts';
@@ -115,63 +114,61 @@ export function TokenDensityScatter({ data, tokenizers }: TokenDensityScatterPro
   }, [scatterData]);
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
-      <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-        <XAxis
-          dataKey="x"
-          name="Words"
-          label={{ value: 'Word Count', position: 'insideBottom', offset: -5 }}
-          type="number"
-          scale="linear"
-          domain={['dataMin', 'dataMax']}
-        />
-        <YAxis
-          dataKey="y"
-          name="Tokens"
-          label={{ value: 'Token Count', angle: -90, position: 'insideLeft' }}
-          type="number"
-          scale="linear"
-          domain={['dataMin', 'dataMax']}
-        />
-        <Tooltip
-          content={<CustomTooltip />}
-          cursor={{ strokeDasharray: '3 3' }}
-        />
-        <Legend />
+    <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+      <XAxis
+        dataKey="x"
+        name="Words"
+        label={{ value: 'Word Count', position: 'insideBottom', offset: -5 }}
+        type="number"
+        scale="linear"
+        domain={['dataMin', 'dataMax']}
+      />
+      <YAxis
+        dataKey="y"
+        name="Tokens"
+        label={{ value: 'Token Count', angle: -90, position: 'insideLeft' }}
+        type="number"
+        scale="linear"
+        domain={['dataMin', 'dataMax']}
+      />
+      <Tooltip
+        content={<CustomTooltip />}
+        cursor={{ strokeDasharray: '3 3' }}
+      />
+      <Legend />
 
-        {/* Render separate Scatter series for each tokenizer */}
-        {Object.entries(groupedData).map(([tokenizerName, points]) => {
-          const color = getTokenizerColor(tokenizerName);
+      {/* Render separate Scatter series for each tokenizer */}
+      {Object.entries(groupedData).map(([tokenizerName, points]) => {
+        const color = getTokenizerColor(tokenizerName);
 
-          return (
-            <Scatter
-              key={tokenizerName}
-              name={tokenizerName}
-              data={points}
-              fill={color}
-              line={{
-                stroke: color,
-                strokeWidth: 2
-              }}
-              lineType="fitting"
-              shape="circle"
-              r={5}
-              fillOpacity={1}
-              stroke="white"
-              strokeWidth={2}
-            />
-          );
-        })}
+        return (
+          <Scatter
+            key={tokenizerName}
+            name={tokenizerName}
+            data={points}
+            fill={color}
+            line={{
+              stroke: color,
+              strokeWidth: 2
+            }}
+            lineType="fitting"
+            shape="circle"
+            r={5}
+            fillOpacity={1}
+            stroke="white"
+            strokeWidth={2}
+          />
+        );
+      })}
 
-        {/* Brush component for zoom/pan on x-axis */}
-        <Brush
-          dataKey="x"
-          height={30}
-          stroke="#8884d8"
-          fill="#e0e7ff"
-        />
-      </ScatterChart>
-    </ResponsiveContainer>
+      {/* Brush component for zoom/pan on x-axis */}
+      <Brush
+        dataKey="x"
+        height={30}
+        stroke="#8884d8"
+        fill="#e0e7ff"
+      />
+    </ScatterChart>
   );
 }
 

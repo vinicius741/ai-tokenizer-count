@@ -170,7 +170,7 @@ function App() {
                 {/* Token Density Analysis */}
                 <div>
                   <h2 className="text-lg font-semibold mb-4">Token Density Analysis</h2>
-                  <ChartContainer title="Word Count vs Token Count">
+                  <ChartContainer title="Word Count vs Token Count" height={400}>
                     <TokenDensityScatter
                       data={processingResults.results}
                       tokenizers={processingResults.options.tokenizers ?? []}
