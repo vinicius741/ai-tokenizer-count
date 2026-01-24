@@ -171,7 +171,7 @@ function App() {
                 <Button
                   onClick={handleReset}
                   variant="outline"
-                  className="w-full"
+                  className="w-full min-h-[44px]"
                 >
                   <RotateCcw className="mr-2 h-4 w-4" />
                   Reset
@@ -254,7 +254,7 @@ function App() {
                 <Button
                   onClick={handleReset}
                   variant="outline"
-                  className="w-full"
+                  className="w-full min-h-[44px]"
                 >
                   <RotateCcw className="mr-2 h-4 w-4" />
                   Process Another Batch
