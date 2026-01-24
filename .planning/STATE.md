@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 8 of 9 (Token Budget Calculator)
-Plan: 3 of 4 in current phase
-Status: In progress
-Last activity: 2026-01-24 — Completed Plan 08-03: Budget Display UI
+Plan: 4 of 4 in current phase
+Status: Phase complete
+Last activity: 2026-01-24 — Completed Plan 08-04: Cost Estimation Display
 
-Progress: [██████████░] 90.0% (36/40 total plans complete: 13 from v1.0, 23 from v2.0)
+Progress: [██████████░] 92.5% (37/40 total plans complete: 13 from v1.0, 24 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -49,7 +49,7 @@ Progress: [██████████░] 90.0% (36/40 total plans complete:
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
 | 6 (v2.0) | 5 | ~2.2h | ~26 min |
 | 7 (v2.0) | 5 | ~155 min | ~31 min |
-| 8 (v2.0) | 3 | ~48 min | ~16 min |
+| 8 (v2.0) | 4 | ~51 min | ~13 min |
 
 *Updated after each plan completion*
 
@@ -148,12 +148,16 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Preset buttons with variant highlighting** - default variant for active preset, outline for inactive, provides quick budget selection (32K/128K/200K) (08-01)
 - **localStorage persistence for budget form** - Budget, tokenizer, and strategy selections persist across sessions via useLocalStorage hook (08-01)
 - **Conditional BudgetCalculator rendering** - Only shows when processingResults exists with valid results array (08-01)
+- **Input-only cost calculation for EPUB processing** - All tokens considered input (reading text), outputMultiplier defaults to 0 for cost estimates (08-04)
+- **4 decimal place cost formatting** - Display costs with 4 decimal places (e.g., $0.1125) for precision with smaller token counts (08-04)
+- **Quarterly pricing update schedule** - PRICING_METADATA tracks lastUpdated and nextReview for pricing maintenance cadence (08-04)
 
 ### Pending Todos
 
 - Phase 8 Wave 1: ~~Budget Calculator Form (08-01)~~ COMPLETE, Knapsack Solver (08-02) COMPLETE
 - Phase 8 Wave 2: ~~Budget Display UI (08-03)~~ COMPLETE
-- Phase 8 Wave 3: Cost Estimation Display (08-04) - NEXT
+- Phase 8 Wave 3: ~~Cost Estimation Display (08-04)~~ COMPLETE
+- Phase 9: Final Polish & Testing (5 plans) - NEXT
 
 ### Blockers/Concerns
 
@@ -181,6 +185,6 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 ## Session Continuity
 
 Last session: 2026-01-24 (current session)
-Stopped at: Completed Plan 08-03: Budget Display UI
-Next: Plan 08-04 (Cost Estimation Display)
+Stopped at: Completed Plan 08-04: Cost Estimation Display
+Next: Phase 9: Final Polish & Testing
 Resume file: None
