@@ -1,32 +1,57 @@
 /**
- * Chart Container Component
+ * ChartContainer Component
  *
- * Wrapper component that provides consistent Card-based layout
- * for all chart visualizations in the app.
+ * Card wrapper that provides consistent layout for all chart visualizations.
+ * Wraps content in shadcn/ui Card with ResponsiveContainer for responsive sizing.
  */
 
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import type { ReactNode } from 'react';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from '@/components/ui/card';
+import { ResponsiveContainer, ResponsiveContainerProps } from 'recharts';
 
 interface ChartContainerProps {
   /** Chart title displayed in CardHeader */
   title: string;
-  /** Chart component to render */
+  /** Chart content to render */
   children: ReactNode;
+  /** Optional height for the chart container */
+  height?: ResponsiveContainerProps['height'];
 }
 
 /**
- * ChartContainer wraps chart components in a shadcn/ui Card
- * with a consistent title header layout
+ * Container component for chart visualizations
+ *
+ * Provides:
+ * - Card with header and title
+ * - ResponsiveContainer for automatic chart resizing
+ * - Consistent spacing and layout
+ *
+ * @example
+ * ```tsx
+ * <ChartContainer title="GPT-4 Token Counts">
+ *   <BarChart data={data} {...chartProps} />
+ * </ChartContainer>
+ * ```
  */
-export function ChartContainer({ title, children }: ChartContainerProps) {
+export function ChartContainer({
+  title,
+  children,
+  height = 300,
+}: ChartContainerProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-base">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        {children}
+        <ResponsiveContainer width="100%" height={height}>
+          {children}
+        </ResponsiveContainer>
       </CardContent>
     </Card>
   );
