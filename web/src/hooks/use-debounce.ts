@@ -1,26 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
 /**
- * Debounce a value to delay updates until after a specified delay
+ * Debounce a value with a delay
  *
- * @param value - The value to debounce
- * @param delay - The delay in milliseconds (default: 500ms)
- * @returns The debounced value
+ * Returns a debounced value that only updates after the specified delay
+ * has passed since the last value change.
+ *
+ * @param value - Value to debounce
+ * @param delay - Delay in milliseconds (default: 500ms)
+ * @returns Debounced value
  */
 export function useDebounce<T>(value: T, delay: number = 500): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {
-    // Set up timer to update debounced value after delay
-    const timer = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
+    // Set up timeout to update debounced value after delay
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
 
-    // Cleanup function to clear timer if value changes before delay expires
+    // Clean up timeout if value changes before delay expires
     return () => {
-      clearTimeout(timer)
-    }
-  }, [value, delay])
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
 
-  return debouncedValue
+  return debouncedValue;
 }
