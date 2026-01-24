@@ -192,7 +192,7 @@ export function ResultsTable({
               variant="outline"
               size="sm"
               onClick={() => setShowSearch(!showSearch)}
-              className={showSearch ? 'bg-accent' : ''}
+              className={`min-h-[44px] ${showSearch ? 'bg-accent' : ''}`}
             >
               <Search className="h-4 w-4" />
             </Button>
@@ -200,7 +200,7 @@ export function ResultsTable({
             {/* CSV export button */}
             <CSVComponent data={csvData} filename={filename}>
               <Button variant="outline" size="sm" asChild>
-                <span>
+                <span className="min-h-[44px] flex items-center">
                   <Download className="mr-2 h-4 w-4" />
                   Export to CSV
                 </span>

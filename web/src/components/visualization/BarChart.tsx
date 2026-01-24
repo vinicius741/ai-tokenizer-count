@@ -120,7 +120,7 @@ export function TokenizerBarChart({
           variant="outline"
           size="sm"
           onClick={toggleSort}
-          className="gap-2"
+          className="gap-2 min-h-[44px]"
         >
           <ArrowUpDown className="h-4 w-4" />
           Sort {sortOrder === 'asc' ? '↑ Ascending' : '↓ Descending'}
