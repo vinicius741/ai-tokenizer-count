@@ -12,9 +12,12 @@ import { ChartContainer } from './components/visualization/ChartContainer'
 import { ResultsTable } from './components/visualization/ResultsTable'
 import { ComparisonHeatmap } from './components/visualization/ComparisonHeatmap'
 import { ComparisonBarChart } from './components/visualization/ComparisonBarChart'
+import { BudgetCalculator } from './components/budget/BudgetCalculator'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import type { ResultsOutput } from '@epub-counter/shared'
+import type { OptimizationStrategy } from './components/budget/BudgetCalculator'
+import type { TokenizerType } from '@epub-counter/shared'
 
 /**
  * Get display name for a tokenizer ID
@@ -37,6 +40,13 @@ function App() {
   const [isCancelled, setIsCancelled] = useState(false)
   const [folderPath, setFolderPath] = useState('')
   const [selectedTokenizers, setSelectedTokenizers] = useState<string[]>([])
+
+  // Budget calculator state - stores the last calculated budget configuration
+  const [budgetState, setBudgetState] = useState<{
+    budget: number
+    tokenizer: TokenizerType
+    strategy: OptimizationStrategy
+  } | null>(null)
 
   const handleFileLoaded = (data: ResultsOutput, fileName: string) => {
     setProcessingResults(data) // Show uploaded results immediately
@@ -68,6 +78,7 @@ function App() {
     setProcessingResults(null)
     setIsCancelled(false)
     setFolderPath('')
+    setBudgetState(null)
     // Note: We don't reset selectedTokenizers to remember user preference
   }
 
@@ -238,6 +249,20 @@ function App() {
                         tokenizers={processingResults.options.tokenizers ?? []}
                       />
                     </div>
+                  </div>
+                )}
+
+                {/* Token Budget Calculator */}
+                {processingResults.results.length > 0 && (
+                  <div>
+                    <h2 className="text-lg font-semibold mb-4">Token Budget Calculator</h2>
+                    <BudgetCalculator
+                      results={processingResults.results}
+                      onCalculate={(budget, tokenizer, strategy) => {
+                        setBudgetState({ budget, tokenizer, strategy })
+                        console.log('Budget calculation:', { budget, tokenizer, strategy })
+                      }}
+                    />
                   </div>
                 )}
 
