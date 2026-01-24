@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 7 of 9 (Phase 6: File Upload & Tokenizer Selection complete)
-Plan: 4 of 4 in current phase (07-01, 07-02, 07-03 complete; 07-04 pending)
-Status: In progress
-Last activity: 2026-01-24 — Completed Plan 07-02: Scatter Plot Implementation
+Plan: 4 of 4 in current phase (all Phase 7 plans complete)
+Status: Phase complete
+Last activity: 2026-01-24 — Completed Plan 07-04: Comparison Heatmap View
 
-Progress: [██████████░] 77.5% (31/40 total plans complete: 13 from v1.0, 18 from v2.0)
+Progress: [██████████░] 80.0% (32/40 total plans complete: 13 from v1.0, 19 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -48,7 +48,7 @@ Progress: [██████████░] 77.5% (31/40 total plans complete:
 | 4 (v2.0) | 4 | ~45 min | ~11 min |
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
 | 6 (v2.0) | 5 | ~2.2h | ~26 min |
-| 7 (v2.0) | 3 | ~113 min | ~38 min |
+| 7 (v2.0) | 4 | ~143 min | ~36 min |
 
 *Updated after each plan completion*
 
@@ -126,6 +126,11 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Dual-handle slider for token range** - Single component shows min/max bounds visually with two draggable handles (07-03)
 - **Default sort by token count descending** - Table sorts by primary tokenizer token count descending by default (07-03)
 - **Comfortable row spacing (py-4)** - Generous vertical padding for easier scanning of data-dense results (07-03)
+- **Sequential green color scale for heatmap** - Lighter colors (green-100) for baseline/efficient tokenizers, darker (green-500) for less efficient (07-04)
+- **Percentage relative to lowest count per EPUB** - Each EPUB normalized independently for multi-tokenizer comparison (07-04)
+- **Tooltip via title attribute for heatmap** - Native browser tooltip for simplicity, avoiding additional component complexity (07-04)
+- **Sticky EPUB title column for horizontal scroll** - Leftmost column sticks during scroll to maintain context (07-04)
+- **Conditional heatmap rendering (2+ tokenizers)** - Comparison only meaningful with multiple tokenizers (07-04)
 ### Pending Todos
 
 None.
@@ -159,10 +164,13 @@ None.
 **Concerns from 07-03 execution:**
 - None
 
+**Concerns from 07-04 execution:**
+- None
+
 ## Session Continuity
 
 Last session: 2026-01-24 (current session)
-Stopped at: Completed Plan 07-02: Scatter Plot Implementation
-Phase 7 in progress - Bar charts, scatter plots, and results table with sorting/filtering implemented
-Next: Plan 07-04 (Comparison Heatmap View) or other remaining Phase 7 plans
+Stopped at: Completed Plan 07-04: Comparison Heatmap View
+Phase 7 complete - All data visualization implemented (bar charts, scatter plots, results table, comparison heatmap)
+Next: Phase 8 (Polish & Error Handling) or Phase 9 (Documentation & Deployment)
 Resume file: None
