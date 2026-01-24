@@ -127,13 +127,14 @@ Plans:
   6. User can sort table by any column and filter by title/author text search
   7. User can export results table and comparison table to CSV
   8. User sees side-by-side comparison chart showing percentage differences between tokenizers
-**Plans**: 4 plans
+**Plans**: 5 plans
 
 Plans:
 - [ ] 07-01-PLAN.md — Bar chart with token counts per EPUB (sortable, color-coded, custom tooltips)
-- [ ] 07-02-PLAN.md — Scatter plot with word vs token density and trend line (all tokenizers on same plot)
-- [ ] 07-03-PLAN.md — Results table with sorting, filtering, and CSV export (TanStack Table)
+- [ ] 07-02-PLAN.md — Scatter plot with word vs token density and trend line (all tokenizers on same plot, zoom/pan)
+- [ ] 07-03-PLAN.md — Results table with sorting, filtering, and CSV export (TanStack Table, range slider)
 - [ ] 07-04-PLAN.md — Multi-tokenizer comparison heatmap with percentage differences
+- [ ] 07-05-PLAN.md — Side-by-side comparison bar chart (grouped bars per EPUB, tokenizer comparison)
 
 ### Phase 8: Token Budget Calculator & Cost Estimation
 **Goal**: Token budget calculator with optimization strategies and cost estimation display
@@ -189,6 +190,6 @@ Phases execute in numeric order: 4 → 5 → 6 → 7 → 8 → 9
 | 4. Foundation & Project Setup | v2.0 | 4/4 | Complete | 2026-01-23 |
 | 5. Backend API & File Processing | v2.0 | 5/5 | Complete | 2026-01-23 |
 | 6. File Upload & Tokenizer Selection | v2.0 | 5/5 | Complete | 2026-01-23 |
-| 7. Data Visualization & Comparison | v2.0 | 0/4 | Not started | - |
+| 7. Data Visualization & Comparison | v2.0 | 0/5 | Not started | - |
 | 8. Token Budget Calculator & Cost Estimation | v2.0 | 0/4 | Not started | - |
 | 9. Polish, Persistence & Responsive Design | v2.0 | 0/4 | Not started | - |
