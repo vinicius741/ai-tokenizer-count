@@ -8,6 +8,18 @@
  */
 
 /**
+ * Pricing metadata for version tracking and updates
+ */
+export const PRICING_METADATA = {
+  /** Last pricing update date */
+  lastUpdated: '2026-01-24',
+  /** Next scheduled review date (quarterly) */
+  nextReview: '2026-04-24',
+  /** Source of pricing information */
+  source: 'Official provider pricing pages',
+} as const
+
+/**
  * Provider pricing information
  */
 export interface ProviderPricing {
