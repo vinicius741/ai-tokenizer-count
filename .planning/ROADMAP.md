@@ -178,10 +178,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 09-01: Session persistence (localStorage save/restore, new session)
-- [ ] 09-02: Responsive layout (desktop, tablet, mobile breakpoints)
-- [ ] 09-03: Loading states (skeleton screens, button spinners)
-- [ ] 09-04: Error boundaries and error handling (toasts, friendly messages)
+- [ ] 09-01-PLAN.md — Session persistence (localStorage save/restore, new session)
+- [ ] 09-02-PLAN.md — Responsive layout (desktop, tablet, mobile breakpoints)
+- [ ] 09-03-PLAN.md — Loading states (skeleton screens, button spinners)
+- [ ] 09-04-PLAN.md — Error boundaries and error handling (toasts, friendly messages)
 
 ## Progress
 
