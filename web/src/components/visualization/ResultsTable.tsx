@@ -170,53 +170,55 @@ export function ResultsTable({
       </CardHeader>
 
       <CardContent>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b">
-                {headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className="px-4 py-3 text-left text-sm font-medium cursor-pointer hover:bg-accent/50 transition-colors select-none"
-                    onClick={header.column.getToggleSortingHandler()}
-                  >
-                    <div className="flex items-center gap-2">
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {/* Sort indicator */}
-                      <span className="flex items-center">
-                        {header.column.getIsSorted() === 'asc' && (
-                          <ChevronUp className="h-4 w-4" />
-                        )}
-                        {header.column.getIsSorted() === 'desc' && (
-                          <ChevronDown className="h-4 w-4" />
-                        )}
-                      </span>
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id} className="border-b hover:bg-accent/30">
-                  {row.getVisibleCells().map((cell) => (
-                    <td
-                      key={cell.id}
-                      className="px-4 py-4 text-sm"
+        <div className="overflow-x-auto lg:overflow-hidden">
+          <div className="min-w-[800px]">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b">
+                  {headers.map((header) => (
+                    <th
+                      key={header.id}
+                      className="px-2 py-2 lg:px-4 lg:py-3 text-left text-sm font-medium cursor-pointer hover:bg-accent/50 transition-colors select-none"
+                      onClick={header.column.getToggleSortingHandler()}
                     >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
+                      <div className="flex items-center gap-2">
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {/* Sort indicator */}
+                        <span className="flex items-center">
+                          {header.column.getIsSorted() === 'asc' && (
+                            <ChevronUp className="h-4 w-4" />
+                          )}
+                          {header.column.getIsSorted() === 'desc' && (
+                            <ChevronDown className="h-4 w-4" />
+                          )}
+                        </span>
+                      </div>
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr key={row.id} className="border-b hover:bg-accent/30">
+                    {row.getVisibleCells().map((cell) => (
+                      <td
+                        key={cell.id}
+                        className="px-2 py-2 lg:px-4 lg:py-4 text-sm"
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {/* Empty state */}
           {rows.length === 0 && (
