@@ -1,8 +1,9 @@
 import { useEffect, useState, useMemo } from 'react'
 import { Progress } from '@/components/ui/progress'
-import { Clock, FileText } from 'lucide-react'
+import { Clock, FileText, AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useSseConnection, type ProgressData } from '@/hooks/use-sse-connection'
+import { toast } from 'sonner'
 import type { ResultsOutput } from '@epub-counter/shared'
 
 interface ProcessingProgressProps {
@@ -17,6 +18,7 @@ export function ProcessingProgress({ jobId, onComplete }: ProcessingProgressProp
     filename: '',
     timestamp: new Date().toISOString(),
   })
+  const [error, setError] = useState<string | null>(null)
   const [startTime] = useState(() => Date.now())
 
   const percentage = progress.total > 0
@@ -43,22 +45,48 @@ export function ProcessingProgress({ jobId, onComplete }: ProcessingProgressProp
 
   const { connect } = useSseConnection()
 
+  // Show error toast when SSE error occurs
+  useEffect(() => {
+    if (error) {
+      toast.error('Processing error', {
+        description: error,
+        duration: 30000,
+      })
+    }
+  }, [error])
+
   useEffect(() => {
     connect(jobId, {
       onProgress: (data) => {
         setProgress(data)
+        setError(null) // Clear error on progress
       },
       onComplete: (results) => {
         onComplete(results as ResultsOutput)
+        setError(null) // Clear error on completion
       },
-      onError: (error) => {
-        console.error('SSE error:', error)
+      onError: (errorMessage) => {
+        console.error('SSE error:', errorMessage)
+        setError(errorMessage)
       },
     })
   }, [jobId, connect, onComplete])
 
   return (
-    <div className="space-y-3 p-4 border rounded-lg bg-muted/30">
+    <div className="space-y-2 lg:space-y-4 p-4 border rounded-lg bg-muted/30">
+      {/* Error Display */}
+      {error && (
+        <div className="p-4 border border-destructive bg-destructive/10 rounded-lg">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="font-medium text-destructive">Processing Error</p>
+              <p className="text-sm text-muted-foreground mt-1">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Progress bar with stripes */}
       <div className="space-y-2">
         <div className="flex items-center justify-between text-sm">
