@@ -10,6 +10,7 @@ import { TokenizerBarChart } from './components/visualization/BarChart'
 import { TokenDensityScatter } from './components/visualization/ScatterChart'
 import { ChartContainer } from './components/visualization/ChartContainer'
 import { ResultsTable } from './components/visualization/ResultsTable'
+import { ComparisonHeatmap } from './components/visualization/ComparisonHeatmap'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import type { ResultsOutput } from '@epub-counter/shared'
@@ -221,6 +222,16 @@ function App() {
                     primaryTokenizer={processingResults.options.tokenizers?.[0] ?? 'gpt4'}
                   />
                 </div>
+
+                {/* Tokenizer Comparison Heatmap - only show with 2+ tokenizers */}
+                {(processingResults.options.tokenizers ?? []).length >= 2 && (
+                  <div>
+                    <ComparisonHeatmap
+                      data={processingResults.results}
+                      tokenizers={processingResults.options.tokenizers ?? []}
+                    />
+                  </div>
+                )}
 
                 {/* Reset Button */}
                 <Button
