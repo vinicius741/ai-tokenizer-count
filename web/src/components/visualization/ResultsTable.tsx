@@ -12,9 +12,7 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
   flexRender,
-  createColumnHelper,
   type SortingState,
-  type ColumnDef,
 } from '@tanstack/react-table';
 import { Search, Download, ChevronUp, ChevronDown } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';

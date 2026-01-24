@@ -12,7 +12,7 @@ import {
   CardTitle,
   CardContent,
 } from '@/components/ui/card';
-import { ResponsiveContainer, ResponsiveContainerProps } from 'recharts';
+import { ResponsiveContainer, type ResponsiveContainerProps } from 'recharts';
 
 interface ChartContainerProps {
   /** Chart title displayed in CardHeader */
