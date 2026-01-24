@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Loader2, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Spinner } from '@/components/ui/spinner'
 import { toast } from 'sonner'
 
 interface ProcessButtonProps {
@@ -111,7 +112,7 @@ export function ProcessButton({
     >
       {isLoading ? (
         <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          <Spinner className="mr-2" />
           Starting...
         </>
       ) : (
