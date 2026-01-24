@@ -145,7 +145,7 @@ Plans:
 **Requirements**: BUDGET-01, BUDGET-02, BUDGET-03, BUDGET-04, BUDGET-05, BUDGET-06, BUDGET-07, BUDGET-08, BUDGET-09, BUDGET-10, BUDGET-11, BUDGET-12, COST-01, COST-02, COST-03, COST-04
 **Success Criteria** (what must be TRUE):
   1. User can input token budget number or select preset (32K, 128K, 200K)
-  2. User can select tokenizer and optimization strategy (maximize book count vs maximize words)
+  2. User can select tokenizer and optimization strategy (max books, max words, balanced)
   3. User sees selected books list with total tokens used and remaining tokens
   4. User can copy book list to clipboard or download as JSON
   5. User sees estimated dollar cost per provider (OpenAI, Anthropic, Google)
@@ -154,10 +154,13 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — Budget calculator form (input, presets, tokenizer selection, strategy tabs)
-- [ ] 08-02-PLAN.md — Knapsack solver algorithm for book selection (max books, max words, balanced)
-- [ ] 08-03-PLAN.md — Budget display UI (selected books, progress bar, copy/JSON export)
-- [ ] 08-04-PLAN.md — Cost estimation display per provider (OpenAI, Anthropic, Google)
+- [x] 08-01-PLAN.md — Budget calculator form (input, presets, tokenizer selection, strategy tabs)
+- [x] 08-02-PLAN.md — Knapsack solver algorithm for book selection (max books, max words, balanced)
+- [x] 08-03-PLAN.md — Budget display UI (selected books, progress bar, copy/JSON export)
+- [x] 08-04-PLAN.md — Cost estimation display per provider (OpenAI, Anthropic, Google)
+
+**Completed**: 2026-01-24
+**Verification**: All 7 must-haves verified (08-VERIFICATION.md)
 
 ### Phase 9: Polish, Persistence & Responsive Design
 **Goal**: Session persistence, responsive layout, error boundaries, and UX polish
@@ -194,5 +197,5 @@ Phases execute in numeric order: 4 → 5 → 6 → 7 → 8 → 9
 | 5. Backend API & File Processing | v2.0 | 5/5 | Complete | 2026-01-23 |
 | 6. File Upload & Tokenizer Selection | v2.0 | 5/5 | Complete | 2026-01-23 |
 | 7. Data Visualization & Comparison | v2.0 | 5/5 | Complete | 2026-01-24 |
-| 8. Token Budget Calculator & Cost Estimation | v2.0 | 0/4 | Not started | - |
+| 8. Token Budget Calculator & Cost Estimation | v2.0 | 4/4 | Complete | 2026-01-24 |
 | 9. Polish, Persistence & Responsive Design | v2.0 | 0/4 | Not started | - |
