@@ -19,7 +19,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TokenRangeSlider } from './TokenRangeSlider';
-import { useTableData, type TableData } from '@/hooks/use-table-data';
+import { useTableData } from '@/hooks/use-table-data';
 import { useCsvExport } from '@/lib/csv-export';
 import type { EpubResult } from '@epub-counter/shared';
 
@@ -83,10 +83,12 @@ export function ResultsTable({
   ]);
 
   // Create CSV downloader
-  const CSVDownloader = useCsvExport({
+  const { CSVDownloader, csvData, filename } = useCsvExport({
     data,
     tokenizers,
   });
+
+  const CSVComponent = CSVDownloader as any;
 
   // Filter data by token range
   const filteredData = useMemo(() => {
@@ -131,14 +133,14 @@ export function ResultsTable({
             </Button>
 
             {/* CSV export button */}
-            <CSVDownloader>
+            <CSVComponent data={csvData} filename={filename}>
               <Button variant="outline" size="sm" asChild>
                 <span>
                   <Download className="mr-2 h-4 w-4" />
                   Export to CSV
                 </span>
               </Button>
-            </CSVDownloader>
+            </CSVComponent>
           </div>
         </div>
 

@@ -45,7 +45,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: any[] 
   if (!active || !payload?.length) return null;
 
   const data = payload[0].payload as ScatterPoint;
-  const { wordCount, tokenCounts, metadata } = data.metadata;
+  const { wordCount, tokenCounts, metadata, filePath } = data.metadata;
 
   // Find the tokenizer that this point represents
   const tokenizerResult = tokenCounts.find(t => t.name === data.z);
@@ -71,7 +71,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: any[] 
         </div>
       </div>
       <p className="text-xs text-muted-foreground mt-2 pt-2 border-t border-border/50">
-        {metadata.filePath}
+        {filePath}
       </p>
     </div>
   );
@@ -110,7 +110,7 @@ export function TokenDensityScatter({ data, tokenizers }: TokenDensityScatterPro
 
   // Group points by tokenizer for separate Scatter series
   const groupedData = useMemo(() => {
-    return groupBy(scatterData, 'z' as keyof ScatterPoint);
+    return groupBy(scatterData as any, 'z');
   }, [scatterData]);
 
   return (

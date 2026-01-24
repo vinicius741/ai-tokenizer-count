@@ -20,12 +20,6 @@ import { getTokenizerColor } from '@/lib/chart-utils';
 import { CustomTooltip } from './CustomTooltip';
 import type { EpubResult, TokenizerResult } from '@epub-counter/shared';
 
-interface ChartDataPoint {
-  name: string;
-  value: number;
-  metadata: EpubResult;
-}
-
 interface TokenizerBarChartProps {
   /** Array of EPUB results from processing */
   data: EpubResult[];

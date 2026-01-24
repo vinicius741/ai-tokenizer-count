@@ -4,7 +4,7 @@
  * Provides functions to export results data to CSV format using react-papaparse.
  */
 
-import { useCSVDownloader, Type } from 'react-papaparse';
+import { useCSVDownloader } from 'react-papaparse';
 import type { EpubResult } from '@epub-counter/shared';
 
 /**
@@ -65,20 +65,19 @@ export interface CsvExportProps {
 /**
  * CSV Export Hook
  *
- * Returns a CSVDownloader component that can be rendered in the UI.
+ * Returns an object with CSVDownloader component and Type enum.
  *
  * @param props - CSV export configuration
- * @returns CSVDownloader component from react-papaparse
+ * @returns Object with CSVDownloader component and csv data
  *
  * @example
  * ```tsx
- * const CSVDownloader = useCsvExport({
+ * const { CSVDownloader, csvData, filename } = useCsvExport({
  *   data: results,
- *   tokenizers: ['gpt4', 'claude'],
- *   filename: 'my-results.csv'
+ *   tokenizers: ['gpt4', 'claude']
  * });
  *
- * return <CSVDownloader>Export to CSV</CSVDownloader>;
+ * return <CSVDownloader data={csvData} filename={filename}>Export to CSV</CSVDownloader>;
  * ```
  */
 export function useCsvExport(props: CsvExportProps) {
@@ -86,12 +85,9 @@ export function useCsvExport(props: CsvExportProps) {
 
   const csvRows = transformToCsvRows(data, tokenizers);
 
-  return useCSVDownloader({
-    data: csvRows,
-    filename,
-    type: Type.Button,
-    className: 'csv-downloader',
-  });
+  const { CSVDownloader } = useCSVDownloader();
+
+  return { CSVDownloader, csvData: csvRows, filename };
 }
 
 /**
