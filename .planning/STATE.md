@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 7 of 9 (Phase 6: File Upload & Tokenizer Selection complete)
-Plan: 4 of 4 in current phase (all Phase 7 plans complete)
+Plan: 5 of 5 in current phase (all Phase 7 plans complete)
 Status: Phase complete
-Last activity: 2026-01-24 — Completed Plan 07-04: Comparison Heatmap View
+Last activity: 2026-01-24 — Completed Plan 07-05: Side-by-Side Comparison Bar Chart
 
-Progress: [██████████░] 80.0% (32/40 total plans complete: 13 from v1.0, 19 from v2.0)
+Progress: [██████████░] 82.5% (33/40 total plans complete: 13 from v1.0, 20 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -48,7 +48,7 @@ Progress: [██████████░] 80.0% (32/40 total plans complete:
 | 4 (v2.0) | 4 | ~45 min | ~11 min |
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
 | 6 (v2.0) | 5 | ~2.2h | ~26 min |
-| 7 (v2.0) | 4 | ~143 min | ~36 min |
+| 7 (v2.0) | 5 | ~155 min | ~31 min |
 
 *Updated after each plan completion*
 
@@ -131,6 +131,11 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Tooltip via title attribute for heatmap** - Native browser tooltip for simplicity, avoiding additional component complexity (07-04)
 - **Sticky EPUB title column for horizontal scroll** - Leftmost column sticks during scroll to maintain context (07-04)
 - **Conditional heatmap rendering (2+ tokenizers)** - Comparison only meaningful with multiple tokenizers (07-04)
+- **Limit to top 20 EPUBs by word count for bar chart** - Prevents overcrowding in side-by-side comparison view (07-05)
+- **Sort alphabetically by title for bar chart** - Consistent display ordering across comparison visualizations (07-05)
+- **Angled x-axis labels (-45 degrees) for grouped bar chart** - Prevents label overlap with many EPUBs (07-05)
+- **Custom tooltip with percentage calculations vs baseline** - Shows both absolute count and relative difference (07-05)
+- **Grouped bars pattern for categorical comparison** - Multiple Bar series per tokenizer side by side (07-05)
 ### Pending Todos
 
 None.
@@ -167,10 +172,13 @@ None.
 **Concerns from 07-04 execution:**
 - None
 
+**Concerns from 07-05 execution:**
+- None
+
 ## Session Continuity
 
 Last session: 2026-01-24 (current session)
-Stopped at: Completed Plan 07-04: Comparison Heatmap View
-Phase 7 complete - All data visualization implemented (bar charts, scatter plots, results table, comparison heatmap)
+Stopped at: Completed Plan 07-05: Side-by-Side Comparison Bar Chart
+Phase 7 complete - All data visualization implemented (bar charts, scatter plots, results table, comparison heatmap, side-by-side bar chart)
 Next: Phase 8 (Polish & Error Handling) or Phase 9 (Documentation & Deployment)
 Resume file: None
