@@ -8,6 +8,7 @@ import { ProcessingProgress } from './components/progress/ProcessingProgress'
 import { CompletionSummary } from './components/progress/CompletionSummary'
 import { TokenDensityScatter } from './components/visualization/ScatterChart'
 import { ChartContainer } from './components/visualization/ChartContainer'
+import { ResultsTable } from './components/visualization/ResultsTable'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import type { ResultsOutput } from '@epub-counter/shared'
@@ -176,6 +177,15 @@ function App() {
                       tokenizers={processingResults.options.tokenizers ?? []}
                     />
                   </ChartContainer>
+                </div>
+
+                {/* Detailed Results Table */}
+                <div>
+                  <ResultsTable
+                    data={processingResults.results}
+                    tokenizers={processingResults.options.tokenizers ?? []}
+                    primaryTokenizer={processingResults.options.tokenizers?.[0] ?? 'gpt4'}
+                  />
                 </div>
 
                 {/* Reset Button */}
