@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 7 of 9 (Phase 6: File Upload & Tokenizer Selection complete)
-Plan: 3 of 4 in current phase
+Plan: 4 of 4 in current phase (07-01, 07-02, 07-03 complete; 07-04 pending)
 Status: In progress
-Last activity: 2026-01-24 — Completed Plan 07-03: Results Table Implementation
+Last activity: 2026-01-24 — Completed Plan 07-02: Scatter Plot Implementation
 
-Progress: [██████████░] 72.5% (29/40 total plans complete: 13 from v1.0, 16 from v2.0)
+Progress: [██████████░] 77.5% (31/40 total plans complete: 13 from v1.0, 18 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -48,7 +48,7 @@ Progress: [██████████░] 72.5% (29/40 total plans complete:
 | 4 (v2.0) | 4 | ~45 min | ~11 min |
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
 | 6 (v2.0) | 5 | ~2.2h | ~26 min |
-| 7 (v2.0) | 3 | ~85 min | ~28 min |
+| 7 (v2.0) | 3 | ~113 min | ~38 min |
 
 *Updated after each plan completion*
 
@@ -116,6 +116,11 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Angled x-axis labels for bar charts** - Use angle=-45 with 80px height to prevent label overlap on long EPUB titles (07-01)
 - **Sort toggle default to descending** - Show highest token counts first for immediate insight (07-01)
 - **Error filtering for visualizations** - Filter out EPUBs with error property before chart transformation to avoid negative/zero values (07-01)
+- **react-papaparse CSV export pattern** - useCSVDownloader takes no arguments, returns object with CSVDownloader component that accepts data/filename as props (07-01)
+- **Recharts lineType='fitting' for linear regression** - Built-in trend line rendering without external math library (07-02)
+- **Solid circle points with white stroke** - fillOpacity=1 with stroke="white" for better visibility than transparent points (07-02)
+- **Brush component on x-axis for zoom** - Recharts Brush provides zoom/pan without additional state management (07-02)
+- **groupBy utility for data transformation** - Generic grouping function for organizing scatter points by tokenizer (07-02)
 - **TanStack Table over AG Grid** - Headless table allows full UI control, AG Grid is enterprise/complex (07-03)
 - **Collapsible search filter** - Search input hidden by default, toggled via icon button to save vertical space (07-03)
 - **Dual-handle slider for token range** - Single component shows min/max bounds visually with two draggable handles (07-03)
@@ -148,13 +153,16 @@ None.
 **Concerns from 07-01 execution:**
 - None
 
+**Concerns from 07-02 execution:**
+- None
+
 **Concerns from 07-03 execution:**
 - None
 
 ## Session Continuity
 
-Last session: 2026-01-24 12:48
-Stopped at: Completed Plan 07-03: Results Table Implementation
+Last session: 2026-01-24 (current session)
+Stopped at: Completed Plan 07-02: Scatter Plot Implementation
 Phase 7 in progress - Bar charts, scatter plots, and results table with sorting/filtering implemented
-Next: Plan 07-04 (Comparison Heatmap View)
+Next: Plan 07-04 (Comparison Heatmap View) or other remaining Phase 7 plans
 Resume file: None
