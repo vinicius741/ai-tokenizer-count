@@ -49,9 +49,13 @@ export function ChartContainer({
         <CardTitle className="text-base">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={height}>
-          {children}
-        </ResponsiveContainer>
+        <div className="overflow-x-auto lg:overflow-x-visible">
+          <div className="min-w-[600px]">
+            <ResponsiveContainer width="99%" height={height}>
+              {children}
+            </ResponsiveContainer>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
