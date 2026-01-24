@@ -12,9 +12,9 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 Phase: 8 of 9 (Token Budget Calculator)
 Plan: 2 of 4 in current phase
 Status: In progress
-Last activity: 2026-01-24 — Completed Plan 08-02: Knapsack Solver + Pricing Data
+Last activity: 2026-01-24 — Completed Plan 08-01: Budget Calculator Form
 
-Progress: [██████████░] 85.0% (34/40 total plans complete: 13 from v1.0, 21 from v2.0)
+Progress: [██████████░] 87.5% (35/40 total plans complete: 13 from v1.0, 22 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,8 +34,8 @@ Progress: [██████████░] 85.0% (34/40 total plans complete:
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 34 (13 from v1.0 + 21 from v2.0)
-- Total execution time: ~14.2 hours (v1.0: ~7.25h, v2.0: ~7.0h)
+- Total plans completed: 35 (13 from v1.0 + 22 from v2.0)
+- Total execution time: ~14.5 hours (v1.0: ~7.25h, v2.0: ~7.3h)
 - Average per plan: ~12 min
 
 **By Phase:**
@@ -49,7 +49,7 @@ Progress: [██████████░] 85.0% (34/40 total plans complete:
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
 | 6 (v2.0) | 5 | ~2.2h | ~26 min |
 | 7 (v2.0) | 5 | ~155 min | ~31 min |
-| 8 (v2.0) | 2 | ~3 min | ~2 min |
+| 8 (v2.0) | 3 | ~23 min | ~8 min |
 
 *Updated after each plan completion*
 
@@ -141,11 +141,15 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **2026-01 pricing data with quarterly update** - Provider pricing for OpenAI, Anthropic, Google with update recommendation (08-02)
 - **useDebounce for 500ms delayed recalculation** - Prevents excessive knapsack recalculation during input changes (08-02)
 - **Memoized budget calculations with useMemo** - Expensive knapsack computations cached to avoid redundant work (08-02)
+- **Radix UI Tabs for strategy selection** - shadcn/ui component with built-in accessibility for Max Books/Max Words/Balanced options (08-01)
+- **Preset buttons with variant highlighting** - default variant for active preset, outline for inactive, provides quick budget selection (32K/128K/200K) (08-01)
+- **localStorage persistence for budget form** - Budget, tokenizer, and strategy selections persist across sessions via useLocalStorage hook (08-01)
+- **Conditional BudgetCalculator rendering** - Only shows when processingResults exists with valid results array (08-01)
 
 ### Pending Todos
 
-- Phase 8 Wave 1: Budget Calculator Form + Knapsack Solver (08-01, 08-02) - IN PROGRESS
-- Phase 8 Wave 2: Budget Display UI (08-03)
+- Phase 8 Wave 1: ~~Budget Calculator Form (08-01)~~ COMPLETE, Knapsack Solver (08-02) COMPLETE
+- Phase 8 Wave 2: Budget Display UI (08-03) - NEXT
 - Phase 8 Wave 3: Cost Estimation Display (08-04)
 
 ### Blockers/Concerns
@@ -174,6 +178,6 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 ## Session Continuity
 
 Last session: 2026-01-24 (current session)
-Stopped at: Completed Plan 08-02: Knapsack Solver + Pricing Data
-Next: Plan 08-03 (Budget Display UI) or 08-04 (Cost Estimation Display)
+Stopped at: Completed Plan 08-01: Budget Calculator Form
+Next: Plan 08-03 (Budget Display UI)
 Resume file: None
