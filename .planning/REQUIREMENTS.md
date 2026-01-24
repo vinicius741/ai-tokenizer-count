@@ -73,25 +73,25 @@ Requirements for Web UI milestone. Each maps to roadmap phases.
 
 ### Token Budget Calculator
 
-- [ ] **BUDGET-01**: User can input token budget via number input
-- [ ] **BUDGET-02**: User can select token budget presets (32K, 128K, 200K)
-- [ ] **BUDGET-03**: User can select tokenizer for budget calculation (dropdown)
-- [ ] **BUDGET-04**: User can select optimization strategy (maximize book count vs maximize words)
-- [ ] **BUDGET-05**: User sees selected books list from budget calculation
-- [ ] **BUDGET-06**: User sees total tokens used (progress bar) and remaining tokens
-- [ ] **BUDGET-07**: User sees total books selected and total word count
-- [ ] **BUDGET-08**: User can copy book list to clipboard
-- [ ] **BUDGET-09**: User can download book list as JSON
-- [ ] **BUDGET-10**: UI validates budget is sufficient for at least one book
-- [ ] **BUDGET-11**: User sees cost estimation display (dollar cost per provider)
-- [ ] **BUDGET-12**: Budget calculator saves state to localStorage
+- [x] **BUDGET-01**: User can input token budget via number input
+- [x] **BUDGET-02**: User can select token budget presets (32K, 128K, 200K)
+- [x] **BUDGET-03**: User can select tokenizer for budget calculation (dropdown)
+- [x] **BUDGET-04**: User can select optimization strategy (maximize book count vs maximize words)
+- [x] **BUDGET-05**: User sees selected books list from budget calculation
+- [x] **BUDGET-06**: User sees total tokens used (progress bar) and remaining tokens
+- [x] **BUDGET-07**: User sees total books selected and total word count
+- [x] **BUDGET-08**: User can copy book list to clipboard
+- [x] **BUDGET-09**: User can download book list as JSON
+- [x] **BUDGET-10**: UI validates budget is sufficient for at least one book
+- [x] **BUDGET-11**: User sees cost estimation display (dollar cost per provider)
+- [x] **BUDGET-12**: Budget calculator saves state to localStorage
 
 ### Cost Estimation
 
-- [ ] **COST-01**: User sees estimated dollar cost based on token count
-- [ ] **COST-02**: Cost estimation shows pricing per provider (OpenAI, Anthropic, Google)
-- [ ] **COST-03**: Cost estimation links to official pricing pages
-- [ ] **COST-04**: UI displays note that costs are estimates only
+- [x] **COST-01**: User sees estimated dollar cost based on token count
+- [x] **COST-02**: Cost estimation shows pricing per provider (OpenAI, Anthropic, Google)
+- [x] **COST-03**: Cost estimation links to official pricing pages
+- [x] **COST-04**: UI displays note that costs are estimates only
 
 ### Session Persistence
 
@@ -209,22 +209,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMP-02 | Phase 7 | Complete |
 | COMP-03 | Phase 7 | Complete |
 | COMP-04 | Phase 7 | Complete |
-| BUDGET-01 | Phase 8 | Pending |
-| BUDGET-02 | Phase 8 | Pending |
-| BUDGET-03 | Phase 8 | Pending |
-| BUDGET-04 | Phase 8 | Pending |
-| BUDGET-05 | Phase 8 | Pending |
-| BUDGET-06 | Phase 8 | Pending |
-| BUDGET-07 | Phase 8 | Pending |
-| BUDGET-08 | Phase 8 | Pending |
-| BUDGET-09 | Phase 8 | Pending |
-| BUDGET-10 | Phase 8 | Pending |
-| BUDGET-11 | Phase 8 | Pending |
-| BUDGET-12 | Phase 8 | Pending |
-| COST-01 | Phase 8 | Pending |
-| COST-02 | Phase 8 | Pending |
-| COST-03 | Phase 8 | Pending |
-| COST-04 | Phase 8 | Pending |
+| BUDGET-01 | Phase 8 | Complete |
+| BUDGET-02 | Phase 8 | Complete |
+| BUDGET-03 | Phase 8 | Complete |
+| BUDGET-04 | Phase 8 | Complete |
+| BUDGET-05 | Phase 8 | Complete |
+| BUDGET-06 | Phase 8 | Complete |
+| BUDGET-07 | Phase 8 | Complete |
+| BUDGET-08 | Phase 8 | Complete |
+| BUDGET-09 | Phase 8 | Complete |
+| BUDGET-10 | Phase 8 | Complete |
+| BUDGET-11 | Phase 8 | Complete |
+| BUDGET-12 | Phase 8 | Complete |
+| COST-01 | Phase 8 | Complete |
+| COST-02 | Phase 8 | Complete |
+| COST-03 | Phase 8 | Complete |
+| COST-04 | Phase 8 | Complete |
 | PERSIST-01 | Phase 9 | Pending |
 | PERSIST-02 | Phase 9 | Pending |
 | PERSIST-03 | Phase 9 | Pending |
@@ -255,4 +255,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-22*
-*Last updated: 2026-01-24 after Phase 7 completion*
+*Last updated: 2026-01-24 after Phase 8 completion*
