@@ -50,20 +50,36 @@ export function groupBy<T extends Record<string, unknown>>(
 export const TOKENIZER_COLORS: Record<string, string> = {
   gpt4: 'hsl(221, 83%, 53%)',        // Blue
   claude: 'hsl(25, 95%, 53%)',       // Orange
+  // Hugging Face models
   'hf:bert-base-uncased': 'hsl(142, 71%, 45%)', // Green
   'hf:gpt2': 'hsl(280, 65%, 60%)',   // Purple
+  'hf:distilbert-base-uncased': 'hsl(142, 71%, 45%)', // Green
+  'hf:roberta-base': 'hsl(199, 89%, 48%)', // Sky blue
   // Fallback for unknown tokenizers
-  default: 'hsl(215, 25%, 27%)'
+  default: 'hsl(215, 25%, 27%)',     // Slate
 };
 
 /**
  * Get color for a tokenizer by name
  *
+ * Handles HF model prefix matching for consistent coloring
+ *
  * @param tokenizerName - Name of the tokenizer
  * @returns HSL color string
  */
 export function getTokenizerColor(tokenizerName: string): string {
-  return TOKENIZER_COLORS[tokenizerName] ?? TOKENIZER_COLORS.default;
+  // Check for exact match first
+  if (TOKENIZER_COLORS[tokenizerName]) {
+    return TOKENIZER_COLORS[tokenizerName];
+  }
+
+  // Check for HF model prefix match (all HF models use green)
+  if (tokenizerName.startsWith('hf:')) {
+    return TOKENIZER_COLORS['hf:bert-base-uncased'];
+  }
+
+  // Return default color
+  return TOKENIZER_COLORS.default;
 }
 
 /**
