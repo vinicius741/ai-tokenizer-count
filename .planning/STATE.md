@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Users can accurately estimate token costs for processing EPUB content through LLMs by getting precise word and token counts across multiple tokenizer models.
-**Current focus:** Phase 7: Data Visualization & Comparison
+**Current focus:** Phase 8: Token Budget Calculator
 
 ## Current Position
 
-Phase: 7 of 9 (Phase 6: File Upload & Tokenizer Selection complete)
-Plan: 5 of 5 in current phase (all Phase 7 plans complete)
-Status: Phase complete
-Last activity: 2026-01-24 — Completed Plan 07-05: Side-by-Side Comparison Bar Chart
+Phase: 8 of 9 (Token Budget Calculator)
+Plan: 2 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-24 — Completed Plan 08-02: Knapsack Solver + Pricing Data
 
-Progress: [██████████░] 82.5% (33/40 total plans complete: 13 from v1.0, 20 from v2.0)
+Progress: [██████████░] 85.0% (34/40 total plans complete: 13 from v1.0, 21 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,8 +34,8 @@ Progress: [██████████░] 82.5% (33/40 total plans complete:
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 31 (13 from v1.0 + 18 from v2.0)
-- Total execution time: ~13.9 hours (v1.0: ~7.25h, v2.0: ~6.6h)
+- Total plans completed: 34 (13 from v1.0 + 21 from v2.0)
+- Total execution time: ~14.2 hours (v1.0: ~7.25h, v2.0: ~7.0h)
 - Average per plan: ~12 min
 
 **By Phase:**
@@ -49,6 +49,7 @@ Progress: [██████████░] 82.5% (33/40 total plans complete:
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
 | 6 (v2.0) | 5 | ~2.2h | ~26 min |
 | 7 (v2.0) | 5 | ~155 min | ~31 min |
+| 8 (v2.0) | 2 | ~3 min | ~2 min |
 
 *Updated after each plan completion*
 
@@ -136,9 +137,16 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **Angled x-axis labels (-45 degrees) for grouped bar chart** - Prevents label overlap with many EPUBs (07-05)
 - **Custom tooltip with percentage calculations vs baseline** - Shows both absolute count and relative difference (07-05)
 - **Grouped bars pattern for categorical comparison** - Multiple Bar series per tokenizer side by side (07-05)
+- **Greedy O(n log n) knapsack algorithms** - Max Books (shortest-first), Max Words (longest-fit), Balanced (ratio-based) for budget optimization (08-02)
+- **2026-01 pricing data with quarterly update** - Provider pricing for OpenAI, Anthropic, Google with update recommendation (08-02)
+- **useDebounce for 500ms delayed recalculation** - Prevents excessive knapsack recalculation during input changes (08-02)
+- **Memoized budget calculations with useMemo** - Expensive knapsack computations cached to avoid redundant work (08-02)
+
 ### Pending Todos
 
-None.
+- Phase 8 Wave 1: Budget Calculator Form + Knapsack Solver (08-01, 08-02) - IN PROGRESS
+- Phase 8 Wave 2: Budget Display UI (08-03)
+- Phase 8 Wave 3: Cost Estimation Display (08-04)
 
 ### Blockers/Concerns
 
@@ -151,7 +159,7 @@ None.
 **Gaps to Address:**
 
 - Chart library final selection: Need to test Recharts with 1000+ EPUB dataset
-- Pricing data accuracy: Verify 2026 GPT-4, Claude, Gemini pricing before cost calculator
+- ~~Pricing data accuracy: Verify 2026 GPT-4, Claude, Gemini pricing before cost calculator~~ **RESOLVED**: 2026-01 pricing data added with quarterly update recommendation (08-02)
 - Folder browser caching strategy: Large directory trees are slow to scan
 
 **Concerns from 06-02 execution:**
@@ -160,25 +168,12 @@ None.
 **Concerns from 06-05 execution:**
 - Backend POST /api/cancel/:jobId endpoint may not exist yet; frontend handles gracefully but endpoint should be added for complete functionality
 
-**Concerns from 07-01 execution:**
-- None
-
-**Concerns from 07-02 execution:**
-- None
-
-**Concerns from 07-03 execution:**
-- None
-
-**Concerns from 07-04 execution:**
-- None
-
-**Concerns from 07-05 execution:**
+**Concerns from 07-01 through 08-02 execution:**
 - None
 
 ## Session Continuity
 
 Last session: 2026-01-24 (current session)
-Stopped at: Completed Plan 07-05: Side-by-Side Comparison Bar Chart
-Phase 7 complete - All data visualization implemented (bar charts, scatter plots, results table, comparison heatmap, side-by-side bar chart)
-Next: Phase 8 (Polish & Error Handling) or Phase 9 (Documentation & Deployment)
+Stopped at: Completed Plan 08-02: Knapsack Solver + Pricing Data
+Next: Plan 08-03 (Budget Display UI) or 08-04 (Cost Estimation Display)
 Resume file: None
