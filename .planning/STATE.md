@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Users can accurately estimate token costs for processing EPUB content through LLMs by getting precise word and token counts across multiple tokenizer models.
-**Current focus:** Phase 9: Polish, Persistence & Responsive Design
+**Current focus:** Milestone v2.0 COMPLETE — All 9 phases finished (40/40 plans)
 
 ## Current Position
 
 Phase: 9 of 9 (Polish, Persistence & Responsive Design)
 Plan: 4 of 4 in current phase
 Status: Phase complete
-Last activity: 2026-01-24 — Completed 09-01: Persistent State
+Last activity: 2026-01-24 — Completed Phase 9: Polish, Persistence & Responsive Design (all 4 plans)
 
 Progress: [███████████] 100% (40/40 total plans complete: 13 from v1.0, 27 from v2.0)
 
