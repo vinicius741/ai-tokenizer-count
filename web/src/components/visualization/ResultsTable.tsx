@@ -16,6 +16,7 @@ import {
 } from '@tanstack/react-table';
 import { Search, Download, ChevronUp, ChevronDown } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TokenRangeSlider } from './TokenRangeSlider';
@@ -30,6 +31,64 @@ export interface ResultsTableProps {
   data: EpubResult[];
   tokenizers: string[];
   primaryTokenizer: string;
+  isLoading?: boolean;
+}
+
+/**
+ * ResultsTableSkeleton - Loading placeholder for ResultsTable
+ *
+ * Matches the exact structure of ResultsTable to prevent layout shift.
+ */
+function ResultsTableSkeleton() {
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <Skeleton className="h-6 w-48" />
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-8 w-8" />
+            <Skeleton className="h-8 w-32" />
+          </div>
+        </div>
+        <Skeleton className="h-10 w-full max-w-sm mt-4" />
+        <Skeleton className="h-6 w-full mt-4" />
+      </CardHeader>
+      <CardContent>
+        <div className="overflow-x-auto lg:overflow-hidden">
+          <div className="min-w-[800px]">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b">
+                  {[0, 1, 2, 3].map((i) => (
+                    <th
+                      key={i}
+                      className="px-2 py-2 lg:px-4 lg:py-3 text-left"
+                    >
+                      <Skeleton className="h-4 w-24" />
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[0, 1, 2, 3, 4].map((row) => (
+                  <tr key={row} className="border-b">
+                    {[0, 1, 2, 3].map((cell) => (
+                      <td
+                        key={cell}
+                        className="px-2 py-2 lg:px-4 lg:py-4"
+                      >
+                        <Skeleton className="h-4 w-full" />
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
 }
 
 /**
@@ -60,6 +119,7 @@ export function ResultsTable({
   data,
   tokenizers,
   primaryTokenizer,
+  isLoading = false,
 }: ResultsTableProps) {
   // Get transformed data and column definitions
   const { data: tableData, columns: columnDefs, minTokenCount, maxTokenCount } =
@@ -115,6 +175,11 @@ export function ResultsTable({
 
   const headers = table.getFlatHeaders();
   const rows = table.getRowModel().rows;
+
+  // Show skeleton while loading
+  if (isLoading) {
+    return <ResultsTableSkeleton />;
+  }
 
   return (
     <Card>
