@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Phase: 7 of 9 (Phase 6: File Upload & Tokenizer Selection complete)
-Plan: 0 of 4 in current phase
-Status: Ready to start
-Last activity: 2026-01-23 — Completed Phase 6: File Upload & Tokenizer Selection
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-24 — Completed Plan 07-01: Bar Chart Implementation
 
-Progress: [██████████░] 70% (30/40 total plans complete: 13 from v1.0, 17 from v2.0)
+Progress: [██████████░] 72.5% (31/40 total plans complete: 13 from v1.0, 18 from v2.0)
 
 ## Milestone v1.0 Summary (Archived)
 
@@ -34,8 +34,8 @@ Progress: [██████████░] 70% (30/40 total plans complete: 1
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 30 (13 from v1.0 + 17 from v2.0)
-- Total execution time: ~13.5 hours (v1.0: ~7.25h, v2.0: ~6.25h)
+- Total plans completed: 31 (13 from v1.0 + 18 from v2.0)
+- Total execution time: ~13.9 hours (v1.0: ~7.25h, v2.0: ~6.6h)
 - Average per plan: ~12 min
 
 **By Phase:**
@@ -48,6 +48,7 @@ Progress: [██████████░] 70% (30/40 total plans complete: 1
 | 4 (v2.0) | 4 | ~45 min | ~11 min |
 | 5 (v2.0) | 5 | ~1.5h | ~18 min |
 | 6 (v2.0) | 5 | ~2.2h | ~26 min |
+| 7 (v2.0) | 1 | ~28 min | ~28 min |
 
 *Updated after each plan completion*
 
@@ -109,6 +110,13 @@ All decisions logged in PROJECT.md Key Decisions table with outcomes.
 - **forwardRef + useImperativeHandle pattern** - Clean React API for exposing child component methods to parent (06-05)
 - **Reset preserves tokenizer selections** - User convenience to remember preferences across processing runs (06-05)
 - **Separate isCancelled state** - Distinct from processing state enables clear UI messaging (06-05)
+- **ChartContainer with ResponsiveContainer** - Wrap all charts in ResponsiveContainer with default height of 300px for consistent automatic resizing (07-01)
+- **Separate chart per tokenizer** - Render individual bar chart for each tokenizer instead of grouped bars for clearer visualization (07-01)
+- **Tokenizer color palette with HSL values** - Blue for GPT-4, orange for Claude, green for HF models matching shadcn/ui color system (07-01)
+- **Angled x-axis labels for bar charts** - Use angle=-45 with 80px height to prevent label overlap on long EPUB titles (07-01)
+- **Sort toggle default to descending** - Show highest token counts first for immediate insight (07-01)
+- **Error filtering for visualizations** - Filter out EPUBs with error property before chart transformation to avoid negative/zero values (07-01)
+- **react-papaparse CSV export pattern** - useCSVDownloader takes no arguments, returns object with CSVDownloader component that accepts data/filename as props (07-01)
 ### Pending Todos
 
 None.
@@ -133,10 +141,13 @@ None.
 **Concerns from 06-05 execution:**
 - Backend POST /api/cancel/:jobId endpoint may not exist yet; frontend handles gracefully but endpoint should be added for complete functionality
 
+**Concerns from 07-01 execution:**
+- None
+
 ## Session Continuity
 
-Last session: 2026-01-23 22:10
-Stopped at: Completed Phase 6: File Upload & Tokenizer Selection
-Phase 6 complete - All 5 plans executed (tokenizer selection, file upload, folder input, progress display, cancel/reset)
-Next: Phase 7: Data Visualization & Comparison
+Last session: 2026-01-24 12:23
+Stopped at: Completed Plan 07-01: Bar Chart Implementation
+Phase 7 in progress - Bar charts with sorting, color coding, and custom tooltips implemented
+Next: Plan 07-02 or 07-03 (depending on plan order)
 Resume file: None
