@@ -48,7 +48,9 @@ export interface CostEstimate {
   /** Total cost (USD) */
   totalCost: number;
   /** Price per million tokens (input) */
-  pricePerMillion: number;
+  inputPrice: number;
+  /** Price per million tokens (output) */
+  outputPrice: number;
   /** Pricing URL */
   pricingUrl: string;
 }
@@ -114,7 +116,8 @@ export function calculateCost(
     inputCost,
     outputCost,
     totalCost: inputCost + outputCost,
-    pricePerMillion: pricing.inputPrice,
+    inputPrice: pricing.inputPrice,
+    outputPrice: pricing.outputPrice,
     pricingUrl: pricing.pricingUrl,
   };
 }
