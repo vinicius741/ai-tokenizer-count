@@ -60,7 +60,7 @@ SelectedBooksTableProps) {
       {
         id: 'select',
         header: 'Selected',
-        cell: ({ row }) => (
+        cell: () => (
           <div className="flex items-center justify-center">
             <Check className="h-4 w-4 text-primary" />
           </div>
@@ -71,19 +71,19 @@ SelectedBooksTableProps) {
         accessorFn: (row) => row.metadata.title,
         id: 'title',
         header: 'Title',
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() as string,
       },
       {
         accessorFn: (row) => row.metadata.author,
         id: 'author',
         header: 'Author',
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() as string,
       },
       {
         accessorFn: (row) => row.wordCount.toLocaleString(),
         id: 'words',
         header: 'Words',
-        cell: (info) => <span className="tabular-nums">{info.getValue()}</span>,
+        cell: (info) => <span className="tabular-nums">{info.getValue() as string}</span>,
       },
       {
         accessorFn: (row) => {
@@ -92,7 +92,7 @@ SelectedBooksTableProps) {
         },
         id: 'tokens',
         header: 'Tokens',
-        cell: (info) => <span className="tabular-nums font-medium">{info.getValue()}</span>,
+        cell: (info) => <span className="tabular-nums font-medium">{info.getValue() as string}</span>,
       },
     ],
     [tokenizer]

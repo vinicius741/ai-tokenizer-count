@@ -43,8 +43,8 @@ export function ProcessButton({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          inputPath: folderPath,
-          tokenizerList: selectedTokenizers,
+          path: folderPath,
+          tokenizers: selectedTokenizers,
         }),
       })
 

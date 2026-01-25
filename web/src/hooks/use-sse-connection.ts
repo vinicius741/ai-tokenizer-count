@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { toast } from 'sonner'
 
 export interface ProgressData {
   current: number
   total: number
-  filename: string
+  fileName: string
   timestamp: string
 }
 
@@ -18,7 +18,6 @@ export interface SseCallbacks {
 export function useSseConnection() {
   const abortControllerRef = useRef<AbortController | null>(null)
   const callbacksRef = useRef<SseCallbacks | null>(null)
-  const [lastMessage, setLastMessage] = useState<number>(Date.now())
   const timeoutIdRef = useRef<NodeJS.Timeout | null>(null)
 
   // Clear timeout helper
@@ -60,7 +59,6 @@ export function useSseConnection() {
 
     // Start 30-second timeout when connection opens
     setTimeoutRef()
-    setLastMessage(Date.now())
 
     try {
       await fetchEventSource(`http://localhost:8787/api/sse/${jobId}`, {
@@ -71,7 +69,6 @@ export function useSseConnection() {
           if (response.ok && response.headers.get('content-type') === 'text/event-stream') {
             // Reset timeout on successful connection
             setTimeoutRef()
-            setLastMessage(Date.now())
             return Promise.resolve()
           }
           throw new Error(`Unexpected response: ${response.status}`)
@@ -80,7 +77,6 @@ export function useSseConnection() {
         onmessage(msg) {
           // Reset timeout on every message
           setTimeoutRef()
-          setLastMessage(Date.now())
 
           if (msg.event === 'progress') {
             const data = JSON.parse(msg.data) as ProgressData

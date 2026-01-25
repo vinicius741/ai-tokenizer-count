@@ -6,8 +6,8 @@
  * memoized calculations for performance.
  */
 
-import { useState, useMemo, useCallback } from 'react';
-import type { EpubResult, TokenizerType } from '@epub-counter/shared';
+import { useMemo, useCallback } from 'react';
+import type { EpubResult } from '@epub-counter/shared';
 import { useLocalStorage } from './use-local-storage';
 import { useDebounce } from './use-debounce';
 import { solveKnapsack } from '../lib/knapsack';

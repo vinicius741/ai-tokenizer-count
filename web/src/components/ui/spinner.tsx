@@ -11,8 +11,8 @@ const sizeClasses = {
   lg: 'h-6 w-6'
 }
 
-export function Spinner({ className, size = 'default', ...props }: SpinnerProps) {
+export function Spinner({ className, size = 'default' }: SpinnerProps) {
   return (
-    <Loader2 className={cn('animate-spin', sizeClasses[size], className)} {...props} />
+    <Loader2 className={cn('animate-spin', sizeClasses[size], className)} />
   )
 }

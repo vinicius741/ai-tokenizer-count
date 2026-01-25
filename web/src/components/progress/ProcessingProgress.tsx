@@ -15,7 +15,7 @@ export function ProcessingProgress({ jobId, onComplete }: ProcessingProgressProp
   const [progress, setProgress] = useState<ProgressData>({
     current: 0,
     total: 0,
-    filename: '',
+    fileName: '',
     timestamp: new Date().toISOString(),
   })
   const [error, setError] = useState<string | null>(null)
@@ -112,10 +112,10 @@ export function ProcessingProgress({ jobId, onComplete }: ProcessingProgressProp
       </div>
 
       {/* Current file */}
-      {progress.filename && (
+      {progress.fileName && (
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <FileText className="h-4 w-4 shrink-0" />
-          <span className="truncate">{progress.filename}</span>
+          <span className="truncate">{progress.fileName}</span>
         </div>
       )}
 
