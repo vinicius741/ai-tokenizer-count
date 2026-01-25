@@ -88,7 +88,7 @@ export function TokenizerSelector({ onSelectionChange }: TokenizerSelectorProps)
               key={tokenizer.id}
               value={tokenizer.id}
               aria-label={`Select ${tokenizer.name}`}
-              className="px-4 py-2"
+              className="px-4 py-2 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:border-primary data-[state=on]:shadow-sm"
             >
               {tokenizer.name}
             </ToggleGroupItem>
