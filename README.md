@@ -1,20 +1,22 @@
 # EPUB Tokenizer Counter
 
-A command-line tool for counting words and estimating tokens in EPUB files using various LLM tokenizers.
+A dual-interface tool for counting words and estimating tokens in EPUB files using various LLM tokenizers. Use the CLI for batch processing or the web UI for interactive analysis with visualizations and token budget planning.
 
 ## Features
 
-- Word counting from EPUB files
-- Token estimation for multiple LLM tokenizers:
+- **Word and Token Counting**: Extract text from EPUB files and count words/tokens using multiple tokenizers
+- **Multiple Tokenizer Support**:
   - **GPT-4** (cl100k_base)
   - **Claude** (@anthropic-ai/tokenizer)
-  - **Hugging Face models** (custom model support)
-- Batch processing with parallel execution
-- Progress indicators during processing
-- JSON and Markdown output formats
-- Continue-on-error behavior (processes all valid EPUBs even if some fail)
-- Recursive directory scanning
-- Summary statistics across all processed files
+  - **Hugging Face models** (custom transformers.js models)
+- **Dual Interface**:
+  - **CLI**: Batch processing with parallel execution and JSON/Markdown output
+  - **Web UI**: Interactive analysis with real-time progress, visualizations, and token budget calculator
+- **Batch Processing**: Process multiple EPUBs in parallel with continue-on-error behavior
+- **Data Visualizations** (Web UI): Bar charts, scatter plots, comparison heatmaps, sortable tables
+- **Token Budget Calculator** (Web UI): Three optimization strategies with cost estimation for OpenAI, Anthropic, and Google
+- **Session Persistence** (Web UI): Restore previous sessions with local storage
+- **Export Options**: CSV/JSON export for tables and budget results
 
 ## Installation
 
@@ -25,7 +27,9 @@ npm run build
 
 ## Usage
 
-### Basic Usage
+### CLI Interface
+
+#### Basic Usage
 
 ```bash
 # Process default ./epubs/ folder
@@ -44,7 +48,7 @@ npm start -- -r ./books/
 npm start -- -i ./books/ -o ./output/
 ```
 
-### Tokenizer Selection
+#### Tokenizer Selection
 
 ```bash
 # Single tokenizer (default: gpt4)
@@ -60,7 +64,7 @@ npm start -- -t hf:bert-base-uncased
 npm start -- -t gpt4,claude,hf:gpt2
 ```
 
-### Discovering Hugging Face Models
+#### Discovering Hugging Face Models
 
 List popular Hugging Face models compatible with transformers.js:
 
@@ -89,7 +93,7 @@ npm start -- list-models --search llama
 
 Browse all models: https://huggingface.co/models?library=transformers.js
 
-### Parallel Processing
+#### Parallel Processing
 
 ```bash
 # Use default (CPU count - 1)
@@ -102,7 +106,7 @@ npm start -- -j 4
 npm start -- -j all
 ```
 
-## CLI Options
+#### CLI Options
 
 | Option | Description | Default |
 |--------|-------------|---------|
@@ -114,11 +118,11 @@ npm start -- -j all
 | `--max-mb <size>` | Maximum EPUB text size in MB | `500` |
 | `-v, --verbose` | Enable verbose output | `false` |
 
-## Output
+#### CLI Output
 
 The tool generates two output files in the results directory:
 
-### JSON Output (`results.json`)
+**JSON Output (`results.json`)**
 
 ```json
 {
@@ -142,26 +146,91 @@ The tool generates two output files in the results directory:
 }
 ```
 
-### Markdown Output (`results.md`)
+**Markdown Output (`results.md`)**: A formatted table with word counts, token counts, and metadata for each processed EPUB.
 
-A formatted table with word counts, token counts, and metadata for each processed EPUB.
+### Web UI
 
-## Error Handling
+#### Starting the Web UI
+
+```bash
+# Start both server and frontend (development)
+npm run dev
+
+# Or start individually
+npm run dev:server  # Fastify backend on port 3001
+npm run dev:web     # Vite dev server on port 5173
+```
+
+Access the web UI at: **http://localhost:5173**
+
+#### Web UI Features
+
+- **File Upload**: Drag-and-drop EPUB files or select from a local folder
+- **Real-Time Progress**: SSE-based progress streaming during processing
+- **Data Visualizations**:
+  - Bar chart: Word/token counts per EPUB
+  - Scatter plot: Word count vs. token count correlation
+  - Results table: Sortable columns with all results
+- **Multi-Tokenizer Comparison**:
+  - Side-by-side bar chart
+  - Heatmap visualization
+- **Token Budget Calculator**:
+  - Three optimization strategies (Greedy, Best Value, Balanced)
+  - Cost estimation for OpenAI, Anthropic, and Google
+  - Export results to CSV/JSON
+- **Session Persistence**: Automatic save/restore with local storage
+
+#### Error Handling
 
 - **FATAL errors**: Processing stops immediately (e.g., invalid configuration)
-- **ERROR/WARN errors**: Processing continues; failed files are logged to `errors.log` and console
+- **ERROR/WARN errors**: Processing continues; failed files are logged to `errors.log` and console (CLI) or displayed in the UI (Web)
 
 ## Development
 
-```bash
-# Build TypeScript
-npm run build
+### Building All Packages
 
-# Run directly with TypeScript (for development)
-npx tsx src/cli/index.ts [options]
+```bash
+npm run build        # Build shared, web, server, and compile TypeScript
+npm run build:shared # Build shared package only
+npm run build:web    # Build web UI only
+npm run build:server # Build server only
 ```
+
+### Running Tests
+
+```bash
+# CLI tests
+npx tsx src/cli/__tests__/list-models.test.ts
+npx tsx src/tokenizers/__tests__/hf-models.test.ts
+
+# Shared package tests (if available)
+npm test --workspace=packages/shared
+```
+
+## Project Structure
+
+```
+epub-tokenizer-count/
+├── packages/shared/    # Shared types and utilities
+├── server/            # Fastify backend (SSE, job queue, API)
+├── web/               # React + Vite frontend (shadcn/ui)
+├── src/               # Legacy CLI code
+└── dist/              # Compiled TypeScript output
+```
+
+## Tech Stack
+
+- **CLI**: TypeScript, Commander.js, cli-progress
+- **Backend**: Fastify, Server-Sent Events (SSE), in-memory job queue
+- **Frontend**: React, Vite, shadcn/ui, TanStack Table, Recharts
+- **Tokenizers**: js-tiktoken, @anthropic-ai/tokenizer, @huggingface/transformers
+- **EPUB Parsing**: @gxl/epub-parser
 
 ## Requirements
 
-- Node.js with ES2022 module support
+- Node.js 18+ with ES2022 module support
 - TypeScript 5.6+
+
+## License
+
+MIT
